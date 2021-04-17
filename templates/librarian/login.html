@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<form method="POST">
+  {% if flag == 0 %}
+  <div class="error_red">
+    <h1>Id invalid!</h1>
+  </div>
+  {% endif %}
+  <input type="text" name="lid" placeholder="id">
+
+  <input type="text" name="password" placeholder="password">
+  <input type="submit">
+</form>
+{% endblock %}

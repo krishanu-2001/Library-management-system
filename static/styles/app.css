@@ -1,0 +1,47 @@
+/* All common items here */
+
+body{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: rgb(166, 239, 248);
+}
+
+.error_red{
+  color: brown;
+  font-size: 25px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.error_green{
+  color: green;
+  font-size: 25px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.error_yellow{
+  color: gold;
+  font-size: 25px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.heading_bar{
+  display: flex;
+  justify-content: center;
+  background-color: azure;
+  box-shadow: grey 1px 0px 10px 1px;
+}
+
+.options_list{
+  display: flexbox;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+}
+
+.options_list > .card1{
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  padding: 10px;
+  background-color: bisque;
+  box-shadow: grey 1px 1px 1px 1px;
+}
