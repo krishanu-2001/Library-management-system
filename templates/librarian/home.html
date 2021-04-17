@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<form method="POST">
+  <div class="heading_bar">
+  <h2>Welcome {{ name }} <i class="error_green">(Admin)</i></h2>
+  </div>
+  <div class="options_list">
+    {% block home %}
+      Please choose the option from menu - <br />
+      <div class="card1">
+      1. add librarian
+      </div>
+      <div class="card1">
+      2. add student
+      </div>
+      <div class="card1">
+      3. add books <br />
+      </div>
+      <div class="card1"> 
+      4. add shelf <br />
+      </div>    
+    {% endblock %}
+  </div>
+</form>
+{% endblock %}

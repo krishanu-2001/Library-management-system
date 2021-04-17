@@ -4,6 +4,9 @@ from flask_mysqldb import MySQL
 import yaml
 import hashlib
 
+# modules
+import models.librarian_section as librarian_section
+
 app = Flask(__name__)
 CORS(app)
 app.secret_key = "abc"
@@ -21,6 +24,9 @@ mysql = MySQL(app)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
+
+app.add_url_rule('/librarian/login', view_func=librarian_section.librarian_login, methods=['GET','POST'])
+app.add_url_rule('/librarian/home', view_func=librarian_section.librarian_home, methods=['GET','POST'])
 
 if __name__ == '__main__':
     flag = 0
