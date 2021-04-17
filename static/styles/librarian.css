@@ -1,0 +1,20 @@
+.heading_title{
+  font-size: 20px;
+  padding: 10px;
+}
+
+.input_list{
+  margin: 10px;
+  padding: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.linkHome{
+  color: black;
+  margin-left: 2px;
+}
+
+.linkHome:hover{
+  color: black;
+}

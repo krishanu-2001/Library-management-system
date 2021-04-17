@@ -27,6 +27,8 @@ def index():
 
 app.add_url_rule('/librarian/login', view_func=librarian_section.librarian_login, methods=['GET','POST'])
 app.add_url_rule('/librarian/home', view_func=librarian_section.librarian_home, methods=['GET','POST'])
+app.add_url_rule('/librarian/add_librarian', view_func=librarian_section.librarian_add_librarian, methods=['GET','POST'])
+app.add_url_rule('/librarian/download_employee', view_func=librarian_section.download_employee, methods=['GET'])
 
 if __name__ == '__main__':
     flag = 0
