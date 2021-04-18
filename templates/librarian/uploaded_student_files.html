@@ -18,6 +18,10 @@
       background-color: #f2f2f2;
     }
 
+    #tabloid tr:nth-child(odd) {
+      background-color: rgb(158, 219, 123);
+    }
+
     #tabloid tr:hover {
       background-color: #ddd;
     }
@@ -42,15 +46,19 @@
     <th>Student_id</th>
     <th>Name</th>
     <th>Form / Files</th>
+    <th><i class="error_red">delete</i></th>
   </tr>
   {% for items in filesS %}
   <tr>
     <td>{{ items[0] }}</td>
     <td>{{ items[1] }}</td>
     <td>
-      <a href="/return-files-student/{{ items[2] }}" target="blank">
+      <a href="/librarian/return-files-student/{{ items[2] }}" target="blank">
         Download
       </a>
+    </td>
+    <td>
+      <a href="/librarian/delete/student_forms/{{ items[0] }}"><i class="fa fa-times"></i></a>
     </td>
   </tr>
   {% endfor %}
@@ -62,15 +70,19 @@
     <th>Faculty_id</th>
     <th>Name</th>
     <th>Form / Files</th>
+    <th><i class="error_red">delete</i></th>
   </tr>
   {% for items in filesF %}
   <tr>
     <td>{{ items[0] }}</td>
     <td>{{ items[1] }}</td>
     <td>
-      <a href="/return-files-student/{{ items[2] }}" target="blank">
+      <a href="/librarian/return-files-student/{{ items[2] }}" target="blank">
         Download
       </a>
+    </td>
+    <td>
+      <a href="/librarian/delete/student_forms/{{ items[0] }}"><i class="fa fa-times"></i></a>
     </td>
   </tr>
   {% endfor %}

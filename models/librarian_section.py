@@ -266,3 +266,17 @@ def uploaded_librarian_files():
 def return_files_librarian(filename):
     file_path = os.path.join(UPLOAD_FOLDER_EMPLOYEE, filename)
     return send_file(file_path, as_attachment=True, attachment_filename='')
+
+def delete_student_forms(sid):
+  cur = mysql.connection.cursor()
+  cur.execute('''DELETE FROM user where user_id = '%s';'''%(sid))
+  mysql.connection.commit()
+  cur.close()
+  return redirect(url_for('uploaded_student_files', name = session['name'], lid = session['lid']))
+
+def delete_librarian_forms(lid):
+  cur = mysql.connection.cursor()
+  cur.execute('''DELETE FROM librarian where librarian_id = '%s';'''%(lid))
+  mysql.connection.commit()
+  cur.close()
+  return redirect(url_for('uploaded_librarian_files', name = session['name'], lid = session['lid']))
