@@ -8,6 +8,7 @@ CREATE TABLE librarian(
     name VARCHAR(100),
     address VARCHAR(100),
     password VARCHAR(100),
+    notes VARCHAR(100),
     PRIMARY KEY (librarian_id)
 );
 CREATE TABLE user (
@@ -17,6 +18,7 @@ CREATE TABLE user (
     password VARCHAR(100),
     unpaid_fines decimal(6,2) DEFAULT 0.00,
     address VARCHAR(100),
+    notes VARCHAR(100),
     PRIMARY KEY (user_id)
 );
 CREATE TABLE books(
@@ -27,17 +29,20 @@ CREATE TABLE books(
 	current_status VARCHAR(100) DEFAULT 'AVAILABLE',
 	copy_number INT,
 	year_of_publication INT,
+    notes VARCHAR(100),
     PRIMARY KEY (isbn)
 );
 CREATE TABLE shelf (
     shelf_id VARCHAR(100) UNIQUE NOT NULL,
     capacity INT,
+    notes VARCHAR(100),
     PRIMARY KEY (shelf_id)
 );
 
 CREATE TABLE genre (
 	genre_id VARCHAR(100) NOT NULL,
     name VARCHAR(100) NOT NULL,
+    notes VARCHAR(100),
     PRIMARY KEY (genre_id)
 );
 
