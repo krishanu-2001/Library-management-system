@@ -5,6 +5,52 @@ body{
   background-color: rgb(166, 239, 248);
 }
 
+
+.card31{
+  display: flex;
+  justify-content: center;
+  margin-left: 0px;
+  padding: 0px;
+  background-color: bisque;
+  box-shadow: grey 1px 1px 1px 1px;
+}
+
+.card32{
+  display: flex;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  background-color: rgb(26, 221, 91);
+  box-shadow: grey 1px 1px 1px 1px;
+}
+
+.card32:hover{
+  display: flex;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  background-color: rgb(169, 206, 195);
+  box-shadow: grey 1px 1px 1px 1px;
+}
+
+.card33{
+  display: flex;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  background-color: rgb(26, 221, 91);
+  box-shadow: grey 1px 1px 1px 1px;
+}
+
+.card33:hover{
+  display: flex;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  background-color:  rgb(169, 206, 195);
+  box-shadow: grey 1px 1px 1px 1px;
+}
+
 .error_red{
   color: brown;
   font-size: 25px;
@@ -43,6 +89,13 @@ body{
   display: none;
 }
 
+.flex_center{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
 .heading_bar{
   display: flex;
   justify-content: center;
@@ -52,7 +105,8 @@ body{
 
 .options_list{
   display: flexbox;
-  justify-content: space-around;
+  justify-content: center;
+  text-align: center;
   margin: 0;
   padding: 0;
 }
@@ -74,4 +128,9 @@ body{
   padding: 10px;
   background-color: rgb(224, 183, 133);
   box-shadow: grey 1px 1px 1px 1px;
+}
+
+.row{
+  margin: 0;
+  padding: 0;
 }

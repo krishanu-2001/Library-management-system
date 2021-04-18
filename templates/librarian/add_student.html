@@ -1,0 +1,19 @@
+{% extends 'librarian/home.html' %}
+
+{% block home %}
+<div class="heading_title">New employee form (Student/Faculty)
+   - <a href="download_student"><i class="fa fa-download">
+   </i></a></div>
+<div>
+  <form method="POST" enctype="multipart/form-data">
+      <input type="text" name="id" placeholder="id" class="input_list"/> <br />
+      <input type="text" name="name" placeholder="Name" class="input_list"/> <br />
+      <input type="radio" name="role" value="student" class="input_list"/> student
+      <input type="radio" name="role" value="faculty" class="input_list"/> faculty<br />
+      <input type="text" name="address" placeholder="Address (Max 200 charachters)" class="input_list"/> <br />
+      <input type="file" name="file" class="input_list">
+      <input type="submit" class="input_list"/>  
+  </form>
+
+</div>
+{% endblock %}

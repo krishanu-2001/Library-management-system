@@ -29,6 +29,14 @@ app.add_url_rule('/librarian/login', view_func=librarian_section.librarian_login
 app.add_url_rule('/librarian/home', view_func=librarian_section.librarian_home, methods=['GET','POST'])
 app.add_url_rule('/librarian/add_librarian', view_func=librarian_section.librarian_add_librarian, methods=['GET','POST'])
 app.add_url_rule('/librarian/download_employee', view_func=librarian_section.download_employee, methods=['GET'])
+app.add_url_rule('/librarian/add_student', view_func=librarian_section.librarian_add_student, methods=['GET','POST'])
+app.add_url_rule('/librarian/download_student', view_func=librarian_section.download_student, methods=['GET','POST'])
+app.add_url_rule('/librarian/uploaded_student_files', view_func=librarian_section.uploaded_student_files, methods=['GET','POST'])
+app.add_url_rule('/librarian/return-files-student/<filename>', view_func=librarian_section.return_files_student, methods=['GET'])
+app.add_url_rule('/librarian/uploaded_librarian_files', view_func=librarian_section.uploaded_librarian_files, methods=['GET','POST'])
+app.add_url_rule('/librarian/return-files-librarian/<filename>', view_func=librarian_section.return_files_librarian, methods=['GET'])
+app.add_url_rule('/librarian/delete/student_forms/<sid>', view_func=librarian_section.delete_student_forms, methods=['GET'])
+app.add_url_rule('/librarian/delete/librarian_forms/<lid>', view_func=librarian_section.delete_librarian_forms, methods=['GET','POST'])
 
 if __name__ == '__main__':
     flag = 0
