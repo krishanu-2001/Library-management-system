@@ -1,3 +1,22 @@
+.buttons_blue{
+  cursor: pointer;
+  background-color: rgb(86, 163, 214);
+  border-radius: 2px;
+  border: 1px gray solid;
+  width: auto;
+  margin: 2px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  margin-left: 0px;
+  padding: 0px;
+  box-shadow: black 1px 1px 1px 1px;
+}
+
+.buttons_blue:hover{
+  background-color: rgb(15, 119, 189);
+}
+
 .flex-shelf{
   display: flex;
   flex-direction: row;
@@ -21,6 +40,20 @@
   height: 500px;
 }
 
+.left-panel{
+  position: absolute;
+  top: 750px;
+  right: 0px;
+  background-color: #fff;
+  box-shadow: #888 1px 1px 1px 1px;
+  margin: 0;
+  padding: 10px;
+  border: #555 2px solid;
+  border-top-left-radius: 10px;
+  height: 100%;
+  width: 300px;
+}
+
 .library-shelf{
   display: block;
   flex-direction: row;
@@ -28,6 +61,16 @@
   overflow-x: scroll;
   min-height: 500px;
   background-color: aliceblue;
+}
+
+.linkHome{
+  color: black;
+  margin-left: 2px;
+}
+
+.linkHome:hover{
+  color: black;
+  text-decoration: none;
 }
 
 /* width */
