@@ -63,17 +63,17 @@ INSERT INTO favourite (genre_id, user_id) VALUES ('1', '4');
 INSERT INTO favourite (genre_id, user_id) VALUES ('2', '5');
 INSERT INTO favourite (genre_id, user_id) VALUES ('3', '6');
 
-INSERT INTO reading_list (isbn, user_id, name) VALUES ('1', '1', 'list1');
-INSERT INTO reading_list (isbn, user_id, name) VALUES ('2', '1', 'list1');
-INSERT INTO reading_list (isbn, user_id, name) VALUES ('3', '1', 'list2');
-INSERT INTO reading_list (isbn, user_id, name) VALUES ('4', '2', 'list3');
-INSERT INTO reading_list (isbn, user_id, name) VALUES ('5', '3', 'list4');
+INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('1', '1', 'list1', 'abcd');
+INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('2', '1', 'list1', 'abcd');
+INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('3', '1', 'list2', 'ijkl');
+INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('4', '2', 'list3', 'mnop');
+INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('5', '3', 'list4', 'qrst');
 
-INSERT INTO personal_book_shelf (isbn, user_id, shelf_name) VALUES ('1', '1', 'shelf1');
-INSERT INTO personal_book_shelf (isbn, user_id, shelf_name) VALUES ('2', '1', 'shelf1');
-INSERT INTO personal_book_shelf (isbn, user_id, shelf_name) VALUES ('3', '1', 'shelf2');
-INSERT INTO personal_book_shelf (isbn, user_id, shelf_name) VALUES ('4', '2', 'shelf3');
-INSERT INTO personal_book_shelf (isbn, user_id, shelf_name) VALUES ('5', '3', 'shelf4');
+INSERT INTO personal_book_shelf (isbn, user_id, shelf_name, shelf_url) VALUES ('1', '1', 'shelf1','abcd');
+INSERT INTO personal_book_shelf (isbn, user_id, shelf_name, shelf_url) VALUES ('2', '1', 'shelf1','abcd');
+INSERT INTO personal_book_shelf (isbn, user_id, shelf_name, shelf_url) VALUES ('3', '1', 'shelf2','ijkl');
+INSERT INTO personal_book_shelf (isbn, user_id, shelf_name, shelf_url) VALUES ('4', '2', 'shelf3','mnop');
+INSERT INTO personal_book_shelf (isbn, user_id, shelf_name, shelf_url) VALUES ('5', '3', 'shelf4','qrst');
 
 INSERT INTO issue (isbn, user_id, due_date) VALUES ('1', '1', '2020-05-20');
 INSERT INTO issue (isbn, user_id, due_date) VALUES ('2', '1', '2020-05-20');

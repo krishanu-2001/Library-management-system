@@ -84,7 +84,8 @@ CREATE TABLE reading_list (
 	isbn VARCHAR(100) NOT NULL,
     user_id VARCHAR(100) NOT NULL,
     name VARCHAR(100),
-    PRIMARY KEY (isbn, user_id, name),
+    list_url VARCHAR(100) NOT NULL,
+    PRIMARY KEY (isbn, user_id),
     FOREIGN KEY (isbn) REFERENCES books(isbn),
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
@@ -93,6 +94,7 @@ CREATE TABLE personal_book_shelf (
 	isbn VARCHAR(100) NOT NULL,
     user_id VARCHAR(100) NOT NULL,
     shelf_name VARCHAR(100) NOT NULL,
+    shelf_url VARCHAR(100) NOT NULL,
     PRIMARY KEY (isbn, user_id),
     FOREIGN KEY (isbn) REFERENCES books(isbn),
     FOREIGN KEY (user_id) REFERENCES user(user_id)
@@ -125,6 +127,7 @@ CREATE TABLE return_books (
     return_date DATE,
     issue_date DATE,
     fine DECIMAL(6,2),
+    fine_paid TINYINT DEFAULT 0,
     PRIMARY KEY (isbn, user_id),
     FOREIGN KEY (isbn) REFERENCES books(isbn),
     FOREIGN KEY (user_id) REFERENCES user(user_id)

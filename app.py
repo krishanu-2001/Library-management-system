@@ -6,6 +6,7 @@ import hashlib
 
 # modules
 import models.librarian_section as librarian_section
+import models.user_section as user_section
 
 app = Flask(__name__)
 CORS(app)
@@ -25,6 +26,7 @@ mysql = MySQL(app)
 def index():
     return render_template('index.html')
 
+# librarian
 app.add_url_rule('/librarian/login', view_func=librarian_section.librarian_login, methods=['GET','POST'])
 app.add_url_rule('/librarian/home', view_func=librarian_section.librarian_home, methods=['GET','POST'])
 app.add_url_rule('/librarian/add_librarian', view_func=librarian_section.librarian_add_librarian, methods=['GET','POST'])
@@ -37,6 +39,12 @@ app.add_url_rule('/librarian/uploaded_librarian_files', view_func=librarian_sect
 app.add_url_rule('/librarian/return-files-librarian/<filename>', view_func=librarian_section.return_files_librarian, methods=['GET'])
 app.add_url_rule('/librarian/delete/student_forms/<sid>', view_func=librarian_section.delete_student_forms, methods=['GET'])
 app.add_url_rule('/librarian/delete/librarian_forms/<lid>', view_func=librarian_section.delete_librarian_forms, methods=['GET','POST'])
+
+# user
+app.add_url_rule('/user/login', view_func=user_section.user_login, methods=['GET','POST'])
+app.add_url_rule('/user/home', view_func=user_section.user_home, methods=['GET','POST'])
+app.add_url_rule('/user/search', view_func=user_section.browse, methods=['GET','POST'])
+app.add_url_rule('/user/lists', view_func=user_section.reading_lists, methods=['GET','POST'])
 
 if __name__ == '__main__':
     flag = 0
