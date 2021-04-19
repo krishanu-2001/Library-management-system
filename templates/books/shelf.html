@@ -1,0 +1,64 @@
+<head>
+  <style>
+    div.gallery {
+      margin: 5px;
+      border: 1px solid #ccc;
+      float: left;
+      width: 180px;
+    }
+
+    div.gallery:hover {
+      border: 1px solid #777;
+    }
+
+    div.gallery img {
+      width: 100%;
+      height: auto;
+    }
+
+    div.desc {
+      padding: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+{% extends 'books/home.html' %} {% block section %} {% for title in files %}
+<table>
+  <tr>
+    {% set filename = 'images/book' ~ range(1, 5) | random ~ '.png' %}
+    <div class="gallery">
+      <a target="_blank" href="{{url_for('static', filename= filename)}}">
+        <img
+          src="{{url_for('static', filename= filename)}}"
+          alt="Books"
+          style="width: 180px; height: 250px"
+        />
+      </a>
+      <div class="desc">
+        {% if files[title][0][4][0] == 'A' %}
+        <div class="error_green">{{files[title][0][4]}}</div>
+        {% elif files[title][0][4][0] == 'H' %}
+        <div class="error_yellow">{{files[title][0][4]}}</div>
+        {% else %}
+        <div class="error_red">{{files[title][0][4]}}</div>
+        {% endif %}
+        <div>{{files[title][0][2]}}-{{files[title][0][1]}}</div>
+        {% set rating = files[title][0][3]|int %} 
+        {% for i in range(rating) %}
+        <i class="fa fa-star" aria-hidden="true"></i>
+        {% endfor %}
+        {% if (files[title][0][3] % 1 > 0) %}
+        <i class="fa fa-star-half" aria-hidden="true"></i>
+        {% else %}
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        {% endif %}
+
+        <br />
+
+        <h6>{{files[title][0][6]}}</h6>
+      </div>
+    </div>
+  </tr>
+</table>
+{% endfor %} {% endblock %}
