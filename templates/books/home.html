@@ -1,0 +1,48 @@
+{% extends 'baseuser.html' %} {% block body %}
+<div class="heading_bar">
+  _
+</div>
+
+
+
+<!-- Put in hamburgar bar with aniomations -->
+<div class="library-shelf example">
+  <div style="width: 2500px;">
+    <div class="flex-shelf">
+      <div class="image1"><a href="/books/shelf/1">
+        <img src="{{url_for('static', filename='images/shelf3.png')}}" 
+        class="image-box" style="width: 500px;"/>
+      </a></div>
+      <div class="image1"><a href="/books/shelf/2">
+        <img src="{{url_for('static', filename='images/shelf11.png')}}" 
+        class="image-box" style="width: 200px;"/>
+      </a></div>
+      <div class="image1"><a href="/books/shelf/3">
+          <img src="{{url_for('static', filename='images/shelf12.png')}}" 
+          class="image-box" style="width: 1000px;"/>
+      </a></div>
+      <div class="image1"><a href="/books/shelf/4">
+          <img src="{{url_for('static', filename='images/shelf13.png')}}" 
+          class="image-box" style="width: 200px;"/>
+      </a></div>
+      <div class="image1"><a href="/books/shelf/5">
+        <img src="{{url_for('static', filename='images/shelf1.png')}}" 
+        class="image-box" style="width: 1000px;"/>
+      </a></div>
+    </div>
+  </div>
+</div>
+<!-- Put in hamburger above please -->
+<h2>Choose Section Above</h2>
+
+
+<!-- book details here -->
+{% block section %}
+
+{% endblock %}
+
+
+
+
+</div>
+{% endblock %}

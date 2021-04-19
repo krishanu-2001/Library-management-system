@@ -1,4 +1,5 @@
 # ddl statements
+# 16 tables
 
 drop database library;
 create database library;
@@ -29,6 +30,7 @@ CREATE TABLE books(
 	current_status VARCHAR(100) DEFAULT 'AVAILABLE',
 	copy_number INT,
 	year_of_publication INT,
+    shelf_id VARCHAR(100),
     notes VARCHAR(100),
     PRIMARY KEY (isbn)
 );

@@ -8,6 +8,7 @@ body{
 
 .card31{
   display: flex;
+  min-height: 40px;
   justify-content: center;
   margin-left: 0px;
   padding: 0px;
@@ -17,10 +18,11 @@ body{
 
 .card32{
   display: flex;
+  min-height: 40px;
   justify-content: center;
   margin: 0px;
   padding: 0px;
-  background-color: rgb(26, 221, 91);
+  background-color:  rgb(151, 209, 96);
   box-shadow: grey 1px 1px 1px 1px;
 }
 
@@ -35,10 +37,11 @@ body{
 
 .card33{
   display: flex;
+  min-height: 40px;
   justify-content: center;
   margin: 0px;
   padding: 0px;
-  background-color: rgb(26, 221, 91);
+  background-color: rgb(151, 209, 96);
   box-shadow: grey 1px 1px 1px 1px;
 }
 
@@ -64,7 +67,7 @@ body{
 }
 
 .error_yellow{
-  color: gold;
+  color: rgb(189, 165, 33);
   font-size: 25px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -128,6 +131,13 @@ body{
   padding: 10px;
   background-color: rgb(224, 183, 133);
   box-shadow: grey 1px 1px 1px 1px;
+}
+
+.options_list > .card2{
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  padding: 10px;
 }
 
 .row{

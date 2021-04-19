@@ -1,0 +1,51 @@
+.flex-shelf{
+  display: flex;
+  flex-direction: row;
+}
+
+.image1{
+  background-color: rgb(14, 13, 13);
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.image1:hover{
+  background-color: rgb(14, 13, 13);
+  padding-left: 0px;
+  padding-right: 0px;
+  opacity: 0.5;
+}
+
+
+.image-box{
+  height: 500px;
+}
+
+.library-shelf{
+  display: block;
+  flex-direction: row;
+  width: 100%;
+  overflow-x: scroll;
+  min-height: 500px;
+  background-color: aliceblue;
+}
+
+/* width */
+.example::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.example::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.example::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.example::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

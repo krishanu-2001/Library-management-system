@@ -70,6 +70,7 @@ def librarian_login():
     if (flag >= 1 and password == curpassword):
       session['lid'] = l_id
       session['name'] = name
+      session['role'] = 'librarian'
       return redirect(url_for('librarian_home', name = name, lid = l_id))
     else:
       return render_template('librarian/login.html', flag = 0)
