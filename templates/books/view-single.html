@@ -1,0 +1,110 @@
+<head>
+  <style>
+    div.gallery2 {
+      margin: 5px;
+      border: 3px solid #ccc;
+      float: left;
+      width: 247px;
+    }
+
+    div.gallery2:hover {
+      border: 3px solid #777;
+    }
+
+    div.gallery2 img {
+      width: 100%;
+      height: auto;
+    }
+
+    div.desc2 {
+      padding: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+{% extends 'books/shelf.html' %} {% block viewSingle %}
+<div class="left-panel">
+  {% for title in extra %}
+  <table>
+    <tr>
+      <a class="linkHome" href="/books/shelf/{{ shelf_id~'#newStart' }}"><i class="fa fa-times"></i></a><br /><br />
+    </tr>
+    <tr>
+      {% set filename = 'images/book' ~ (extra[title][0][6]|int % 5 + 1) ~
+      '.png' %}
+      <div class="gallery2">
+        <a target="_blank" href="{{url_for('static', filename= filename)}}">
+          <img
+            src="{{url_for('static', filename= filename)}}"
+            alt="Books"
+            style="width: 240px; height: 250px"
+          />
+        </a>
+          <div class="desc2">
+            {% if extra[title][0][4][0] == 'A' %}
+            <div class="error_green">{{extra[title][0][4]}}</div>
+            {% elif extra[title][0][4][0] == 'H' %}
+            <div class="error_yellow">{{extra[title][0][4]}}</div>
+            {% else %}
+            <div class="error_red">{{extra[title][0][4]}}</div>
+            {% endif %}
+            <div>{{extra[title][0][2]}}-{{extra[title][0][1]}}</div>
+            {% set rating = extra[title][0][3]|int %} {% for i in range(rating)
+            %}
+            <i class="fa fa-star" aria-hidden="true"></i>
+            {% endfor %} {% if (extra[title][0][3] % 1 > 0) %}
+            <i class="fa fa-star-half" aria-hidden="true"></i>
+            {% else %}
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+            {% endif %}
+
+            <br />
+
+            <h6>{{extra[title][0][6]}}</h6>
+          </div>
+          {% if role[0] == 's' or role[0] == 'f' %}
+            {% if extra[title][0][4][0] == 'A' %}
+            <div class="buttons_blue">
+              <h5>Issue</h5>
+            </div>
+            
+            {% endif %}
+            {% if extra[title][0][4][0] == 'H' %}
+            <div class="buttons_blue">
+              <h5>Request</h5>
+            </div>
+            {% endif %}
+            {% if extra[title][0][4][0] == 'I' %}
+            <div class="buttons_blue">
+              <h5>Notify</h5>
+            </div>
+            {% endif %}
+            
+            <div class="buttons_blue">
+              <h5>Preview</h5>
+            </div>
+
+            <div class="buttons_blue">
+              <h5>Add To Reading List</h5>
+            </div>
+            
+          {% elif role[0] == 'l' %} 
+          <div class="buttons_blue">
+            <h5>Remove</h5>
+          </div>
+          
+          <div class="buttons_blue">
+            <h5>Move</h5>
+          </div>
+
+          <div class="buttons_blue">
+            <h5>Requests</h5>
+          </div>
+          {% endif %}
+      </div>
+    </tr>
+  </table>
+
+  {% endfor %}
+</div>
+{% endblock %}

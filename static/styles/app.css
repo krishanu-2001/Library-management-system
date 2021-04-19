@@ -1,12 +1,11 @@
 /* All common items here */
 
-body{
+body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   background-color: rgb(166, 239, 248);
 }
 
-
-.card31{
+.card31 {
   display: flex;
   min-height: 40px;
   justify-content: center;
@@ -16,26 +15,7 @@ body{
   box-shadow: grey 1px 1px 1px 1px;
 }
 
-.card32{
-  display: flex;
-  min-height: 40px;
-  justify-content: center;
-  margin: 0px;
-  padding: 0px;
-  background-color:  rgb(151, 209, 96);
-  box-shadow: grey 1px 1px 1px 1px;
-}
-
-.card32:hover{
-  display: flex;
-  justify-content: center;
-  margin: 0px;
-  padding: 0px;
-  background-color: rgb(169, 206, 195);
-  box-shadow: grey 1px 1px 1px 1px;
-}
-
-.card33{
+.card32 {
   display: flex;
   min-height: 40px;
   justify-content: center;
@@ -45,34 +25,53 @@ body{
   box-shadow: grey 1px 1px 1px 1px;
 }
 
-.card33:hover{
+.card32:hover {
   display: flex;
   justify-content: center;
   margin: 0px;
   padding: 0px;
-  background-color:  rgb(169, 206, 195);
+  background-color: rgb(169, 206, 195);
   box-shadow: grey 1px 1px 1px 1px;
 }
 
-.error_red{
+.card33 {
+  display: flex;
+  min-height: 40px;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  background-color: rgb(151, 209, 96);
+  box-shadow: grey 1px 1px 1px 1px;
+}
+
+.card33:hover {
+  display: flex;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  background-color: rgb(169, 206, 195);
+  box-shadow: grey 1px 1px 1px 1px;
+}
+
+.error_red {
   color: brown;
   font-size: 25px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.error_green{
+.error_green {
   color: green;
   font-size: 25px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.error_yellow{
+.error_yellow {
   color: rgb(189, 165, 33);
   font-size: 25px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.flash-card{
+.flash-card {
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -88,25 +87,37 @@ body{
   opacity: 0.8;
 }
 
-.flash-card:hover{
+.flash-card:hover {
   display: none;
 }
 
-.flex_center{
+.flex_center {
   display: flex;
   justify-content: center;
   flex-direction: row;
   align-items: center;
 }
 
-.heading_bar{
+.heading_bar {
   display: flex;
+  align-items: center;
   justify-content: center;
   background-color: azure;
   box-shadow: grey 1px 0px 10px 1px;
 }
 
-.options_list{
+.heading_bar1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  font-size: 40px;
+  padding-top: 20px;
+  color: rgb(0, 0, 0);
+  border-top: 3px solid black;
+}
+
+.options_list {
   display: flexbox;
   justify-content: center;
   text-align: center;
@@ -114,7 +125,7 @@ body{
   padding: 0;
 }
 
-.options_list > .card1{
+.options_list > .card1 {
   display: flex;
   justify-content: center;
   margin: 10px;
@@ -123,7 +134,7 @@ body{
   box-shadow: grey 1px 1px 1px 1px;
 }
 
-.options_list > .card1:hover{
+.options_list > .card1:hover {
   display: flex;
   justify-content: center;
   margin-left: 20px;
@@ -133,14 +144,14 @@ body{
   box-shadow: grey 1px 1px 1px 1px;
 }
 
-.options_list > .card2{
+.options_list > .card2 {
   display: flex;
   justify-content: center;
   margin: 10px;
   padding: 10px;
 }
 
-.row{
+.row {
   margin: 0;
   padding: 0;
 }
