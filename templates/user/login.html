@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<form method="POST">
+  {% if flag == 0 %}
+  <div class="error_red flash-card">
+    invalid id / password!
+  </div>
+  {% endif %}
+  <input type="text" name="uid" placeholder="id">
+
+  <input type="text" name="password" placeholder="password">
+  <input type="submit">
+</form>
+{% endblock %}
