@@ -6,11 +6,8 @@ import hashlib
 
 # modules
 import models.librarian_section as librarian_section
-<<<<<<< HEAD
 import models.book_section as book_section
-=======
 import models.user_section as user_section
->>>>>>> 25dfacd61bf1c94c351d304a5c925f3c9534c02a
 
 app = Flask(__name__)
 CORS(app)
