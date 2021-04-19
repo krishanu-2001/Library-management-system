@@ -1,4 +1,5 @@
 # ddl statements
+# 16 tables
 
 drop database library;
 create database library;
