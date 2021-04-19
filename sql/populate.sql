@@ -14,12 +14,25 @@ INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES (
 INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES ('5', 'User5', 'student', '1234', 0.00, 'alpha');
 INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES ('6', 'User6', 'faculty', '1234', 100.00, 'beta');
 
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication) VALUES ('1', 'author1', 'title1', 0.00,'AVAILABLE', 1, '2002');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication) VALUES ('2', 'author2', 'title2', 1.50,'HOLD', 2, '2018');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication) VALUES ('3', 'author3', 'title3', 3.00,'ISSUED', 1, '2020');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication) VALUES ('4', 'author4', 'title4', 4.50,'AVAILABLE', 2, '2010');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication) VALUES ('5', 'author5', 'title5', 6.00,'HOLD', 1, '2002');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication) VALUES ('6', 'author6', 'title6', 2.50,'ISSUED', 2, '2018');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('1', 'author1', 'title1', 0.00,'AVAILABLE', 1, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('12', 'author1', 'title1', 0.00,'AVAILABLE', 2, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('13', 'author1', 'title1', 1.00,'AVAILABLE', 3, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('14', 'author1', 'title1', 3.50,'AVAILABLE', 4, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('15', 'author1', 'title1', 3.00,'AVAILABLE', 5, '2004', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('16', 'author1', 'title1', 2.00,'HOLD', 6, '2004', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('21', 'author1', 'title21', 2.00,'ISSUED', 3, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('22', 'author1', 'title22', 4.50,'AVAILABLE', 4, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('23', 'author1', 'title23', 4.00,'AVAILABLE', 5, '2003', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('24', 'author1', 'title24', 5.00,'ISSUED', 6, '2003', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('25', 'author2', 'title25', 2.00,'ISSUED', 3, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('26', 'author2', 'title26', 4.50,'AVAILABLE', 4, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('27', 'author2', 'title27', 4.00,'AVAILABLE', 5, '2003', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('28', 'author2', 'title28', 5.00,'ISSUED', 6, '2003', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('2', 'author2', 'title2', 1.50,'HOLD', 2, '2018', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('3', 'author3', 'title3', 3.00,'ISSUED', 1, '2020', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('4', 'author4', 'title4', 4.50,'AVAILABLE', 2, '2010', '2');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('5', 'author5', 'title5', 6.00,'HOLD', 1, '2002', '2');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('6', 'author6', 'title6', 2.50,'ISSUED', 2, '2018', '3');
 
 INSERT INTO shelf (shelf_id, capacity) VALUES ('1', 1);
 INSERT INTO shelf (shelf_id, capacity) VALUES ('2', 2);

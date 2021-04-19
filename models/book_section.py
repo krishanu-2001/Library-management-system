@@ -26,20 +26,33 @@ mysql = MySQL(app)
 def debug():
   print("\n\n\n\n\n\n----------------------\n\n\n\n\n\n")
 
+def sanitize(rv):
+  ## {isbn 0, author 1, title 2, rating 3,
+  ##  current_status 4, copy 5, year_ 6}
+  files = {}
+  for row in rv:
+    # segregate by title
+    title = row[2]
+    if title not in files:
+      files[title] = []
 
+    files[title].append(row)
+  
+  for title in files.keys():
+    files[title].sort(key = lambda x: x[4])
 
-
+  return files
 
 
 def books_home():
 
   ### base logic for identifying role
-  if session['lid'] == "" and session['sid'] == "":
+  if 'lid' not in session and 'uid' not in session:
     return render_template('other/not_logged_in.html')
-  if session['lid'] != "":
+  if 'lid' in session:
     _id = session['lid']
   else:
-    _id = session['sid']
+    _id = session['uid']
   role = session['role']
   ### logic ends
 
@@ -48,3 +61,29 @@ def books_home():
   
   return render_template('books/home.html', name = session['name'], id = _id, role = role)
 
+def books_shelf_id(shelf_id):
+
+  ### base logic for identifying role
+  if 'lid' not in session and 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+  if 'lid' in session:
+    _id = session['lid']
+  else:
+    _id = session['uid']
+  role = session['role']
+  ### logic ends
+
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication FROM books WHERE shelf_id = '%s' "% (shelf_id))
+  rv = cur.fetchall()
+  ## {isbn 0, author 1, title 2, rating 3,
+  ##  current_status 4, copy 5, year_ 6}
+  
+  files = sanitize(rv)
+
+  print(files)
+  debug()
+  mysql.connection.commit()
+  cur.close()
+
+  return render_template('books/shelf.html', name = session['name'], id = _id, role = role, files=files)

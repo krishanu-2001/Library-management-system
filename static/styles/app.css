@@ -67,7 +67,7 @@ body{
 }
 
 .error_yellow{
-  color: gold;
+  color: rgb(189, 165, 33);
   font-size: 25px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

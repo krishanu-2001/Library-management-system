@@ -41,8 +41,9 @@ app.add_url_rule('/librarian/return-files-librarian/<filename>', view_func=libra
 app.add_url_rule('/librarian/delete/student_forms/<sid>', view_func=librarian_section.delete_student_forms, methods=['GET'])
 app.add_url_rule('/librarian/delete/librarian_forms/<lid>', view_func=librarian_section.delete_librarian_forms, methods=['GET','POST'])
 
-
+# books
 app.add_url_rule('/books/home', view_func=book_section.books_home, methods=['GET','POST'])
+app.add_url_rule('/books/shelf/<shelf_id>', view_func=book_section.books_shelf_id, methods=['GET','POST'])
 
 # user
 app.add_url_rule('/user/login', view_func=user_section.user_login, methods=['GET','POST'])
