@@ -117,11 +117,17 @@ def view_side(shelf_id, title):
 
   extra = sanitize(rv)
 
+  
+  cur.execute("SELECT DISTINCT shelf_id FROM shelf WHERE shelf_id < 5;")
+  rv = cur.fetchall()
+
+  shelves = rv
+
   debug()
   mysql.connection.commit()
   cur.close()
 
-  return render_template('books/view-single.html', name = session['name'], id = _id, role = role,  shelf_id = shelf_id, files=files, extra=extra)
+  return render_template('books/view-single.html', name = session['name'], id = _id, role = role,  shelf_id = shelf_id, files=files, extra=extra, shelves = shelves)
 
 
 def books_search_title(title):
