@@ -43,7 +43,7 @@
           <div class="desc2">
             {% if extra[title][0][4][0] == 'A' %}
             <div class="error_green">{{extra[title][0][4]}}</div>
-            {% elif extra[title][0][4][0] == 'H' %}
+            {% elif extra[title][0][4][0] == 'U' %}
             <div class="error_yellow">{{extra[title][0][4]}}</div>
             {% else %}
             <div class="error_red">{{extra[title][0][4]}}</div>
@@ -69,14 +69,12 @@
             </div>
             
             {% endif %}
-            {% if extra[title][0][4][0] == 'H' %}
-            <div class="buttons_blue">
-              <h5>Request</h5>
-            </div>
+            {% if extra[title][0][4][0] == 'U' %}
+            <!-- nothing -->
             {% endif %}
             {% if extra[title][0][4][0] == 'I' %}
             <div class="buttons_blue">
-              <h5>Notify</h5>
+              <h5>Request Hold</h5>
             </div>
             {% endif %}
             
