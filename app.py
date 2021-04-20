@@ -59,6 +59,7 @@ app.add_url_rule('/books/move/<shelf_id>/<title>', view_func=book_section.books_
 app.add_url_rule('/books/books_list_title/<title>', view_func=book_section.books_list_title, methods=['GET','POST'])
 app.add_url_rule('/books/delete/<title>/<isbn>', view_func=book_section.books_delete, methods=['GET','POST'])
 app.add_url_rule('/books/modify/<isbn>', view_func=book_section.books_modify, methods=['GET','POST'])
+app.add_url_rule('/books/book_rating/<title>/<isbn>', view_func=book_section.books_rate, methods=['GET','POST'])
 
 # user
 app.add_url_rule('/user/login', view_func=user_section.user_login, methods=['GET','POST'])

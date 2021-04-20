@@ -156,3 +156,4 @@ CREATE TABLE friend (
 ## 16 tables total 5 entity, 11 relations
 
 
+

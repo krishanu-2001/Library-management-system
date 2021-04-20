@@ -19,6 +19,7 @@
     div.desc2 {
       padding: 15px;
       text-align: center;
+      height: 200px;
     }
   </style>
 </head>
@@ -41,9 +42,9 @@
           />
         </a>
           <div class="desc2">
-            {% if extra[title][0][4][0] == 'A' %}
+            {% if extra[title][0][4][3] == 's' %}
             <div class="error_green">{{extra[title][0][4]}}</div>
-            {% elif extra[title][0][4][0] == 'U' %}
+            {% elif extra[title][0][4][3] == 'h' %}
             <div class="error_yellow">{{extra[title][0][4]}}</div>
             {% else %}
             <div class="error_red">{{extra[title][0][4]}}</div>
@@ -63,19 +64,19 @@
             <h6>{{extra[title][0][6]}}</h6>
           </div>
           {% if role[0] == 's' or role[0] == 'f' %}
-            {% if extra[title][0][4][0] == 'A' %}
-            <div class="buttons_blue">
+            {% if extra[title][0][4][3] == 's' %}
+            <!-- <div class="buttons_blue">
               <h5>Issue</h5>
-            </div>
+            </div> -->
             
             {% endif %}
-            {% if extra[title][0][4][0] == 'U' %}
+            {% if extra[title][0][4][3] == 'h' %}
               <!-- nothing -->
             {% endif %}
-            {% if extra[title][0][4][0] == 'I' %}
-            <div class="buttons_blue">
+            {% if extra[title][0][4][3] == 'l' %}
+            <!-- <div class="buttons_blue">
               <h5>Request Hold</h5>
-            </div>
+            </div> -->
             {% endif %}
             
             <div class="buttons_blue">

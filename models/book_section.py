@@ -39,7 +39,7 @@ def sanitize(rv):
     files[title].append(row)
   
   for title in files.keys():
-    files[title].sort(key = lambda x: x[4])
+    files[title].sort(key = lambda x: x[4], reverse=True)
 
   return files
 
@@ -333,3 +333,55 @@ def books_modify(isbn):
   ## {isbn 0, author 1, title 2, rating 3,
   ##  current_status 4, copy 5, year_ 6}
   return render_template('books/modify.html', name = session['name'], id = _id, role = role, isbn = isbn, details=details)
+
+def books_rate(title, isbn):
+  ### base logic for identifying role
+  if 'lid' not in session and 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+  if 'lid' in session:
+    _id = session['lid']
+  else:
+    _id = session['uid']
+  role = session['role']
+  ### logic ends
+
+  if request.method == 'POST':
+    cur = mysql.connection.cursor()
+
+    rating = (float)(request.form['rating'])
+    review = request.form['review']
+    if role[0] != 'l':
+      cur.execute("INSERT IGNORE INTO rate (isbn, user_id, rating, review) VALUES ('%s', '%s', %f, '%s');"%(isbn, _id, rating, review))
+      cur.execute("UPDATE rate set rating=%f, review='%s' WHERE isbn = '%s' and user_id = '%s';"%(rating, review, isbn, _id))
+
+    #calc rating
+    cur.execute("SELECT avg(rating) FROM rate WHERE isbn = '%s';"%(isbn))
+    rv = cur.fetchall()
+    newRating = (float)(rv[0][0])
+    if not newRating:
+      newRating = 0
+    cur.execute("UPDATE books set rating=%f WHERE isbn = '%s';"%(newRating, isbn))
+
+    cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title = '%s' "% (title))
+    rv = cur.fetchall()
+    ## {isbn 0, author 1, title 2, rating 3,
+    ##  current_status 4, copy 5, year_ 6}
+    files = sanitize(rv)
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('books_list_title', name = session['name'], id = _id, role = role, title = title, files=files))
+  
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title = '%s' "% (title))
+  rv = cur.fetchall()
+  ## {isbn 0, author 1, title 2, rating 3,
+  ##  current_status 4, copy 5, year_ 6}
+  files = sanitize(rv)
+
+  cur.execute("SELECT rating FROM books WHERE isbn = '%s' "% (isbn))
+  rv = cur.fetchall()
+  rating = rv[0][0]
+  mysql.connection.commit()
+  cur.close()
+
+  return render_template('books/book_rating.html', name = session['name'], id = _id, role = role, title = title, isbn = isbn, rating = rating, files=files)

@@ -68,6 +68,8 @@ def librarian_login():
     cur.close()
     # access logic
     if (flag >= 1 and password == curpassword):
+      if 'uid' in session:
+        session.pop('uid')
       session['lid'] = l_id
       session['name'] = name
       session['role'] = 'librarian'
