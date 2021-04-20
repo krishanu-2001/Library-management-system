@@ -3,6 +3,20 @@ function searchFunc(){
   if(searchText != "")
     window.location = `/books/search/${searchText}\#newSearch`;
   else{
-    window.location = `/books/search/\%02\%03\#newSearch`;
+    window.location = `/books/search/t\#newSearch`;
   }
+}
+
+function toggleMove(){
+    var element = document.querySelectorAll('.moveTextA')
+    for(let i=0;i<element.length;i++)
+	   	element[i].classList.toggle("moveText");
+
+    element = document.querySelectorAll('.moveBoxA')
+    for(let i=0;i<element.length;i++)
+	   	element[i].classList.toggle("moveBox");
+}
+
+function moveBook(shelf_id){
+  assert(shelf_id)
 }
