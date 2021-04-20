@@ -214,15 +214,122 @@ def books_move_to(shelf_id, title):
   if(count < cap):
     cur = mysql.connection.cursor()
     cur.execute("UPDATE BOOKS SET shelf_id = '%s' WHERE title = '%s';"%(shelf_id, title))
+    flash("Success Book Updated!")
+    cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication FROM books WHERE shelf_id = '%s' "% (shelf_id))
+    rv = cur.fetchall()
+    ## {isbn 0, author 1, title 2, rating 3,
+    ##  current_status 4, copy 5, year_ 6}
+
+    files = sanitize(rv)
+
     mysql.connection.commit()
     cur.close()
-    flash("Success Book Updated!")
-    if not request.referrer:
-      self._error_response('The referrer header is missing.')
-    return render_template('books/home.html', name = session['name'], id = _id, role = role, message="")
+
+    return render_template('books/shelf.html', name = session['name'], id = _id, role = role, shelf_id = shelf_id, files=files)
   else:
     flash("Fail Update!")
     if not request.referrer:
       self._error_response('The referrer header is missing.')
     return redirect(request.referrer)
+  
 
+def books_list_title(title):
+  ### base logic for identifying role
+  if 'lid' not in session and 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+  if 'lid' in session:
+    _id = session['lid']
+  else:
+    _id = session['uid']
+  role = session['role']
+  ### logic ends
+
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title = '%s' "% (title))
+  rv = cur.fetchall()
+  ## {isbn 0, author 1, title 2, rating 3,
+  ##  current_status 4, copy 5, year_ 6}
+
+  files = sanitize(rv)
+
+  mysql.connection.commit()
+  cur.close()
+
+  return render_template('books/books_list_title.html', name = session['name'], id = _id, role = role, title = title, files=files)
+
+
+def books_delete(title,isbn):
+
+  ### base logic for identifying role
+  if 'lid' not in session and 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+  if 'lid' in session:
+    _id = session['lid']
+  else:
+    _id = session['uid']
+  role = session['role']
+  ### logic ends
+
+  cur = mysql.connection.cursor()
+  cur.execute("DELETE FROM BOOKS WHERE isbn = '%s';"%(isbn))
+  flash("Success Book Delete!")
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title = '%s' "% (title))
+  rv = cur.fetchall()
+  ## {isbn 0, author 1, title 2, rating 3,
+  ##  current_status 4, copy 5, year_ 6}
+
+  files = sanitize(rv)
+
+  mysql.connection.commit()
+  cur.close()
+
+  return redirect(url_for('books_list_title', name = session['name'], id = _id, role = role, title = title, files=files))
+
+def books_modify(isbn):
+  ### base logic for identifying role
+  if 'lid' not in session and 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+  if 'lid' in session:
+    _id = session['lid']
+  else:
+    _id = session['uid']
+  role = session['role']
+  ### logic ends
+
+  if request.method == 'POST':
+    print(request.form)
+    isbn = request.form['isbn']
+    author  = request.form['author']
+    title = request.form['title']
+    rating= request.form['rating']
+    status = request.form['status']
+    cn = request.form['cn']
+    year = request.form['year']
+    shelf_id = request.form['shelf_id']
+    cur = mysql.connection.cursor()
+    cur.execute("UPDATE books set author='%s', title='%s', rating='%s', current_status='%s', copy_number='%s', year_of_publication='%s', shelf_id='%s' WHERE isbn = '%s' "% (author, title, rating, status, cn, year, shelf_id ,isbn))
+    
+    cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title = '%s' "% (title))
+    rv = cur.fetchall()
+    ## {isbn 0, author 1, title 2, rating 3,
+    ##  current_status 4, copy 5, year_ 6}
+
+    files = sanitize(rv)
+
+    mysql.connection.commit()
+    cur.close()
+    flash("Success Book Modified!")
+
+    return redirect(url_for('books_list_title', name = session['name'], id = _id, role = role, title = title, files=files))
+
+    
+    
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE isbn = '%s' "% (isbn))
+  rv = cur.fetchall()
+  details = rv[0]
+  mysql.connection.commit()
+  cur.close()
+  ## {isbn 0, author 1, title 2, rating 3,
+  ##  current_status 4, copy 5, year_ 6}
+  return render_template('books/modify.html', name = session['name'], id = _id, role = role, isbn = isbn, details=details)

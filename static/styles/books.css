@@ -138,6 +138,31 @@
   opacity: 1;
 }
 
+.optionsMenu{
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 300px;
+  color: #f1f2f3;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.optionsMenu2{
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 300px;
+  color: black;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+}
+
+.optionsMenu:hover{
+  background-color: rgb(46, 43, 43, 0.7);
+}
+
 .searchBox{
   display: flex;
   margin: 10px;
@@ -162,8 +187,31 @@
 
 .searchIcon{
   position: relative;
-  top: 5px;
+  top: 0px;
 }
+
+
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 300px;
+  height: inherit; 
+}
+
+#slide {
+  position: absolute;
+  left: +300px;
+  width: 300px;
+  height: 100%;
+  transition: 1s;
+  background-color: rgb(46, 43, 43,0.5);
+}
+
+.wrapper:hover #slide {
+  transition: 0.5s;
+  left: 0;
+}
+
 
 .searchIcon:hover{
   color: green;
