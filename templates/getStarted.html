@@ -2,71 +2,61 @@
 
 
 {% block body %}
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-end align-items-center">
-    <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
 
-      <!-- Slide 1 -->
-      <div class="carousel-item active">
-        <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>E-Library</span></h2>
-          <p class="animate__animated fanimate__adeInUp">Bad libraries build collections, good libraries build services, great libraries build communities. The only thing that you absolutely have to know, is the location of the library. Nothing is pleasanter than exploring a library.</p>
-          <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">GET STARTED</a>
-        </div>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center  header-dark ">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="/">E-Library</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="static/assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
-      <!-- Slide 2 -->
-      <div class="carousel-item">
-        <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown">Learning Today, Leading Tomorrow</h2>
-          <p class="animate__animated animate__fadeInUp">Without libraries what have we? We have no past and no future. Everything you need for better future and success has already been written. And guess what? All you have to do is go to the library.</p>
-          <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">GET STARTED</a>
-        </div>
-      </div>
-
-      <!-- Slide 3 -->
-      <div class="carousel-item">
-        <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown">I imagine, is a happy book</h2>
-          <p class="animate__animated animate__fadeInUp">The library card is a passport to wonders and miracles, glimpses into other lives, religions, experiences, the hopes and dreams and strivings of ALL human beings, and it is this passport that opens our eyes and hearts to the world beyond our front doors, that is one of our best hopes against tyranny, xenophobia, hopelessness, despair, anarchy, and ignorance.</p>
-          <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">GET STARTED</a>
-        </div>
-      </div>
-
-      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
-      </a>
-
-      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-        <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
-      </a>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="/#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#about">About</a></li>
+          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li><a class="nav-link scrollto" href="#testimonials">Team</a></li>
+          <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="#">Drop Down 1</a></li>
+              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Drop Down 2</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
+            </ul>
+          </li> -->
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto active" href="/getStarted">Get Started</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
 
     </div>
+  </header><!-- End Header -->
 
-    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
-      <defs>
-        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
-      </defs>
-      <g class="wave1">
-        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
-      </g>
-      <g class="wave2">
-        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
-      </g>
-      <g class="wave3">
-        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
-      </g>
-    </svg>
+ <section id="login" class="about" style="padding-top: 100px">
+      <div class="container">
 
-  </section><!-- End Hero -->
-
-Home Page
-<br />
-Links
-<br />
-1. <a href = "/librarian/login"><i class='bx bx-library' ></i>
-  Librarian login</a><br />
-2. <a href = "/user/login"><i class='bx bxs-user-rectangle' ></i> User login</a><br />
-3. <a href = "/books/home"><i class='bx bxs-book'></i> </i> Books</a><br />
+        <div class="section-title" data-aos="zoom-out">
+          <h2>LogIn/SignUP</h2>
+          <p>Who we are</p>
+          
+          1. <a href = "/librarian/login"><i class='bx bx-library' ></i>
+            Librarian login</a><br />
+          2. <a href = "/user/login"><i class='bx bxs-user-rectangle' ></i> User login</a><br />
+          3. <a href = "/books/home"><i class='bx bxs-book'></i> </i> Books</a><br />
+        </div>
+</section>
 
 {% endblock %}

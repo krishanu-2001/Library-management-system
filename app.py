@@ -27,6 +27,10 @@ mysql = MySQL(app)
 def index():
     return render_template('index.html')
 
+@app.route('/getStarted', methods=['GET', 'POST'])
+def getStarted():
+    return render_template('getStarted.html')
+
 # librarian
 app.add_url_rule('/librarian/login', view_func=librarian_section.librarian_login, methods=['GET','POST'])
 app.add_url_rule('/librarian/home', view_func=librarian_section.librarian_home, methods=['GET','POST'])
