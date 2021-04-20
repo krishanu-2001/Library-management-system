@@ -34,7 +34,7 @@ INSERT INTO books (isbn, author, title, rating, current_status, copy_number, yea
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('5', 'author5', 'title5', 6.00,'UNAVAILABLE', 1, '2002', '2');
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('6', 'author6', 'title6', 2.50,'ISSUED', 2, '2018', '3');
 
-INSERT INTO shelf (shelf_id, capacity) VALUES ('1', 1);
+INSERT INTO shelf (shelf_id, capacity) VALUES ('1', 20);
 INSERT INTO shelf (shelf_id, capacity) VALUES ('2', 2);
 INSERT INTO shelf (shelf_id, capacity) VALUES ('3', 3);
 INSERT INTO shelf (shelf_id, capacity) VALUES ('4', 4);

@@ -1,3 +1,10 @@
+.alert{
+  min-width: 0px;
+  min-height: 0px;
+  margin: 0;
+  padding: 0;
+}
+
 .buttons_blue{
   cursor: pointer;
   background-color: rgb(86, 163, 214);

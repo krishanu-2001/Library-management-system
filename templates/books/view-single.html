@@ -87,10 +87,10 @@
             </div>
             
           {% elif role[0] == 'l' %} 
+
           <div class="buttons_blue">
             <h5>Remove</h5>
           </div>
-          
           <div class="buttons_blue">
             <div class="row">
               <div class="moveBoxA">
@@ -100,9 +100,11 @@
                 <hr style="width: 100%; border: 1px black solid; background-color: black;"/>
                 
                 {% for sh in shelves %}
-                <div style="height: 20px; font-size: 15px;" onclick='moveBook("asd")'>
+                <a class="linkHome" href="/books/move/{{sh[0]~'/'~title}}">
+                <div style="height: 20px; font-size: 15px;">
                   shelf_{{sh[0]}}
                 </div>
+                </a>
                 <hr style="width: 100%;"/>
                 {% endfor %}
 

@@ -55,6 +55,7 @@ app.add_url_rule('/books/shelf/<shelf_id>', view_func=book_section.books_shelf_i
 app.add_url_rule('/books/view-side/<shelf_id>/<title>', view_func=book_section.view_side, methods=['GET','POST'])
 app.add_url_rule('/books/search/<title>', view_func=book_section.books_search_title, methods=['GET','POST'])
 app.add_url_rule('/books/view-side-search/<search>/<title>', view_func=book_section.view_side_search, methods=['GET','POST'])
+app.add_url_rule('/books/move/<shelf_id>/<title>', view_func=book_section.books_move_to, methods=['GET','POST'])
 
 # user
 app.add_url_rule('/user/login', view_func=user_section.user_login, methods=['GET','POST'])
