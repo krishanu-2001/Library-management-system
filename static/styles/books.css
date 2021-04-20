@@ -1,3 +1,10 @@
+.alert{
+  min-width: 0px;
+  min-height: 0px;
+  margin: 0;
+  padding: 0;
+}
+
 .buttons_blue{
   cursor: pointer;
   background-color: rgb(86, 163, 214);
@@ -22,6 +29,20 @@
   flex-direction: row;
 }
 
+
+.fullBox{
+  width: 92%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: none;
+  border: none;
+  outline: none;
+}
+
+.fullBox:focus{
+  outline: none;
+}
+
 .image1{
   background-color: rgb(14, 13, 13);
   padding-left: 0px;
@@ -34,7 +55,6 @@
   padding-right: 0px;
   opacity: 0.5;
 }
-
 
 .image-box{
   height: 500px;
@@ -74,6 +94,33 @@
   text-decoration: none;
 }
 
+.moveBoxA{
+  display: none;
+}
+
+.moveBox{
+  display: flex;
+  position: relative;
+  left: -140px;
+  width: 150px;
+  min-height: 100px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: grey 1px 1px 1px 0px ;
+  border: 2px grey solid;
+  border-top-left-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.moveTextA{
+}
+
+.moveText{
+  position: relative; 
+  left: -50px;
+}
+
 .noneClass{
   opacity: 0;
   text-align: center;
@@ -99,7 +146,8 @@
   background-color: #fff;
   border-radius: 10px;
   border: 3px white solid;
-
+  align-items: center;
+  justify-content: center;
 }
 
 .searchBox:hover{
@@ -112,19 +160,6 @@
   border: green 3px solid;
 }
 
-.fullBox{
-  width: 92%;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: none;
-  border: none;
-  outline: none;
-}
-
-.fullBox:focus{
-  outline: none;
-}
-
 .searchIcon{
   position: relative;
   top: 5px;
@@ -133,6 +168,8 @@
 .searchIcon:hover{
   color: green;
 }
+
+
 
 /* width */
 .example::-webkit-scrollbar {

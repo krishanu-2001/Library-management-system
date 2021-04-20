@@ -3,8 +3,17 @@
 </head>
 
 {% extends 'baseuser.html' %} {% block body %}
-<div class="heading_bar">
-  _
+<div style="align-items: right; text-align: center;">
+  <div class="alert alert-warning">
+    {% for message in get_flashed_messages() %}
+    {% if message[0] == 'S' %}
+      <span class="error_green" style="margin: 20px;">{{message}}</span>
+    {% else %}
+      <span class="error_red" style="margin: 20px;">{{message}}</span>
+      {%endif%}
+      <i class="fa fa-times" style="padding: 10px;"></i>
+  {% endfor %}
+  </div>
 </div>
 
 

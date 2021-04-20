@@ -59,7 +59,7 @@ def books_home():
   if request.method == 'POST':
     debug()
   
-  return render_template('books/home.html', name = session['name'], id = _id, role = role)
+  return render_template('books/home.html', name = session['name'], id = _id, role = role, message="")
 
 def books_shelf_id(shelf_id):
 
@@ -81,8 +81,6 @@ def books_shelf_id(shelf_id):
   
   files = sanitize(rv)
 
-  print(files)
-  debug()
   mysql.connection.commit()
   cur.close()
 
@@ -117,11 +115,16 @@ def view_side(shelf_id, title):
 
   extra = sanitize(rv)
 
-  debug()
+  
+  cur.execute("SELECT DISTINCT shelf_id FROM shelf;")
+  rv = cur.fetchall()
+
+  shelves = rv
+
   mysql.connection.commit()
   cur.close()
 
-  return render_template('books/view-single.html', name = session['name'], id = _id, role = role,  shelf_id = shelf_id, files=files, extra=extra)
+  return render_template('books/view-single.html', name = session['name'], id = _id, role = role,  shelf_id = shelf_id, files=files, extra=extra, shelves = shelves)
 
 
 def books_search_title(title):
@@ -144,8 +147,6 @@ def books_search_title(title):
   
   files = sanitize(rv)
 
-  print(files)
-  debug()
   mysql.connection.commit()
   cur.close()
 
@@ -180,8 +181,48 @@ def view_side_search(search, title):
 
   extra = sanitize(rv)
 
-  debug()
+  cur.execute("SELECT DISTINCT shelf_id FROM shelf;")
+  rv = cur.fetchall()
+
+  shelves = rv
+
   mysql.connection.commit()
   cur.close()
 
-  return render_template('books/view-single-search.html', name = session['name'], id = _id, role = role,  search = search, files=files, extra=extra)
+  return render_template('books/view-single-search.html', name = session['name'], id = _id, role = role,  search = search, files=files, extra=extra, shelves=shelves)
+def books_move_to(shelf_id, title):
+
+  ### base logic for identifying role
+  if 'lid' not in session and 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+  if 'lid' in session:
+    _id = session['lid']
+  else:
+    _id = session['uid']
+  role = session['role']
+  ### logic ends
+
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT count(*) FROM books WHERE shelf_id = '%s';"%(shelf_id))
+  rv = cur.fetchall()
+  count = rv[0][0]
+  cur.execute("SELECT capacity FROM shelf WHERE shelf_id = '%s';"%(shelf_id))
+  rv = cur.fetchall()
+  mysql.connection.commit()
+  cur.close()
+  cap = rv[0][0]
+  if(count < cap):
+    cur = mysql.connection.cursor()
+    cur.execute("UPDATE BOOKS SET shelf_id = '%s' WHERE title = '%s';"%(shelf_id, title))
+    mysql.connection.commit()
+    cur.close()
+    flash("Success Book Updated!")
+    if not request.referrer:
+      self._error_response('The referrer header is missing.')
+    return render_template('books/home.html', name = session['name'], id = _id, role = role, message="")
+  else:
+    flash("Fail Update!")
+    if not request.referrer:
+      self._error_response('The referrer header is missing.')
+    return redirect(request.referrer)
+
