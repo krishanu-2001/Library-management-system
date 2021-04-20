@@ -32,7 +32,7 @@ CREATE TABLE books(
 	year_of_publication INT,
     shelf_id VARCHAR(100),
     notes VARCHAR(100),
-    PRIMARY KEY (isbn)
+    PRIMARY KEY (isbn, copy_number)
 );
 CREATE TABLE shelf (
     shelf_id VARCHAR(100) UNIQUE NOT NULL,

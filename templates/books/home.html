@@ -16,27 +16,51 @@
       <div class="image1"><a href="/books/shelf/1">
         <img src="{{url_for('static', filename='images/shelf3.png')}}" 
         class="image-box" style="width: 500px;"/>
+        <div class="noneClass">
+          <span>Computers</span>
+        </div>
       </a></div>
       <div class="image1"><a href="/books/shelf/2">
         <img src="{{url_for('static', filename='images/shelf11.png')}}" 
         class="image-box" style="width: 200px;"/>
+        <div class="noneClass">
+          <span>Fiction</span>
+        </div>
       </a></div>
       <div class="image1"><a href="/books/shelf/3">
           <img src="{{url_for('static', filename='images/shelf12.png')}}" 
           class="image-box" style="width: 1000px;"/>
+          <div class="noneClass">
+            <span>Business</span>
+          </div>
       </a></div>
       <div class="image1"><a href="/books/shelf/4">
           <img src="{{url_for('static', filename='images/shelf13.png')}}" 
           class="image-box" style="width: 200px;"/>
+          <div class="noneClass">
+            <span>Sports</span>
+          </div>
       </a></div>
       <div class="image1"><a href="/books/shelf/5">
         <img src="{{url_for('static', filename='images/shelf1.png')}}" 
         class="image-box" style="width: 1000px;"/>
+        <div class="noneClass">
+          <span>Children</span>
+        </div>
       </a></div>
     </div>
   </div>
 </div>
 <!-- Put in hamburger above please -->
+
+
+
+<!-- search logic here -->
+<a id="newSearch"></a>
+<div class="row searchBox">
+    <input type="text" name="search" value="{{search}}" id="searchText" class="fullBox"/>
+    <i class="fa fa-search searchIcon fa-2x" onclick=searchFunc()></i>
+</div>
 
 
 <!-- book details here -->
