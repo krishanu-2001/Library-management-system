@@ -122,3 +122,66 @@ def view_side(shelf_id, title):
   cur.close()
 
   return render_template('books/view-single.html', name = session['name'], id = _id, role = role,  shelf_id = shelf_id, files=files, extra=extra)
+
+
+def books_search_title(title):
+
+  ### base logic for identifying role
+  if 'lid' not in session and 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+  if 'lid' in session:
+    _id = session['lid']
+  else:
+    _id = session['uid']
+  role = session['role']
+  ### logic ends
+
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title LIKE '%s%%' "% (title))
+  rv = cur.fetchall()
+  ## {isbn 0, author 1, title 2, rating 3,
+  ##  current_status 4, copy 5, year_ 6, shelf_id 7}
+  
+  files = sanitize(rv)
+
+  print(files)
+  debug()
+  mysql.connection.commit()
+  cur.close()
+
+  return render_template('books/search.html', name = session['name'], id = _id, role = role, files=files, search = title)
+
+def view_side_search(search, title):
+  
+  ### base logic for identifying role
+  if 'lid' not in session and 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+  if 'lid' in session:
+    _id = session['lid']
+  else:
+    _id = session['uid']
+  role = session['role']
+  ### logic ends
+
+  if request.method == 'POST':
+    debug()
+  
+  
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title LIKE '%s%%' "% (search))
+  rv = cur.fetchall()
+  ## {isbn 0, author 1, title 2, rating 3,
+  ##  current_status 4, copy 5, year_ 6}
+  
+  files = sanitize(rv)
+
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title = '%s' "% (title))
+  rv = cur.fetchall()
+
+  extra = sanitize(rv)
+
+  debug()
+  mysql.connection.commit()
+  cur.close()
+
+  return render_template('books/view-single-search.html', name = session['name'], id = _id, role = role,  search = search, files=files, extra=extra)
