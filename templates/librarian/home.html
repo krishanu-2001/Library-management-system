@@ -47,6 +47,8 @@
               class="fa fa-user fa-fw"></i> <b>{{name}}</b> <i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
     </nav>
+
+
     <!-- Dropdown Structure -->
     <ul id="dropdown1" class="dropdown-content">
       <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
@@ -65,14 +67,7 @@
         </a>
       </li>
       <li class="divider"></li>
-      <li>
-        <div>
-          <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-          <span class="pull-right text-muted small">12 min</span>
-        </div>
-        </a>
-      </li>
-      <li class="divider"></li>
+
       <li>
         <div>
           <i class="fa fa-envelope fa-fw"></i> Message Sent
@@ -88,14 +83,7 @@
         </div>
         </a>
       </li>
-      <li class="divider"></li>
-      <li>
-        <div>
-          <i class="fa fa-upload fa-fw"></i> Server Rebooted
-          <span class="pull-right text-muted small">4 min</span>
-        </div>
-        </a>
-      </li>
+
       <li class="divider"></li>
       <li>
         <a class="text-center" href="#">
@@ -132,6 +120,8 @@
         </ul>
       </div>
     </nav>
+    {% block dashboard %}
+
     <!-- /. NAV SIDE  -->
     <div id="page-wrapper">
       <div class="header">
@@ -218,7 +208,7 @@
           <div class="col-xs-12 col-sm-12 col-md-7">
             <div class="card">
               <div class="card-action">
-                <b>Joining Form</b>
+                <b>Members Details</b>
               </div>
               <div class="cirStats">
                 <div class="row">
@@ -230,7 +220,7 @@
                             </span>
                       </div>
                       <div>
-                        <a class="btn" href="/librarian/uploaded_librarian_files"> UPLOAD</a>
+                        <a class="btn" href="/librarian/uploaded_librarian_files"> VIEW</a>
                       </div>
                     </div>
                   </div>
@@ -242,7 +232,7 @@
                             </span>
                       </div>
                       <div>
-                        <a class="btn" href="/librarian/uploaded_student_files"> UPLOAD</a>
+                        <a class="btn" href="/librarian/uploaded_student_files"> VIEW</a>
                       </div>
                     </div>
                   </div>
@@ -283,8 +273,10 @@
       </div>
       <!-- /. PAGE INNER  -->
     </div>
+    {% endblock%}
     <!-- /. PAGE WRAPPER  -->
   </div>
+
   <!-- /. WRAPPER  -->
   <!-- JS Scripts-->
   <!-- jQuery Js -->
