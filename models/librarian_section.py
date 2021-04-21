@@ -302,20 +302,53 @@ def librarian_add_books():
   
   if request.method == 'POST':
     # data base logic
-    librarian_details = request.form
-    user_id = librarian_details['id']
-    name = librarian_details['name']
-    role = librarian_details['role']
-    unpaid_fines = 0
-    address = librarian_details['address']
-    password = "1234"
+    book_details = request.form
+    isbn = book_details['isbn']
+    title = book_details['title']
+    author = book_details['author']
+    year = (book_details['year'])
+    if year == "" or type(year) == "None":
+      year = 2021
+    year = (int)(year)
+    shelf_id= (book_details['shelf_id'])
+    copy_number= book_details['copy_number']
+    if copy_number == "" or type(copy_number) == "None":
+      copy_number = 2021
+    copy_number = (int)(copy_number)
+    rating = 0
+    current_status = 'on-shelf'
+
     cur = mysql.connection.cursor()
-    cur.execute('''INSERT INTO user (user_id, name, role, address, password, unpaid_fines, notes)
-            VALUES ('%s', '%s', '%s', '%s', '%s', %d, '%s')'''% (user_id, name, role, address, password, unpaid_fines, filename))
-    debug()
+    cur.execute('''INSERT IGNORE INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) 
+    VALUES ('%s', '%s', '%s', %f, '%s', %d, %d, '%s');
+    '''%(isbn, author, title, rating, current_status, copy_number, year, shelf_id))
     mysql.connection.commit()
     cur.close()
-    flash('student added')
+    flash('Book Added!')
     return redirect(url_for('librarian_home', name = session['name'], lid = session['lid']))
 
   return render_template('/librarian/add_books.html', name = session['name'], lid = session['lid'])
+
+
+def librarian_add_shelf():
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+  
+  if request.method == 'POST':
+    # data base logic
+    shelf_details = request.form
+    shelf_id = shelf_details['shelf_id']
+    capacity = shelf_details['capacity']
+    if capacity == "" or type(capacity) == "None":
+      capacity = 2
+    capacity = (int)(capacity)
+    cur = mysql.connection.cursor()
+    cur.execute('''INSERT IGNORE INTO shelf (shelf_id, capacity) VALUES
+      ('%s', %d);
+    '''%(shelf_id,  capacity))
+    mysql.connection.commit()
+    cur.close()
+    flash('shelf added')
+    return redirect(url_for('librarian_home', name = session['name'], lid = session['lid']))
+
+  return render_template('/librarian/add_shelf.html', name = session['name'], lid = session['lid'])

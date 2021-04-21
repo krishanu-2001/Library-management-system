@@ -1,0 +1,15 @@
+{% extends 'librarian/home.html' %}
+
+{% block home %}
+<div class="heading_title">New Shelf
+   - <a href="/others/shelf"><i class="fa fa-bars">
+   </i></a></div>
+<div>
+  <form method="POST" enctype="multipart/form-data">
+      <input type="text" name="shelf_id" placeholder="shelf_id" class="input_list"/> <br />
+      <input type="number" name="capacity" placeholder="capacity" class="input_list"/> <br />
+      <input type="submit" class="input_list"/>  
+  </form>
+
+</div>
+{% endblock %}
