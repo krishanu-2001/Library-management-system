@@ -8,15 +8,15 @@ INSERT INTO librarian (librarian_id, name, address, password) VALUES ('5', 'emp5
 INSERT INTO librarian (librarian_id, name, address, password) VALUES ('6', 'emp6', 'beta', '1234');
 
 INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES ('1', 'User1', 'student', '1234', 0.00, 'alpha');
-INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES ('2', 'User2', 'student', '1234', 100.00, 'beta');
+INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES ('2', 'User2', 'student', '1234', 2000.00, 'beta');
 INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES ('3', 'User3', 'faculty', '1234', 0.00, 'gamma');
 INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES ('4', 'User4', 'student', '1234', 100.00, 'delta');
 INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES ('5', 'User5', 'student', '1234', 0.00, 'alpha');
 INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES ('6', 'User6', 'faculty', '1234', 100.00, 'beta');
 
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('1', 'author1', 'title1', 0.00,'on-shelf', 1, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('1', 'author1', 'title1', 0.00,'on-hold', 1, '2002', '1');
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id, user_id, issue_email_date, issue_date, issue_status) VALUES ('12', 'author1', 'title1', 0.00,'on-hold', 2, '2002', '1', '1', '2021-04-20', '2021-04-20', 'request');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id, user_id, due_date, issue_email_date, issue_date, issue_status) VALUES ('13', 'author1', 'title1', 1.00,'on-loan', 3, '2002', '1', '2', '2021-04-20', '2021-04-20', '2021-04-10', 'issued');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id, user_id, due_date, issue_email_date, issue_date, issue_status) VALUES ('13', 'author1', 'title1', 1.00,'on-loan', 3, '2002', '1', '2', '2021-04-20', '2020-04-20', '2021-04-10', 'issued');
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id, user_id, due_date, issue_email_date, issue_date, issue_status) VALUES ('14', 'author1', 'title1', 3.50,'on-shelf', 4, '2002', '1', '1', '2021-04-15', '2021-04-20', '2021-04-05', 'issued');
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id, user_id, issue_email_date, issue_date, issue_status) VALUES ('15', 'author1', 'title1', 3.00,'on-shelf', 5, '2004', '1', '3', '2021-04-20', '2021-04-20', 'request');
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('16', 'author1', 'title1', 2.00,'on-shelf', 6, '2004', '1');

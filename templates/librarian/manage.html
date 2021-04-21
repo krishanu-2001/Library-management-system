@@ -187,7 +187,12 @@
                         <td>{{rows[0]}}</td>
                         <td>{{rows[2]}}</td>
                         <td>{{rows[6]}}</td>
-                        <td>{{rows[3]}}</td>
+                        <td>{{rows[3]}}
+                           {% if rows[8] == 'overdue' %}
+                            <i class="fa fa-lock"> overdue</i>
+                            
+                            {% endif %}
+                        </td>
                         {% if rows[7] > 0 %}
                           <td class="error_red">{{rows[7]}}</td>
                         {% else %}
@@ -226,7 +231,7 @@
                       <th>Name</th>
                       <th>Role</th>
                       <th>Book-Id</th>
-                      <th>Issue-date</th>
+                      <th>Hold-date</th>
                       <th>Email-date</th>
                       <th>Fine</th>
                       <th>Delete</th>
@@ -239,7 +244,12 @@
                         <td>{{rows[5]}}</td>
                         <td>{{rows[4]}}</td>
                         <td>{{rows[0]}}</td>
-                        <td>{{rows[2]}}</td>
+                        <td>{{rows[2]}}
+                          {% if rows[6] == 'overdue' %}
+                            <i class="fa fa-lock"> overdue</i>
+                            
+                            {% endif %}
+                        </td>
                         <td>{{rows[3]}}</td>
                         <td> - </td>
                         <td>
