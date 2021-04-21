@@ -51,7 +51,7 @@
     <ul id="dropdown1" class="dropdown-content">
       <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
       </li>
-      <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+      <li><a href="#"><i class="fa fa-cog"></i> Settings</a>
       </li>
       <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
       </li>
@@ -104,126 +104,22 @@
         </a>
       </li>
     </ul>
-    <ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
-      <li>
-        <a href="#">
-          <div>
-            <p>
-              <strong>Task 1</strong>
-              <span class="pull-right text-muted">60% Complete</span>
-            </p>
-            <div class="progress progress-striped active">
-              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                aria-valuemax="100" style="width: 60%">
-                <span class="sr-only">60% Complete (success)</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </li>
-      <li class="divider"></li>
-      <li>
-        <a href="#">
-          <div>
-            <p>
-              <strong>Task 2</strong>
-              <span class="pull-right text-muted">28% Complete</span>
-            </p>
-            <div class="progress progress-striped active">
-              <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28" aria-valuemin="0"
-                aria-valuemax="100" style="width: 28%">
-                <span class="sr-only">28% Complete</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </li>
-      <li class="divider"></li>
-      <li>
-        <a href="#">
-          <div>
-            <p>
-              <strong>Task 3</strong>
-              <span class="pull-right text-muted">60% Complete</span>
-            </p>
-            <div class="progress progress-striped active">
-              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                aria-valuemax="100" style="width: 60%">
-                <span class="sr-only">60% Complete (warning)</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </li>
-      <li class="divider"></li>
-      <li>
-        <a href="#">
-          <div>
-            <p>
-              <strong>Task 4</strong>
-              <span class="pull-right text-muted">85% Complete</span>
-            </p>
-            <div class="progress progress-striped active">
-              <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0"
-                aria-valuemax="100" style="width: 85%">
-                <span class="sr-only">85% Complete (danger)</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </li>
-      <li class="divider"></li>
-      <li>
-    </ul>
-    <ul id="dropdown4" class="dropdown-content dropdown-tasks w250 taskList">
-      <li>
-        <div>
-          <strong>John Doe</strong>
-          <span class="pull-right text-muted">
-            <em>Today</em>
-          </span>
-        </div>
-        <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</p>
-        </a>
-      </li>
-      <li class="divider"></li>
-      <li>
-        <div>
-          <strong>John Smith</strong>
-          <span class="pull-right text-muted">
-            <em>Yesterday</em>
-          </span>
-        </div>
-        <p>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</p>
-        </a>
-      </li>
-      <li class="divider"></li>
-      <li>
-        <a href="#">
-          <div>
-            <strong>John Smith</strong>
-            <span class="pull-right text-muted">
-              <em>Yesterday</em>
-            </span>
-          </div>
-          <p>Lorem Ipsum has been the industry's standard dummy text ever since the...</p>
-        </a>
-      </li>
-      <li class="divider"></li>
-      <li>
-        <a class="text-center" href="#">
-          <strong>Read All Messages</strong>
-          <i class="fa fa-angle-right"></i>
-        </a>
-      </li>
-    </ul>
+
     <!--/. NAV TOP  -->
     <nav class="navbar-default navbar-side" role="navigation">
       <div class="sidebar-collapse">
         <ul class="nav" id="main-menu">
+
           <li>
-            <a class="active-menu waves-effect waves-dark" href="/librarian/home"><i class="fa fa-dashboard"></i>
+            <a href="/librarian/home" class="active-menu waves-effect waves-dark"><i class="fas fa-tachometer-alt"></i>
               Dashboard</a>
+          </li>
+
+          <li>
+            <a href="/librarian/requests" class="waves-effect waves-dark"><i class="fa fa-bell"></i> Request</a>
+          </li>
+          <li>
+            <a href="/books/home" class="waves-effect waves-dark"><i class="fa fa-window-restore"></i>Browse</a>
           </li>
           <li>
             <a href="/librarian/tab" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> Tabs &
@@ -334,7 +230,7 @@
                             </span>
                       </div>
                       <div>
-                        <button class="btn" href="/librarian/uploaded_librarian_files"> UPLOAD</button>
+                        <a class="btn" href="/librarian/uploaded_librarian_files"> UPLOAD</a>
                       </div>
                     </div>
                   </div>
@@ -346,7 +242,7 @@
                             </span>
                       </div>
                       <div>
-                        <button class="btn" href="/librarian/uploaded_student_files"> UPLOAD</button>
+                        <a class="btn" href="/librarian/uploaded_student_files"> UPLOAD</a>
                       </div>
                     </div>
                   </div>
@@ -380,20 +276,9 @@
         </div>
         <!-- /. ROW  -->
 
-        <!-- /. ROW  -->
-        <div class="fixed-action-btn horizontal click-to-toggle">
-          <a class="btn-floating btn-large red">
-            <i class="material-icons">menu</i>
-          </a>
-          <ul>
-            <li><a class="btn-floating red"><i class="material-icons">track_changes</i></a></li>
-            <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-            <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-            <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-          </ul>
-        </div>
+
         <footer>
-          <p>All right reserved. Template by: <a href="https://webthemez.com/admin-template/">WebThemez.com</a></p>
+          <p>All right reserved. by: <a href="https://iiti.ac.in">IIT Indore</a></p>
         </footer>
       </div>
       <!-- /. PAGE INNER  -->
