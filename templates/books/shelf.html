@@ -5,6 +5,9 @@
       border: 1px solid #ccc;
       float: left;
       width: 180px;
+      background-color: white;
+      margin: 10px 15px;
+
     }
 
     div.gallery:hover {
@@ -19,7 +22,7 @@
     div.desc {
       padding: 15px;
       text-align: center;
-      height: 200px;
+      height: 150px;
     }
   </style>
 </head>
@@ -29,7 +32,7 @@
 {% block section %}
 {% set category = 'Category-' ~ range(1, 5) | random%}
 <span class="heading_bar1">
-{{category}}</span>
+  {{category}}</span>
 <br />
 
 <a id="newStart"></a>
@@ -42,36 +45,32 @@
     {% set filename = 'images/book' ~ (files[title][0][6]|int % 5 + 1) ~ '.png' %}
     <div class="gallery">
       <a target="_blank" href="{{url_for('static', filename= filename)}}">
-        <img
-          src="{{url_for('static', filename= filename)}}"
-          alt="Books"
-          style="width: 180px; height: 250px"
-        />
+        <img src="{{url_for('static', filename= filename)}}" alt="Books" style="width: 180px; height: 250px" />
       </a>
       <a href="/books/view-side/{{ shelf_id~'/'~title~'#newStart' }}" class="linkHome">
-      <div class="desc">
-        {% if files[title][0][4][3] == 's' %}
-        <div class="error_green">{{files[title][0][4]}}</div>
-        {% elif files[title][0][4][3] == 'h' %}
-        <div class="error_yellow">{{files[title][0][4]}}</div>
-        {% else %}
-        <div class="error_red">{{files[title][0][4]}}</div>
-        {% endif %}
-        <div>{{files[title][0][2]}}-{{files[title][0][1]}}</div>
-        {% set rating = files[title][0][3]|int %} 
-        {% for i in range(rating) %}
-        <i class="fa fa-star" aria-hidden="true"></i>
-        {% endfor %}
-        {% if (files[title][0][3] % 1 > 0) %}
-        <i class="fa fa-star-half" aria-hidden="true"></i>
-        {% else %}
-        <i class="fa fa-star-o" aria-hidden="true"></i>
-        {% endif %}
+        <div class="desc">
+          {% if files[title][0][4][3] == 's' %}
+          <div class="error_green">{{files[title][0][4]}}</div>
+          {% elif files[title][0][4][3] == 'h' %}
+          <div class="error_yellow">{{files[title][0][4]}}</div>
+          {% else %}
+          <div class="error_red">{{files[title][0][4]}}</div>
+          {% endif %}
+          <div>{{files[title][0][2]}}-{{files[title][0][1]}}</div>
+          {% set rating = files[title][0][3]|int %}
+          {% for i in range(rating) %}
+          <i class="fa fa-star" aria-hidden="true"></i>
+          {% endfor %}
+          {% if (files[title][0][3] % 1 > 0) %}
+          <i class="fa fa-star-half" aria-hidden="true"></i>
+          {% else %}
+          <i class="fa fa-star-o" aria-hidden="true"></i>
+          {% endif %}
 
-        <br />
+          <br />
 
-        <h6>{{files[title][0][6]}}</h6>
-      </div>
+          <h6>{{files[title][0][6]}}</h6>
+        </div>
       </a>
     </div>
   </tr>
