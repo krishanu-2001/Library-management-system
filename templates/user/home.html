@@ -18,14 +18,12 @@
     <div>
       <h5 style="margin-left: 4px">Bookshelves</h5>
       <table class="bookshelves">
+        {% for i in range(bookshelves|length) %}
         <tr>
-          <td>0</td>
-          <td>Currently Reading</td>
+          <td>{{bookshelves[i][0]}}</td>
+          <td>{{bookshelves[i][1]}}</td>
         </tr>
-        <tr>
-          <td>0</td>
-          <td>Read</td>
-        </tr>
+        {% endfor %}
       </table>
     </div>
   </div>

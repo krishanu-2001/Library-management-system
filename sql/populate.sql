@@ -76,11 +76,10 @@ INSERT INTO favourite (genre_id, user_id) VALUES ('1', '4');
 INSERT INTO favourite (genre_id, user_id) VALUES ('2', '5');
 INSERT INTO favourite (genre_id, user_id) VALUES ('3', '6');
 
-INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('1', '1', 'list1', 'abcd','public');
-INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('2', '1', 'list1', 'abcd','public');
-INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('3', '1', 'list2', 'ijkl','private');
-INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('4', '2', 'list3', 'mnop','public');
-INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('5', '3', 'list4', 'qrst','private');
+INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('1', 'list1', 'abcd','public');
+INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('1', 'list2', 'ijkl','private');
+INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('2', 'list3', 'mnop','public');
+INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('3', 'list4', 'qrst','private');
 
 INSERT INTO personal_book_shelf (isbn, user_id, shelf_name, shelf_url) VALUES ('1', '1', 'shelf1','abcd');
 INSERT INTO personal_book_shelf (isbn, user_id, shelf_name, shelf_url) VALUES ('2', '1', 'shelf1','abcd');
