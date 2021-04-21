@@ -79,8 +79,14 @@ def librarian_login():
 
   return render_template('librarian/login.html', flag = 1)
 
+def librarian_logout():
+  session.pop('lid',None)
+  session.pop('name',None)
+  session.pop('role',None)
+  return redirect(url_for('index'))
+
 def librarian_home():
-  if session['lid'] == "":
+  if 'lid' not in session:
     return render_template('other/not_logged_in.html')
 
   if request.method == 'POST':
@@ -89,7 +95,7 @@ def librarian_home():
   return render_template('librarian/home.html', name = session['name'], lid = session['lid'])
 
 def librarian_add_librarian():
-  if session['lid'] == "":
+  if 'lid' not in session:
     return render_template('other/not_logged_in.html')
   
   if request.method == 'POST':
@@ -120,7 +126,7 @@ def librarian_add_librarian():
       cur = mysql.connection.cursor()
       cur.execute('''INSERT INTO librarian (librarian_id, name, address, password, notes)
              VALUES ('%s', '%s', '%s', '%s', '%s')'''% (l_id, name, address, password, filename))
-      debug()
+      flash('librarian added')
       mysql.connection.commit()
       cur.close()
 
@@ -141,7 +147,7 @@ def download_employee():
 
 
 def librarian_add_student():
-  if session['lid'] == "":
+  if 'lid' not in session:
     return render_template('other/not_logged_in.html')
   
   if request.method == 'POST':
@@ -178,7 +184,7 @@ def librarian_add_student():
       debug()
       mysql.connection.commit()
       cur.close()
-
+      flash('student added')
       return redirect(url_for('librarian_home', name = session['name'], lid = session['lid']))
 
   return render_template('librarian/add_student.html', name = session['name'], lid = session['lid'])
@@ -192,6 +198,9 @@ def download_student():
     return redirect(url_for('librarian_home', name = session['name'], lid = session['lid']))
 
 def uploaded_student_files():
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+
   path =app.config['UPLOAD_FOLDER_STUDENT']
   cur = mysql.connection.cursor()
   cur.execute('''SELECT user_id, name, notes
@@ -242,6 +251,9 @@ def return_files_student(filename):
     return send_file(file_path, as_attachment=True, attachment_filename='')
 
 def uploaded_librarian_files():
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+
   path =app.config['UPLOAD_FOLDER_STUDENT']
   cur = mysql.connection.cursor()
   cur.execute('''SELECT librarian_id, name, notes
@@ -283,3 +295,60 @@ def delete_librarian_forms(lid):
   mysql.connection.commit()
   cur.close()
   return redirect(url_for('uploaded_librarian_files', name = session['name'], lid = session['lid']))
+
+def librarian_add_books():
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+  
+  if request.method == 'POST':
+    # data base logic
+    book_details = request.form
+    isbn = book_details['isbn']
+    title = book_details['title']
+    author = book_details['author']
+    year = (book_details['year'])
+    if year == "" or type(year) == "None":
+      year = 2021
+    year = (int)(year)
+    shelf_id= (book_details['shelf_id'])
+    copy_number= book_details['copy_number']
+    if copy_number == "" or type(copy_number) == "None":
+      copy_number = 2021
+    copy_number = (int)(copy_number)
+    rating = 0
+    current_status = 'on-shelf'
+
+    cur = mysql.connection.cursor()
+    cur.execute('''INSERT IGNORE INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) 
+    VALUES ('%s', '%s', '%s', %f, '%s', %d, %d, '%s');
+    '''%(isbn, author, title, rating, current_status, copy_number, year, shelf_id))
+    mysql.connection.commit()
+    cur.close()
+    flash('Book Added!')
+    return redirect(url_for('librarian_home', name = session['name'], lid = session['lid']))
+
+  return render_template('/librarian/add_books.html', name = session['name'], lid = session['lid'])
+
+
+def librarian_add_shelf():
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+  
+  if request.method == 'POST':
+    # data base logic
+    shelf_details = request.form
+    shelf_id = shelf_details['shelf_id']
+    capacity = shelf_details['capacity']
+    if capacity == "" or type(capacity) == "None":
+      capacity = 2
+    capacity = (int)(capacity)
+    cur = mysql.connection.cursor()
+    cur.execute('''INSERT IGNORE INTO shelf (shelf_id, capacity) VALUES
+      ('%s', %d);
+    '''%(shelf_id,  capacity))
+    mysql.connection.commit()
+    cur.close()
+    flash('shelf added')
+    return redirect(url_for('librarian_home', name = session['name'], lid = session['lid']))
+
+  return render_template('/librarian/add_shelf.html', name = session['name'], lid = session['lid'])

@@ -27,7 +27,7 @@ CREATE TABLE books(
     author VARCHAR(100),
     title VARCHAR(100),
     rating DECIMAL(4,2) DEFAULT 0,
-	current_status VARCHAR(100) DEFAULT 'AVAILABLE',
+	current_status VARCHAR(100) DEFAULT 'on-shelf',
 	copy_number INT,
 	year_of_publication INT,
     shelf_id VARCHAR(100),

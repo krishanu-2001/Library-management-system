@@ -1,0 +1,22 @@
+{% extends 'librarian/home.html' %}
+
+{% block home %}
+<div class="heading_title">New Book
+   - <a href="/others/scanner"><i class="fa fa-bars">
+   </i></a></div>
+<div>
+  <form method="POST">
+      <input type="text" name="isbn" placeholder="isbn" class="input_list"/> <span> </span>
+      <input type="text" name="copy_number" placeholder="copy_number" class="input_list"/> 
+      <hr />
+      <br />
+      <input type="text" name="author" placeholder="author" class="input_list"/> <br />
+      <input type="text" name="title" placeholder="title" class="input_list"/> <br />
+      <input type="text" name="year" placeholder="year_of_publication" class="input_list"/> <br />
+      <input type="text" name="shelf_id" placeholder="shelf_id" class="input_list"/> <br />
+
+      <input type="submit" class="input_list"/>  
+  </form>
+
+</div>
+{% endblock %}
