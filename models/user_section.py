@@ -5,6 +5,7 @@ import hashlib
 import flask_excel as excel
 import pyexcel_xlsx
 import os
+import secrets
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -73,16 +74,78 @@ def user_home():
     return render_template('other/not_logged_in.html')
 
   if request.method == 'POST':
-    debug()
+    data=request.form
+    cur = mysql.connection.cursor()
+    user_id = session['uid']
+    isbn = data['isbn']
+    cur.execute("UPDATE books SET issue_status='returnrequested' WHERE isbn ='%s' AND user_id='%s'"%(isbn,user_id))
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('user_home'))
   u_id = session['uid']
   cur = mysql.connection.cursor()
   cur.execute("SELECT name, role, unpaid_fines FROM user WHERE user_id = '%s' "% (u_id))
   rv = cur.fetchall()
   userDetails = rv[0]
+  cur.execute("SELECT count(personal_book_shelf.shelf_name),personal_book_shelf.shelf_name FROM personal_book_shelf JOIN personal_book_shelf_contains WHERE personal_book_shelf.shelf_url = personal_book_shelf_contains.shelf_url AND user_id = '%s' GROUP BY shelf_name;"%(u_id))
+  rv=cur.fetchall()
+  bookshelves= rv
+  cur.execute("SELECT isbn,title,author,copy_number,issue_date,due_date,issue_status FROM library.books WHERE user_id='%s' AND (issue_status='issued' OR issue_status='returnrequested');"%(u_id))
+  rv=cur.fetchall()
+  issued = rv
+  cur.execute("SELECT books.isbn, books.title, books.author, hold.hold_date, hold.hold_status FROM hold JOIN books WHERE hold.isbn = books.isbn and hold.user_id= '%s';"%(u_id))
+  rv=cur.fetchall()
+  holds=rv
   cur.close()
-  return render_template('user/home.html', name = session['name'], userDetails=userDetails)
+  return render_template('user/home.html', name = session['name'], userDetails=userDetails, bookshelves=bookshelves, issued=issued,holds=holds)
 
 def reading_lists():
+  if 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  if request.method == 'POST':
+    data=request.form
+    cur = mysql.connection.cursor()
+    user_id = session['uid']
+    if data['type']=='add':
+      cur.execute("INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('%s', '%s', '%s', '%s')"%(user_id, data['listname'], secrets.token_hex(20), data['access']))
+    elif data['type']=='delete':
+      cur.execute("DELETE FROM reading_list WHERE list_url='%s';"%(data['url']))
+    elif data['type']=='follow':
+      cur.execute("INSERT INTO follow (list_url, user_id) VALUES ('%s', '%s')"%(data['url'], user_id))
+    elif data['type']=='unfollow':
+      cur.execute("DELETE FROM follow WHERE user_id = '%s' AND list_url = '%s';"%(user_id, data['url']))
+      print("DELETE FROM follow WHERE user_id = '%s' AND list_url = '%s';"%(user_id, data['url']))
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('reading_lists'))
+  u_id = session['uid']
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT reading_list.name AS listname,list_url,type FROM library.reading_list WHERE user_id='%s'"% (u_id))
+  rv = cur.fetchall()
+  mylists = rv
+  cur.execute("SELECT reading_list.name AS listname,list_url,user.name as user_name FROM library.reading_list JOIN library.user WHERE reading_list.user_id=user.user_id AND reading_list.user_id !='%s' AND type = 'PUBLIC'"% (u_id))
+  rv = cur.fetchall()
+  publiclists = rv
+  cur.execute("SELECT list_url FROM library.follow WHERE user_id ='%s'"% (u_id))
+  rv = cur.fetchall()
+  followcheck = rv
+  checklist = []
+  for i in range (len(followcheck)):
+    checklist.append(followcheck[i][0])
+  followed=[]
+  for i in range (len(publiclists)):
+    if publiclists[i][1] in checklist:
+      followed.append(1)
+    else:
+      followed.append(0) 
+  cur.execute("SELECT follow.user_id as followerid, reading_list.user_id as creatorid,reading_list.list_url, reading_list.name as listname, user.name as creatorname FROM library.follow JOIN library.reading_list JOIN library.user WHERE reading_list.user_id=user.user_id AND follow.list_url = reading_list.list_url AND follow.user_id='%s'"% (u_id))
+  rv = cur.fetchall()
+  followlist = rv
+  cur.close()
+  return render_template('user/readinglist.html', name = session['name'], mylists= mylists, publiclists= publiclists, followed=followed, followlist= followlist)
+
+def view_reading_list(url):
   if 'uid' not in session:
     return render_template('other/not_logged_in.html')
 
@@ -90,14 +153,15 @@ def reading_lists():
     debug()
   u_id = session['uid']
   cur = mysql.connection.cursor()
-  cur.execute("SELECT isbn,user.user_id,reading_list.name AS listname,list_url,type,user.name AS user_name FROM library.reading_list JOIN library.user WHERE reading_list.user_id=user.user_id AND user.user_id='%s' GROUP BY list_url"% (u_id))
+  cur.execute("SELECT name,type from reading_list WHERE list_url='%s'"%(url))
   rv = cur.fetchall()
-  mylists = rv
-  cur.execute("SELECT isbn,user.user_id,reading_list.name AS listname,list_url,type,user.name AS user_name FROM library.reading_list JOIN library.user WHERE reading_list.user_id=user.user_id AND user.user_id!='%s' AND type='PUBLIC' GROUP BY list_url"% (u_id))
+  listdetail=rv[0]
+  cur.execute("SELECT books.isbn, books.title, books.author, books.rating, books.year_of_publication FROM reading_list_contains JOIN books WHERE reading_list_contains.isbn = books.isbn AND reading_list_contains.list_url = '%s'"% (url))
   rv = cur.fetchall()
-  publiclists = rv
+  listbooks = rv
   cur.close()
-  return render_template('user/readinglist.html', name = session['name'], mylists= mylists, publiclists= publiclists)
+  return render_template('user/viewreadinglist.html', name = session['name'],listdetail=listdetail,listbooks=listbooks)
+
 
 def friends():
   if 'uid' not in session:
@@ -160,3 +224,57 @@ def add_friend():
       return redirect(url_for('friends'))
   return render_template('user/addfriend.html', name = session['name'])
 
+def friend_currentlyreading(id):
+  if 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+  if request.method == 'POST':
+    debug()
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT books.isbn, books.title, books.author, books.rating, books.year_of_publication FROM personal_book_shelf JOIN personal_book_shelf_contains JOIN Books WHERE personal_book_shelf.shelf_url =  personal_book_shelf_contains.shelf_url AND personal_book_shelf_contains.isbn = books.isbn AND personal_book_shelf.user_id= '%s';"%(id))
+  rv = cur.fetchall()
+  crbooks = rv
+  cur.execute("SELECT name,role FROM user WHERE user_id='%s'"%(id))
+  rv=cur.fetchall()
+  friendDetails=rv
+  return render_template('user/currentlyreading.html', name = session['name'], crbooks = crbooks, friendDetails=friendDetails)
+
+def bookshelves():
+  if 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  if request.method == 'POST':
+    data=request.form
+    cur = mysql.connection.cursor()
+    user_id = session['uid']
+    if data['type']=='add':
+      cur.execute("INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('%s', '%s', '%s')"%(user_id, data['shelf_name'], secrets.token_hex(20)))
+    elif data['type']=='delete':
+      if(data['name']!='Read' and data['name']!='Currently Reading' and data['name']!='Want to Read'):
+        cur.execute("DELETE FROM personal_book_shelf WHERE shelf_url='%s';"%(data['url']))
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('bookshelves'))
+  u_id = session['uid']
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT shelf_name ,shelf_url FROM library.personal_book_shelf WHERE user_id='%s'"% (u_id))
+  rv = cur.fetchall()
+  myshelves = rv 
+  cur.close()
+  return render_template('user/bookshelves.html', name = session['name'], myshelves= myshelves)
+
+def view_personal_bookshelves(url):
+  if 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  if request.method == 'POST':
+    debug()
+  u_id = session['uid']
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT shelf_name from personal_book_shelf WHERE shelf_url='%s'"%(url))
+  rv = cur.fetchall()
+  shelfdetail=rv[0]
+  cur.execute("SELECT books.isbn, books.title, books.author, books.rating, books.year_of_publication FROM personal_book_shelf_contains JOIN books WHERE personal_book_shelf_contains.isbn = books.isbn AND personal_book_shelf_contains.shelf_url = '%s'"% (url))
+  rv = cur.fetchall()
+  bookshelfbooks = rv
+  cur.close()
+  return render_template('user/viewpersonalbookshelf.html', name = session['name'],shelfdetail=shelfdetail,bookshelfbooks=bookshelfbooks)

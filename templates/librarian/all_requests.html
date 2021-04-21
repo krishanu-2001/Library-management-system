@@ -58,7 +58,7 @@
     </li>
     <li><a href="#"><i class="fa fa-cog"></i> Settings</a>
     </li>
-    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+    <li><a href="/librarian/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
     </li>
   </ul>
   <ul id="dropdown2" class="dropdown-content w250">
@@ -109,6 +109,9 @@
         <li>
           <a href="/librarian/requests" class="active-menu waves-effect waves-dark"><i class="fa fa-bell"></i>
             Request</a>
+        </li>
+        <li>
+          <a href="/librarian/manage" class="waves-effect waves-dark"><i class="fa fa-bell"></i> Manage</a>
         </li>
         <li>
           <a href="/books/home" class="waves-effect waves-dark"><i class="fa fa-window-restore"></i>Book Store</a>
@@ -172,20 +175,21 @@
                       <td>{{rows[0]}}</td>
                       <td>{{rows[2]}}</td>
                       <td>{{rows[3]}}</td>
-                      {% set user_id = rows[1] %} {% set isbn = rows[0] %} {% if rows[4][0] == 's'
-                      and rows[3] > 3 %}
+                      {% set user_id = rows[1] %} {% set isbn = rows[0] %} 
+                      {% if rows[4][0] == 's' and rows[3] >= 3 %}
                       <td>
-                        <a href="/librarian/accept/issue/{{user_id~'/'~isbn}}"><button class="btn-success"
+                        <a href="/librarian/accept/issue/{{rows[4]~'/'~user_id~'/'~isbn}}"><button class="btn-warning"
                             disabled>Accept</button></a>
                       </td>
-                      {% elif rows[4][0] == 'f' and rows[3] > 10 %}
+                      {% elif rows[4][0] == 'f' and rows[3] >= 10 %}
                       <td>
-                        <a href="/librarian/accept/issue/{{user_id~'/'~isbn}}"><button class="btn-success"
+                        asd
+                        <a href="/librarian/accept/issue/{{rows[4]~'/'~user_id~'/'~isbn}}"><button class="btn-warning"
                             disabled>Accept</button></a>
                       </td>
                       {% else %}
                       <td>
-                        <a href="/librarian/accept/issue/{{user_id~'/'~isbn}}"><button
+                        <a href="/librarian/accept/issue/{{rows[4]~'/'~user_id~'/'~isbn}}"><button
                             class="btn-success">Accept</button></a>
                       </td>
                       {% endif %}
@@ -234,13 +238,13 @@
                       <td>{{rows[0]}}</td>
                       <td>{{rows[4]}}</td>
                       <td>{{rows[5]}}</td>
-                      {% set user_id = rows[1] %} {% set isbn = rows[0] %} {% if rows[6][0] == 's'
-                      and rows[5] > 3 %}
+                      {% set user_id = rows[1] %} {% set isbn = rows[0] %} 
+                      {% if rows[6][0] == 's' and rows[5] >= 3 %}
                       <td>
                         <a href="/librarian/accept/hold/{{user_id~'/'~isbn}}"><button class="btn-success"
                             disabled>Accept</button></a>
                       </td>
-                      {% elif rows[6][0] == 'f' and rows[5] > 10 %}
+                      {% elif rows[6][0] == 'f' and rows[5] >= 10 %}
                       <td>
                         <a href="/librarian/accept/hold/{{user_id~'/'~isbn}}"><button class="btn-success"
                             disabled>Accept</button></a>

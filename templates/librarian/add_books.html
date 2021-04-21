@@ -56,7 +56,7 @@
     </li>
     <li><a href="#"><i class="fa fa-cog"></i> Settings</a>
     </li>
-    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+    <li><a href="/librarian/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
     </li>
   </ul>
   <ul id="dropdown2" class="dropdown-content w250">
@@ -164,7 +164,32 @@
                     <label for="copy_number">Copy Number</label>
                   </div>
                 </div>
-
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="author" type="text" name="author" class="validate">
+                        <label for="author">AUTHOR</label>
+                      </div>
+    
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="title" type="text" name="title" class="validate">
+                        <label for="title">TITLE</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="title" type="text" name="year" class="validate">
+                        <label for="title">YEAR OF PUBLICATION</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="shelf_id" type="text" name="shelf_id" class="validate">
+                        <label for="shelf_id">SHELF ID</label>
+                      </div>
+                    </div>
+    
 
                 <input type="submit" class="btn " value="SUBMIT" />
 
@@ -173,46 +198,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-action">
-              Form
-            </div>
-            <div class="card-content">
-              <form class="col s12" method="POST" enctype="multipart/form-data">
-                <div class="row">
-                  <div class="input-field col s12">
-                    <input id="author" type="text" name="author" class="validate">
-                    <label for="author">AUTHOR</label>
-                  </div>
-
-                </div>
-                <div class="row">
-                  <div class="input-field col s12">
-                    <input id="title" type="text" name="title" class="validate">
-                    <label for="title">TITLE</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s12">
-                    <input id="title" type="text" name="year" class="validate">
-                    <label for="title">YEAR OF PUBLICATION</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s12">
-                    <input id="shelf_id" type="text" name="shelf_id" class="validate">
-                    <label for="shelf_id">SHELF ID</label>
-                  </div>
-                </div>
-
-
-                <input type="submit" class="btn " value="SUBMIT" />
-
-              </form>
-              <div class="clearBoth"></div>
-            </div>
-          </div>
+        
         </div>
       </div>
 

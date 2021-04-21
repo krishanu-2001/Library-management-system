@@ -52,11 +52,11 @@
                             {{ i+1 }}
                         </td>
                         <td>
-                            <a href="/user/lists/{{ mylists[i][3] }}">{{ mylists[i][2] }}</a>
+                            <a href="/user/lists/{{ mylists[i][1] }}">{{ mylists[i][0] }}</a>
                         </td>
                         <td>
                             <form method="POST">
-                                <input type='text' id='url' name='url' value='{{ mylists[i][3] }}' hidden>
+                                <input type='text' id='url' name='url' value='{{ mylists[i][1] }}' hidden>
                                 <input type='text' id='type' name='type' value='delete' hidden>
                                 <input type='submit' value='Delete'>
                             </form>
@@ -91,16 +91,64 @@
                             {{ i+1 }}
                         </td>
                         <td>
-                            <a href="/user/lists/{{ publiclists[i][3] }}">{{ publiclists[i][2] }}</a>
+                            <a href="/user/lists/{{ publiclists[i][1] }}">{{ publiclists[i][0] }}</a>
                         </td>
                         <td>
-                            {{ publiclists[i][5] }}
+                            {{ publiclists[i][2] }}
                         </td>
                         <td>
                             <form method="POST">
-                                <input type='text' id='url' name='url' value='{{ mylists[i][3] }}' hidden>
-                                <input type='text' id='type' name='type' value='delete' hidden>
-                                <input type='submit' value='Delete'>
+                                {% if (followed[i]) %}
+                                <input type='text' id='url' name='url' value='{{ publiclists[i][1] }}' hidden>
+                                <input type='text' id='type' name='type' value='unfollow' hidden>
+                                <input type='submit' value='Unfollow'>
+                                {% else %}
+                                <input type='text' id='url' name='url' value='{{ publiclists[i][1] }}' hidden>
+                                <input type='text' id='type' name='type' value='follow' hidden>
+                                <input type='submit' value='Follow'>
+                                {% endif %}
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="follow" role="tabpanel" aria-labelledby="profile-tab">
+            <table style="width: 70%; margin-top: 10px;">
+                <thead>
+                    <tr>
+                        <th>
+                            S. No.
+                        </th>
+                        <th>
+                            List Name
+                        </th>
+                        <th>
+                            By User
+                        </th>
+                        <th>
+                            Follow
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(followlist|length) %}
+                    <tr>
+                        <td>
+                            {{ i+1 }}
+                        </td>
+                        <td>
+                            <a href="/user/lists/{{ followlist[i][2] }}">{{ followlist[i][3] }}</a>
+                        </td>
+                        <td>
+                            {{ followlist[i][4] }}
+                        </td>
+                        <td>
+                            <form method="POST">
+                                <input type='text' id='url' name='url' value='{{ followlist[i][2] }}' hidden>
+                                <input type='text' id='type' name='type' value='unfollow' hidden>
+                                <input type='submit' value='Unfollow'>
                             </form>
                         </td>
                     </tr>
