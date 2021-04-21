@@ -89,15 +89,20 @@
 {% extends 'librarian/home.html' %}
 
 {% block home %}
-<div class="heading_title">New employee form (Librarian)
-    - <a href="download_employee"><i class="fa fa-download">
+<div class="heading_title">New Book
+    - <a href="/others/scanner"><i class="fa fa-bars">
         </i></a></div>
 <div>
-    <form method="POST" enctype="multipart/form-data">
-        <input type="text" name="id" placeholder="id" class="input_list" /> <br />
-        <input type="text" name="name" placeholder="Name" class="input_list" /> <br />
-        <input type="text" name="address" placeholder="Address (Max 200 charachters)" class="input_list" /> <br />
-        <input type="file" name="file" class="input_list">
+    <form method="POST">
+        <input type="text" name="isbn" placeholder="isbn" class="input_list" /> <span> </span>
+        <input type="text" name="copy_number" placeholder="copy_number" class="input_list" />
+        <hr />
+        <br />
+        <input type="text" name="author" placeholder="author" class="input_list" /> <br />
+        <input type="text" name="title" placeholder="title" class="input_list" /> <br />
+        <input type="text" name="year" placeholder="year_of_publication" class="input_list" /> <br />
+        <input type="text" name="shelf_id" placeholder="shelf_id" class="input_list" /> <br />
+
         <input type="submit" class="input_list" />
     </form>
 

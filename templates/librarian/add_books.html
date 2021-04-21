@@ -1,22 +1,254 @@
 {% extends 'librarian/home.html' %}
 
-{% block home %}
-<div class="heading_title">New Book
-   - <a href="/others/scanner"><i class="fa fa-bars">
-   </i></a></div>
-<div>
-  <form method="POST">
-      <input type="text" name="isbn" placeholder="isbn" class="input_list"/> <span> </span>
-      <input type="text" name="copy_number" placeholder="copy_number" class="input_list"/> 
-      <hr />
-      <br />
-      <input type="text" name="author" placeholder="author" class="input_list"/> <br />
-      <input type="text" name="title" placeholder="title" class="input_list"/> <br />
-      <input type="text" name="year" placeholder="year_of_publication" class="input_list"/> <br />
-      <input type="text" name="shelf_id" placeholder="shelf_id" class="input_list"/> <br />
+{% block head %}
 
-      <input type="submit" class="input_list"/>  
-  </form>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Target Material Design Bootstrap Admin Template</title>
 
-</div>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/admin_assets/materialize/css/materialize.min.css"
+    media="screen,projection" />
+  <!-- Bootstrap Styles-->
+  <link href="../../static/admin_assets/css/bootstrap.css" rel="stylesheet" />
+  <!-- FontAwesome Styles-->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <!-- Morris Chart Styles-->
+  <link href="../../static/admin_assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+  <!-- Custom Styles-->
+  <link href="../../static/admin_assets/css/custom-styles.css" rel="stylesheet" />
+  <!-- Google Fonts-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="../../static/admin_assets/js/Lightweight-Chart/cssCharts.css">
+</head>
 {% endblock %}
+
+{% block nav %}
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse"
+        data-target=".sidebar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand waves-effect waves-dark" href="/librarian/home"><i
+          class="large material-icons">track_changes</i> <strong>Librarian</strong></a>
+      <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+    </div>
+    <ul class="nav navbar-top-links navbar-right">
+
+      <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i
+            class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
+            class="fa fa-user fa-fw"></i> <b>{{name}}</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
+  </nav>
+
+
+  <!-- Dropdown Structure -->
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
+    </li>
+    <li><a href="#"><i class="fa fa-cog"></i> Settings</a>
+    </li>
+    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+    </li>
+  </ul>
+  <ul id="dropdown2" class="dropdown-content w250">
+    <li>
+      <div>
+        <i class="fa fa-comment fa-fw"></i> New Comment
+        <span class="pull-right text-muted small">4 min</span>
+      </div>
+      </a>
+    </li>
+    <li class="divider"></li>
+
+    <li>
+      <div>
+        <i class="fa fa-envelope fa-fw"></i> Message Sent
+        <span class="pull-right text-muted small">4 min</span>
+      </div>
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <div>
+        <i class="fa fa-tasks fa-fw"></i> New Task
+        <span class="pull-right text-muted small">4 min</span>
+      </div>
+      </a>
+    </li>
+
+    <li class="divider"></li>
+    <li>
+      <a class="text-center" href="#">
+        <strong>See All Alerts</strong>
+        <i class="fa fa-angle-right"></i>
+      </a>
+    </li>
+  </ul>
+
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+
+        <li>
+          <a href="/librarian/home" class="active-menu waves-effect waves-dark"><i class="fas fa-tachometer-alt"></i>
+            Dashboard</a>
+        </li>
+
+        <li>
+          <a href="/librarian/requests" class=" waves-effect waves-dark"><i class="fa fa-bell"></i>
+            Request</a>
+        </li>
+        <li>
+          <a href="/books/home" class="waves-effect waves-dark"><i class="fa fa-window-restore"></i>Browse</a>
+        </li>
+        <li>
+          <a href="/librarian/tab" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> Tabs &
+            Panels</a>
+        </li>
+        <li>
+          <a href="/librarian/table" class="waves-effect waves-dark"><i class="fa fa-table"></i> Responsive
+            Tables</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  {% endblock %}
+
+  {% block home %}
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header">
+        Add Student
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Add Shelf</a></li>
+        <li class="active">form</li>
+      </ol>
+
+    </div>
+
+    <div id="page-inner">
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-action">
+              Form
+            </div>
+            <div class="card-content">
+              <form class="col s12" method="POST" enctype="multipart/form-data">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="isbn" type="text" name="isbn" class="validate">
+                    <label for="isbn">ISBN NO.</label>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="copy_number" type="text" name="copy_number" class="validate">
+                    <label for="copy_number">Copy Number</label>
+                  </div>
+                </div>
+
+
+                <input type="submit" class="btn " value="SUBMIT" />
+
+              </form>
+              <div class="clearBoth"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-action">
+              Form
+            </div>
+            <div class="card-content">
+              <form class="col s12" method="POST" enctype="multipart/form-data">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="author" type="text" name="author" class="validate">
+                    <label for="author">AUTHOR</label>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="title" type="text" name="title" class="validate">
+                    <label for="title">TITLE</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="title" type="text" name="year" class="validate">
+                    <label for="title">YEAR OF PUBLICATION</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="shelf_id" type="text" name="shelf_id" class="validate">
+                    <label for="shelf_id">SHELF ID</label>
+                  </div>
+                </div>
+
+
+                <input type="submit" class="btn " value="SUBMIT" />
+
+              </form>
+              <div class="clearBoth"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /.col-lg-12 -->
+
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+
+  {% endblock %}
+
+
+
+  {% block script %}
+  <!-- JS Scripts-->
+  <!-- jQuery Js -->
+  <script src="../../static/admin_assets/js/jquery-1.10.2.js"></script>
+
+  <!-- Bootstrap Js -->
+  <script src="../../static/admin_assets/js/bootstrap.min.js"></script>
+
+  <script src="../../static/admin_assets/materialize/js/materialize.min.js"></script>
+
+  <!-- Metis Menu Js -->
+  <script src="../../static/admin_assets/js/jquery.metisMenu.js"></script>
+  <!-- Morris Chart Js -->
+  <script src="../../static/admin_assets/js/morris/raphael-2.1.0.min.js"></script>
+  <script src="../../static/admin_assets/js/morris/morris.js"></script>
+
+
+  <script src="../../static/admin_assets/js/easypiechart.js"></script>
+  <script src="../../static/admin_assets/js/easypiechart-data.js"></script>
+
+  <script src="../../static/admin_assets/js/Lightweight-Chart/jquery.chart.js"></script>
+
+  <!-- Custom Js -->
+  <script src="../../static/admin_assets/js/custom-scripts.js"></script>
+
+  {% endblock %}
