@@ -1,67 +1,60 @@
-{% extends 'baseuser.html' %}
-
+{% extends 'baseuser.html' %} 
 
 {% block body %}
 <div class="container">
-    <div class="left">
-        <div class="card" style="width: 60%;">
-            <div class="card-body">
-                <h5 class="card-title">FINES</h5>
-                <p class="card-text">Your fine- ₹{{userDetails[2]}}</p>
-                {% if(userDetails[2]==0.00) %}
-                <a class="card-link">No Fines due</a>
-                {% else %}
-                <a href="#" class="card-link">Pay Fines</a>
-                {% endif %}
-            </div>
-        </div>
-        <hr style="width: 80%; margin-left: 0;">
-        <div>
-            <h5 style="margin-left: 4px;">Bookshelves</h5>
-            <table class="bookshelves">
-                <tr>
-                    <td>0</td>
-                    <td>Currently Reading</td>
-                </tr>
-                <tr>
-                    <td>0</td>
-                    <td>Read</td>
-                </tr>
-            </table>
-        </div>
+  <div class="left">
+    <div class="card" style="width: 60%">
+      <div class="card-body">
+        <h5 class="card-title">FINES</h5>
+        <p class="card-text">Your fine- ₹{{userDetails[2]}}</p>
+        {% if(userDetails[2]==0.00) %}
+        <a class="card-link">No Fines due</a>
+        {% else %}
+        <a href="#" class="card-link">Pay Fines</a>
+        {% endif %}
+      </div>
     </div>
-    <div class="right">
-        <section>
-            <h4>Issued Books</h4>
-            <table>
-                <thead>
-                    <th>ISBN</th>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Issue Date</th>
-                    <th>Due Date</th>
-            </thead>
-            <tbody>
-            
-            </tbody>
-            </table>
-
-        </section>
-        <hr style="height:5px;">
-        <section>
-            <h4>Holds</h4>
-            <table>
-                <thead>
-                    <th>ISBN</th>
-                    <th>Title</th>
-                    <th>Author</th>
-            </thead>
-            <tbody>
-            
-            </tbody>
-            </table>
-
-        </section>
+    <hr style="width: 80%; margin-left: 0" />
+    <div>
+      <h5 style="margin-left: 4px">Bookshelves</h5>
+      <table class="bookshelves">
+        <tr>
+          <td>0</td>
+          <td>Currently Reading</td>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td>Read</td>
+        </tr>
+      </table>
     </div>
+  </div>
+  <div class="right">
+    <section>
+      <h4>Issued Books</h4>
+      <table>
+        <thead>
+          <th>ISBN</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Issue Date</th>
+          <th>Due Date</th>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+    <hr style="height: 5px" />
+    <section>
+      <h4>Holds</h4>
+      <table>
+        <thead>
+          <th>ISBN</th>
+          <th>Title</th>
+          <th>Author</th>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </div>
 </div>
 {% endblock %}
