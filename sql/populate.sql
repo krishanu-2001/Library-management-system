@@ -87,7 +87,7 @@ INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('1', 's
 INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('2', 'shelf3','mnop');
 INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('3', 'shelf4','qrst');
 
-INSERT INTO hold (isbn, user_id, hold_date, hold_email_date, hold_status) VALUES ('1', '1', '2020-04-24', '2020-04-14', 'ACCEPTED');
+INSERT INTO hold (isbn, user_id, hold_date, hold_email_date, hold_status) VALUES ('1', '1', '2020-04-18', '2020-04-21', 'ACCEPTED');
 INSERT INTO hold (isbn, user_id, hold_date, hold_status) VALUES ('2', '1', '2020-04-24', 'PENDING');
 INSERT INTO hold (isbn, user_id, hold_date, hold_status) VALUES ('1', '3', '2020-04-24', 'PENDING');
 INSERT INTO hold (isbn, user_id, hold_date, hold_email_date, hold_status) VALUES ('3', '2', '2020-04-14', '2020-04-20', 'ACCEPTED');

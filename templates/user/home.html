@@ -1,4 +1,4 @@
-{% extends 'baseuser.html' %} 
+{% extends 'baseuser.html' %}
 
 {% block body %}
 <div class="container">
@@ -35,22 +35,57 @@
           <th>ISBN</th>
           <th>Title</th>
           <th>Author</th>
+          <th>Copy Number</th>
           <th>Issue Date</th>
           <th>Due Date</th>
+          <th>Return</th>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          {% for i in range(issued|length) %}
+          <tr>
+            <td>{{issued[i][0]}}</td>
+            <td>{{issued[i][1]}}</td>
+            <td>{{issued[i][2]}}</td>
+            <td>{{issued[i][3]}}</td>
+            <td>{{issued[i][4]}}</td>
+            <td>{{issued[i][5]}}</td>
+            <td>{% if(issued[i][6]=='issued') %}
+              <form method="POST">
+                <input type='text' id='isbn' name='isbn' value='{{ issued[i][0] }}' hidden>
+                <input type='text' id='type' name='type' value='Request Return' hidden>
+                <input type='submit' value='Return'>
+              </form>
+              {% else %}
+              Return Requested
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
       </table>
     </section>
     <hr style="height: 5px" />
     <section>
       <h4>Holds</h4>
-      <table>
+      <table width="70%">
         <thead>
           <th>ISBN</th>
           <th>Title</th>
           <th>Author</th>
+          <th>Hold Date</th>
+          <th>Status</th>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          {% for i in range(holds|length) %}
+          <tr>
+            <td>{{holds[i][0]}}</td>
+            <td>{{holds[i][1]}}</td>
+            <td>{{holds[i][2]}}</td>
+            <td>{{holds[i][3]}}</td>
+            <td>{{holds[i][4]}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
       </table>
     </section>
   </div>

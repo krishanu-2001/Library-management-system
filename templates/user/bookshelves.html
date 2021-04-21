@@ -1,0 +1,63 @@
+{% extends 'baseuser.html' %}
+
+
+{% block body %}
+<div class="listcontainer">
+    <h3>Personal Bookshelves</h3>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="self" role="tabpanel" aria-labelledby="home-tab">
+            <div class="input-group" style="margin: 10px;">
+                <form method="POST">
+                    <input type='text' id='listname' name='shelf_name' placeholder="Enter Bookshelf Name">
+                    <input type='text' id='type' name='type' value='add' hidden>
+                    <input type='submit' value='Add Shelf'>
+                </form>
+            </div>
+            <table style="width: 70%;">
+                <thead>
+                    <tr>
+                        <th>
+                            S. No.
+                        </th>
+                        <th>
+                            Bookshelf Name
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(myshelves|length) %}
+                    <tr>
+                        <td>
+                            {{ i+1 }}
+                        </td>
+                        <td>
+                            <a href="/user/bookshelves/{{ myshelves[i][1] }}">{{ myshelves[i][0] }}</a>
+                        </td>
+                        <td>
+                            {% if myshelves[i][0] == 'Read' %}
+                                -
+                            {% elif myshelves[i][0] == 'Currently Reading' %}
+                                -
+                            {% elif myshelves[i][0] == 'Want to Read' %}
+                                -
+                            {% else %}
+                                <form method="POST">
+                                    <input type='text' id='url' name='url' value='{{ myshelves[i][1] }}' hidden>
+                                    <input type='text' id='name' name='name' value='{{ myshelves[i][0] }}' hidden>
+                                    <input type='text' id='type' name='type' value='delete' hidden>
+                                    <input type='submit' value='Delete'>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
