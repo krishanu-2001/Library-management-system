@@ -14,25 +14,25 @@ INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES (
 INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES ('5', 'User5', 'student', '1234', 0.00, 'alpha');
 INSERT INTO user (user_id, name, role, password, unpaid_fines, address) VALUES ('6', 'User6', 'faculty', '1234', 100.00, 'beta');
 
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('1', 'author1', 'title1', 0.00,'AVAILABLE', 1, '2002', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('12', 'author1', 'title1', 0.00,'AVAILABLE', 2, '2002', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('13', 'author1', 'title1', 1.00,'AVAILABLE', 3, '2002', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('14', 'author1', 'title1', 3.50,'AVAILABLE', 4, '2002', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('15', 'author1', 'title1', 3.00,'AVAILABLE', 5, '2004', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('16', 'author1', 'title1', 2.00,'UNAVAILABLE', 6, '2004', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('21', 'author1', 'title21', 2.00,'ISSUED', 3, '2002', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('22', 'author1', 'title22', 4.50,'AVAILABLE', 4, '2002', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('23', 'author1', 'title23', 4.00,'AVAILABLE', 5, '2003', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('24', 'author1', 'title24', 5.00,'ISSUED', 6, '2003', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('25', 'author2', 'title25', 2.00,'ISSUED', 3, '2002', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('26', 'author2', 'title26', 4.50,'AVAILABLE', 4, '2002', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('27', 'author2', 'title27', 4.00,'AVAILABLE', 5, '2003', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('28', 'author2', 'title28', 5.00,'ISSUED', 6, '2003', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('2', 'author2', 'title2', 1.50,'UNAVAILABLE', 2, '2018', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('3', 'author3', 'title3', 3.00,'ISSUED', 1, '2020', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('4', 'author4', 'title4', 4.50,'AVAILABLE', 2, '2010', '2');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('5', 'author5', 'title5', 6.00,'UNAVAILABLE', 1, '2002', '2');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('6', 'author6', 'title6', 2.50,'ISSUED', 2, '2018', '3');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('1', 'author1', 'title1', 0.00,'on-shelf', 1, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('12', 'author1', 'title1', 0.00,'on-hold', 2, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('13', 'author1', 'title1', 1.00,'on-loan', 3, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('14', 'author1', 'title1', 3.50,'on-shelf', 4, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('15', 'author1', 'title1', 3.00,'on-shelf', 5, '2004', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('16', 'author1', 'title1', 2.00,'on-shelf', 6, '2004', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('21', 'author1', 'title21', 2.00,'on-shelf', 3, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('22', 'author1', 'title22', 4.50,'on-hold', 4, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('23', 'author1', 'title23', 4.00,'on-shelf', 5, '2003', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('24', 'author1', 'title24', 5.00,'on-shelf', 6, '2003', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('25', 'author2', 'title25', 2.00,'on-loan-and-on-hold', 3, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('26', 'author2', 'title26', 4.50,'on-shelf', 4, '2002', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('27', 'author2', 'title27', 4.00,'on-hold', 5, '2003', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('28', 'author2', 'title28', 5.00,'on-shelf', 6, '2003', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('2', 'author2', 'title2', 1.50,'on-shelf', 2, '2018', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('3', 'author3', 'title3', 3.00,'on-hold', 1, '2020', '1');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('4', 'author4', 'title4', 4.50,'on-hold', 2, '2010', '2');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('5', 'author5', 'title5', 6.00,'on-loan', 1, '2002', '2');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('6', 'author6', 'title6', 2.50,'on-shelf', 2, '2018', '3');
 
 INSERT INTO shelf (shelf_id, capacity) VALUES ('1', 20);
 INSERT INTO shelf (shelf_id, capacity) VALUES ('2', 2);
@@ -76,11 +76,11 @@ INSERT INTO favourite (genre_id, user_id) VALUES ('1', '4');
 INSERT INTO favourite (genre_id, user_id) VALUES ('2', '5');
 INSERT INTO favourite (genre_id, user_id) VALUES ('3', '6');
 
-INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('1', '1', 'list1', 'abcd');
-INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('2', '1', 'list1', 'abcd');
-INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('3', '1', 'list2', 'ijkl');
-INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('4', '2', 'list3', 'mnop');
-INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('5', '3', 'list4', 'qrst');
+INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('1', '1', 'list1', 'abcd','public');
+INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('2', '1', 'list1', 'abcd','public');
+INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('3', '1', 'list2', 'ijkl','private');
+INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('4', '2', 'list3', 'mnop','public');
+INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('5', '3', 'list4', 'qrst','private');
 
 INSERT INTO personal_book_shelf (isbn, user_id, shelf_name, shelf_url) VALUES ('1', '1', 'shelf1','abcd');
 INSERT INTO personal_book_shelf (isbn, user_id, shelf_name, shelf_url) VALUES ('2', '1', 'shelf1','abcd');
@@ -108,20 +108,19 @@ INSERT INTO rate (isbn, user_id, rating, review) VALUES ('2', '1', 1.00, ' lates
 INSERT INTO rate (isbn, user_id, rating, review) VALUES ('3', '2', 4.50, 'Best book for facts and GK!');
 INSERT INTO rate (isbn, user_id, rating, review) VALUES ('4', '3', 5.00, 'Must read for 2nd year students!');
 
-INSERT INTO friend (user_id, friend_id) VALUES ('1', '2');
-INSERT INTO friend (user_id, friend_id) VALUES ('1', '3');
-INSERT INTO friend (user_id, friend_id) VALUES ('1', '4');
-INSERT INTO friend (user_id, friend_id) VALUES ('1', '5');
-INSERT INTO friend (user_id, friend_id) VALUES ('2', '4');
-INSERT INTO friend (user_id, friend_id) VALUES ('2', '6');
-INSERT INTO friend (user_id, friend_id) VALUES ('3', '5');
+INSERT INTO friend (user_id, friend_id, status) VALUES ('1', '2', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('1', '4', 0);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('1', '5', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('2', '4', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('2', '6', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('3', '5', 1);
 ## reverse
-INSERT INTO friend (user_id, friend_id) VALUES ('2', '1');
-INSERT INTO friend (user_id, friend_id) VALUES ('3', '1');
-INSERT INTO friend (user_id, friend_id) VALUES ('5', '1');
-INSERT INTO friend (user_id, friend_id) VALUES ('4', '2');
-INSERT INTO friend (user_id, friend_id) VALUES ('6', '2');
-INSERT INTO friend (user_id, friend_id) VALUES ('5', '3');
+INSERT INTO friend (user_id, friend_id, status) VALUES ('2', '1', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('3', '1', 0);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('5', '1', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('4', '2', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('6', '2', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('5', '3', 1);
 
 -- select * from librarian;
 -- select * from user;

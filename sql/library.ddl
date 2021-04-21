@@ -63,7 +63,7 @@ CREATE TABLE maintain (
     isbn VARCHAR(100) NOT NULL,
     PRIMARY KEY (librarian_id, isbn),
     FOREIGN KEY (librarian_id) REFERENCES librarian(librarian_id),
-    FOREIGN KEY (isbn) REFERENCES books(isbn)
+    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE belongs_to (
@@ -71,7 +71,7 @@ CREATE TABLE belongs_to (
     isbn VARCHAR(100) NOT NULL,
     PRIMARY KEY (genre_id, isbn),
     FOREIGN KEY (genre_id) REFERENCES genre(genre_id),
-    FOREIGN KEY (isbn) REFERENCES books(isbn)
+    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE favourite (
@@ -87,8 +87,9 @@ CREATE TABLE reading_list (
     user_id VARCHAR(100) NOT NULL,
     name VARCHAR(100),
     list_url VARCHAR(100) NOT NULL,
+    type VARCHAR(45) NOT NULL,
     PRIMARY KEY (isbn, user_id),
-    FOREIGN KEY (isbn) REFERENCES books(isbn),
+    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
@@ -98,7 +99,7 @@ CREATE TABLE personal_book_shelf (
     shelf_name VARCHAR(100) NOT NULL,
     shelf_url VARCHAR(100) NOT NULL,
     PRIMARY KEY (isbn, user_id),
-    FOREIGN KEY (isbn) REFERENCES books(isbn),
+    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
@@ -108,7 +109,7 @@ CREATE TABLE issue (
     due_date DATE,
     issue_email_date DATE,
     PRIMARY KEY (isbn, user_id),
-    FOREIGN KEY (isbn) REFERENCES books(isbn),
+    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
@@ -119,8 +120,8 @@ CREATE TABLE hold (
     hold_email_date DATE,
     hold_status VARCHAR (200) DEFAULT "AVAILABLE",
     PRIMARY KEY (isbn, user_id),
-    FOREIGN KEY (isbn) REFERENCES books(isbn),
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
+    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES user(user_id) 
 );
 
 CREATE TABLE return_books (
@@ -131,7 +132,7 @@ CREATE TABLE return_books (
     fine DECIMAL(6,2),
     fine_paid TINYINT DEFAULT 0,
     PRIMARY KEY (isbn, user_id),
-    FOREIGN KEY (isbn) REFERENCES books(isbn),
+    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
@@ -141,18 +142,20 @@ CREATE TABLE rate (
     rating DECIMAL(4,2) DEFAULT 0,
     review VARCHAR(200),
     PRIMARY KEY (isbn, user_id),
-    FOREIGN KEY (isbn) REFERENCES books(isbn),
+    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
 CREATE TABLE friend (
 	user_id VARCHAR(100) NOT NULL,
     friend_id VARCHAR(100) NOT NULL,
+    status VARCHAR(45) NOT NULL,
     PRIMARY KEY (friend_id, user_id),
     FOREIGN KEY (friend_id) REFERENCES user(user_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
 ## 16 tables total 5 entity, 11 relations
+
 
 

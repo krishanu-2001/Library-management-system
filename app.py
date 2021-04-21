@@ -56,12 +56,18 @@ app.add_url_rule('/books/view-side/<shelf_id>/<title>', view_func=book_section.v
 app.add_url_rule('/books/search/<title>', view_func=book_section.books_search_title, methods=['GET','POST'])
 app.add_url_rule('/books/view-side-search/<search>/<title>', view_func=book_section.view_side_search, methods=['GET','POST'])
 app.add_url_rule('/books/move/<shelf_id>/<title>', view_func=book_section.books_move_to, methods=['GET','POST'])
+app.add_url_rule('/books/books_list_title/<title>', view_func=book_section.books_list_title, methods=['GET','POST'])
+app.add_url_rule('/books/delete/<title>/<isbn>', view_func=book_section.books_delete, methods=['GET','POST'])
+app.add_url_rule('/books/modify/<isbn>', view_func=book_section.books_modify, methods=['GET','POST'])
+app.add_url_rule('/books/book_rating/<title>/<isbn>', view_func=book_section.books_rate, methods=['GET','POST'])
 
 # user
 app.add_url_rule('/user/login', view_func=user_section.user_login, methods=['GET','POST'])
 app.add_url_rule('/user/home', view_func=user_section.user_home, methods=['GET','POST'])
 app.add_url_rule('/user/search', view_func=user_section.browse, methods=['GET','POST'])
 app.add_url_rule('/user/lists', view_func=user_section.reading_lists, methods=['GET','POST'])
+app.add_url_rule('/user/friends', view_func=user_section.friends, methods=['GET','POST'])
+app.add_url_rule('/user/friends/add', view_func=user_section.add_friend, methods=['GET','POST'])
 
 if __name__ == '__main__':
     flag = 0

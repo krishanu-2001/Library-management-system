@@ -20,9 +20,13 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/users.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/books.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/books.css') }}">
 
     <title>Library Management System</title>
+    {% endblock %}
+
+    {% block script %}
+
     {% endblock %}
 </head>
 
@@ -41,7 +45,7 @@
                     <a class="nav-link" href="/user/home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">My Books</a>
+                    <a class="nav-link" href="">My Books</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/user/lists">Reading Lists</a>
@@ -56,15 +60,15 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Account
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 20px;">
                         <div style="padding-left: 5px;">{{name}}</div>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Logout</a>
                     </div>
                 </li>
                 <li class="nav-item right" style="float: right;">
-                    <a class="nav-link" href="#">Friends</a>
+                    <a class="nav-link" href="/user/friends">Friends</a>
                 </li>
             </ul>
         </div>

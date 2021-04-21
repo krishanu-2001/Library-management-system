@@ -1,0 +1,116 @@
+{% extends 'baseuser.html' %}
+
+{% block body %}
+<div class="listcontainer">
+    <h3>Friends</h3>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#self" role="tab" aria-controls="home"
+                aria-selected="true">Your Friends</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#requests" role="tab" aria-controls="profile"
+                aria-selected="false">Friend Requests</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="self" role="tabpanel" aria-labelledby="home-tab">
+            <button><a href="/user/friends/add">Add Friends</a></button>
+            {% if friends|length == 0 %}
+            <p>You don't have any friends.</p>
+            {% else %}
+            <table style="width: 70%;">
+                <thead>
+                    <tr>
+                        <th>
+                            S. No.
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Currently Reading
+                        </th>
+                        <th>
+                            Remove
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(friends|length) %}
+                    <tr>
+                        <td>
+                            {{ i+1 }}
+                        </td>
+                        <td>
+                           <a href="#">{{ friends[i][2] }}</a>
+                        </td>
+                        <td>
+                            Currently Reading
+                        </td>
+                        <td>
+                            <form method="POST">
+                                <input type='text' id='fid' name='fid' value='{{ friends[i][1] }}' hidden>
+                                <input type='text' id='type' name='type' value='remove' hidden>
+                                <input type='submit' value='Remove'>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+        <div class="tab-pane fade" id="requests" role="tabpanel" aria-labelledby="profile-tab">
+            {% if requests|length == 0 %}
+            <p>You don't have any friend requests.</p>
+            {% else %}
+            <table style="width: 70%; margin-top: 10px;">
+                <thead>
+                    <tr>
+                        <th>
+                            S. No.
+                        </th>
+                        <th>
+                            User Name
+                        </th>
+                        <th>
+                            Accept
+                        </th>
+                        <th>
+                            Reject
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(requests|length) %}
+                    <tr>
+                        <td>
+                            {{ i+1 }}
+                        </td>
+                        <td>
+                           <a href="#">{{ requests[i][2] }}</a>
+                        </td>
+                        <td>
+                            <form method="POST">
+                                <input type='text' id='fid' name='fid' value='{{ requests[i][1] }}' hidden>
+                                <input type='text' id='type' name='type' value='accept' hidden>
+                                <input type='submit' value='Accept'>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="POST">
+                                <input type='text' id='fid' name='fid' value='{{ requests[i][1] }}' hidden>
+                                <input type='text' id='type' name='type' value='reject' hidden>
+                                <input type='submit' value='Reject'>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

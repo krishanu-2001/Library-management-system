@@ -19,6 +19,7 @@
     div.desc {
       padding: 15px;
       text-align: center;
+      height: 200px;
     }
   </style>
 </head>
@@ -49,9 +50,9 @@
       </a>
       <a href="/books/view-side-search/{{ search~'/'~title~'#newStart' }}" class="linkHome">
       <div class="desc">
-        {% if files[title][0][4][0] == 'A' %}
+        {% if files[title][0][4][3] == 's' %}
         <div class="error_green">{{files[title][0][4]}}</div>
-        {% elif files[title][0][4][0] == 'U' %}
+        {% elif files[title][0][4][3] == 'h' %}
         <div class="error_yellow">{{files[title][0][4]}}</div>
         {% else %}
         <div class="error_red">{{files[title][0][4]}}</div>
