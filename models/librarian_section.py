@@ -77,7 +77,35 @@ def sanitizeRequest(rv):
 
   return files
 
+def sanitizeRequest2(rv):
+  # ('2'- 0, '3'-1, datetime.date(2021, 4, 20)-2,
+  #  datetime.date(2021, 4, 20)-3, 'faculty'-4,
+  #  'User3'-5, datetime.date(2021, 4, 30)-6
+  files = []
+  print(rv)
+  for rows in rv:
+    temp = []
+    for i in rows:
+      temp.append(i)
+    issuedt = rows[2]
+    email = rows[3]
+    duedt = rows[6]
+    dt = datetime.datetime.now().date()
+    fines = 0
+    delta = dt - duedt
+    x = delta.days
+    if x < 0:
+      x = 0
+    fines = x*10
+    temp.append(fines)
+    
+    temp.append("returned")
 
+    files.append(temp)
+
+  files.sort(key = lambda x: x[7], reverse=True)
+
+  return files
 
 
 
@@ -829,6 +857,20 @@ def librarian_manage():
   rv = cur.fetchall()
   requests_issue_pending = sanitizeRequest(rv)
 
+  cur.execute('''SELECT 
+    A.isbn, A.user_id, A.issue_date,  A.issue_email_date, B.role, B.name, A.due_date
+  FROM
+    books as A,
+    user as B
+  WHERE
+    A.user_id = B.user_id
+        AND A.issue_status = 'returnrequested'
+  ORDER BY A.issue_date DESC;''')
+
+  rv = cur.fetchall()
+
+  temp = sanitizeRequest2(rv)
+  requests_issue_pending += temp
 
   mysql.connection.commit()
   cur.close()

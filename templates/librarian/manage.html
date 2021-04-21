@@ -192,6 +192,10 @@
                             <i class="fa fa-lock"> overdue</i>
                             
                             {% endif %}
+                            {% if rows[8] == 'returned' %}
+                            <i class="fa fa-bell"> returned</i>
+                            
+                            {% endif %}
                         </td>
                         {% if rows[7] > 0 %}
                           <td class="error_red">{{rows[7]}}</td>
