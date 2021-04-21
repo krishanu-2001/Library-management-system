@@ -32,7 +32,13 @@ CREATE TABLE books(
 	year_of_publication INT,
     shelf_id VARCHAR(100),
     notes VARCHAR(100),
-    PRIMARY KEY (isbn, copy_number)
+    user_id VARCHAR(100),
+    due_date DATE,
+    issue_email_date DATE,
+    issue_date DATE,
+    issue_status VARCHAR(100),
+    PRIMARY KEY (isbn, copy_number),
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 CREATE TABLE shelf (
     shelf_id VARCHAR(100) UNIQUE NOT NULL,
@@ -48,6 +54,22 @@ CREATE TABLE genre (
     PRIMARY KEY (genre_id)
 );
 
+CREATE TABLE reading_list (
+    user_id VARCHAR(100),
+    name VARCHAR(100) NOT NULL,
+    list_url VARCHAR(100) NOT NULL,
+    type VARCHAR(45) NOT NULL,
+    PRIMARY KEY (list_url),
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
+
+CREATE TABLE personal_book_shelf (
+    user_id VARCHAR(100) NOT NULL,
+    shelf_name VARCHAR(100) NOT NULL,
+    shelf_url VARCHAR(100) NOT NULL,
+    PRIMARY KEY (shelf_url),
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
 ## relations below
 
 CREATE TABLE keeps_track (
@@ -82,37 +104,6 @@ CREATE TABLE favourite (
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
-CREATE TABLE reading_list (
-	isbn VARCHAR(100) NOT NULL,
-    user_id VARCHAR(100) NOT NULL,
-    name VARCHAR(100),
-    list_url VARCHAR(100) NOT NULL,
-    type VARCHAR(45) NOT NULL,
-    PRIMARY KEY (isbn, user_id),
-    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
-);
-
-CREATE TABLE personal_book_shelf (
-	isbn VARCHAR(100) NOT NULL,
-    user_id VARCHAR(100) NOT NULL,
-    shelf_name VARCHAR(100) NOT NULL,
-    shelf_url VARCHAR(100) NOT NULL,
-    PRIMARY KEY (isbn, user_id),
-    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
-);
-
-CREATE TABLE issue (
-	isbn VARCHAR(100) NOT NULL,
-    user_id VARCHAR(100) NOT NULL,
-    due_date DATE,
-    issue_email_date DATE,
-    PRIMARY KEY (isbn, user_id),
-    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
-);
-
 CREATE TABLE hold (
 	isbn VARCHAR(100) NOT NULL,
     user_id VARCHAR(100) NOT NULL,
@@ -129,6 +120,7 @@ CREATE TABLE return_books (
     user_id VARCHAR(100) NOT NULL,
     return_date DATE,
     issue_date DATE,
+    return_status VARCHAR(100),
     fine DECIMAL(6,2),
     fine_paid TINYINT DEFAULT 0,
     PRIMARY KEY (isbn, user_id),
@@ -149,12 +141,35 @@ CREATE TABLE rate (
 CREATE TABLE friend (
 	user_id VARCHAR(100) NOT NULL,
     friend_id VARCHAR(100) NOT NULL,
-    status VARCHAR(45) NOT NULL,
+    status TINYINT NOT NULL,
     PRIMARY KEY (friend_id, user_id),
     FOREIGN KEY (friend_id) REFERENCES user(user_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
+CREATE TABLE reading_list_contains (
+    list_url VARCHAR(100) NOT NULL,
+    isbn VARCHAR(100) NOT NULL,
+    PRIMARY KEY (list_url,isbn),
+    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (list_url) REFERENCES reading_list(list_url) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE follow (
+    list_url VARCHAR(100) NOT NULL,
+    user_id VARCHAR(100) NOT NULL,
+    PRIMARY KEY (list_url,user_id),
+    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (list_url) REFERENCES reading_list(list_url) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE personal_book_shelf_contains (
+	isbn VARCHAR(100) NOT NULL,
+    shelf_url VARCHAR(100) NOT NULL,
+    PRIMARY KEY (shelf_url, isbn),
+    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (shelf_url) REFERENCES personal_book_shelf(shelf_url) ON DELETE CASCADE ON UPDATE CASCADE
+);
 ## 16 tables total 5 entity, 11 relations
 
 

@@ -82,14 +82,6 @@ def user_home():
   cur.close()
   return render_template('user/home.html', name = session['name'], userDetails=userDetails)
 
-def browse():
-  if 'uid' not in session:
-    return render_template('other/not_logged_in.html')
-
-  if request.method == 'POST':
-    debug()
-  return render_template('user/browse.html', name = session['name'])
-
 def reading_lists():
   if 'uid' not in session:
     return render_template('other/not_logged_in.html')
