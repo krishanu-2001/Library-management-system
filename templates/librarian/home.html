@@ -1,7 +1,61 @@
-{% extends 'baselibrarian.html' %} {% block body %}
-<div class="heading_bar">
-  <h2>Welcome {{ name }} <i class="error_green">(Admin)</i></h2>
-</div>
+{% extends 'baselibrarian.html' %} {% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Library</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/librarian/home">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/librarian/requests">Requests</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/books/home">Browse</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li>
+        <i class="fa fa-user-alt fa-2x" style="color: grey"></i>
+      </li>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Account
+        </a>
+        <div
+          class="dropdown-menu"
+          aria-labelledby="navbarDropdown"
+          style="width: 20px"
+        >
+          <div style="padding-left: 5px">{{name}}</div>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Profile</a>
+          <a class="dropdown-item" href="/librarian/logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endblock %} {% block body %}
 
 <!-- Put in hamburgar bar with aniomations -->
 
@@ -14,10 +68,10 @@
     2. <a href="/librarian/add_student" class="linkHome">add student</a>
   </div>
   <div class="card1">
-    3. <a href="/librarian/add_librarian" class="linkHome">add books</a>
+    3. <a href="/librarian/add_books" class="linkHome">add books</a>
   </div>
   <div class="card1">
-    4. <a href="/librarian/add_librarian" class="linkHome">add shelf </a>
+    4. <a href="/librarian/add_shelf" class="linkHome">add shelf </a>
   </div>
   <div class="card2">
     <div class="row" style="width: 100%">

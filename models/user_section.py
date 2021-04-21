@@ -62,8 +62,14 @@ def user_login():
 
   return render_template('user/login.html', flag = 1)
 
+def user_logout():
+  session.pop('uid',None)
+  session.pop('name',None)
+  session.pop('role',None)
+  return redirect(url_for('index'))
+
 def user_home():
-  if session['uid'] == "":
+  if 'uid' not in session:
     return render_template('other/not_logged_in.html')
 
   if request.method == 'POST':
@@ -77,7 +83,7 @@ def user_home():
   return render_template('user/home.html', name = session['name'], userDetails=userDetails)
 
 def browse():
-  if session['uid'] == "":
+  if 'uid' not in session:
     return render_template('other/not_logged_in.html')
 
   if request.method == 'POST':
@@ -85,7 +91,7 @@ def browse():
   return render_template('user/browse.html', name = session['name'])
 
 def reading_lists():
-  if session['uid'] == "":
+  if 'uid' not in session:
     return render_template('other/not_logged_in.html')
 
   if request.method == 'POST':
@@ -102,7 +108,7 @@ def reading_lists():
   return render_template('user/readinglist.html', name = session['name'], mylists= mylists, publiclists= publiclists)
 
 def friends():
-  if session['uid'] == "":
+  if 'uid' not in session:
     return render_template('other/not_logged_in.html')
   if request.method == 'POST':
     data=request.form
@@ -133,7 +139,7 @@ def friends():
   return render_template('user/friends.html', name = session['name'], friends=friends, requests=requests)
 
 def add_friend():
-  if session['uid'] == "":
+  if 'uid' not in session:
     return render_template('other/not_logged_in.html')
   if request.method == 'POST':
     data=request.form
