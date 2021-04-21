@@ -1,0 +1,141 @@
+<head>
+  <style>
+    .tabloid {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 0px;
+      margin-bottom: 100px;
+      background-color: white;
+    }
+
+    h2 {
+      background-color: rgb(129, 90, 236);
+      width: 100%;
+      color: white;
+    }
+
+    .tabloid td,
+    .tabloid th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    .tabloid tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .tabloid tr:nth-child(odd) {
+      background-color: rgb(158, 219, 123);
+    }
+
+    .tabloid th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4caf50;
+      color: white;
+    }
+  </style>
+</head>
+
+{% extends 'librarian/home.html' %} {% block home %}
+<table class="tabloid">
+  <tr>
+    <h2>Hold Requests</h2>
+  </tr>
+  <tr>
+    <th>User-Id</th>
+    <th>Role</th>
+    <th>Book-Id</th>
+    <th>Request-Status</th>
+    <th>Books_Issued</th>
+    <th>Accept</th>
+    <th>Deny</th>
+  </tr>
+  {% for rows in requests_hold_pending %}
+  <tr>
+    <td>{{rows[1]}}</td>
+    <td>{{rows[6]}}</td>
+    <td>{{rows[0]}}</td>
+    <td>{{rows[4]}}</td>
+    <td>{{rows[5]}}</td>
+    {% set user_id = rows[1] %} {% set isbn = rows[0] %} {% if rows[6][0] == 's'
+    and rows[5] > 3 %}
+    <td>
+      <a class="linkHome" href="/librarian/accept/hold/{{user_id~'/'~isbn}}"
+        ><button class="btn-warning" disabled>Accept</button></a
+      >
+    </td>
+    {% elif rows[6][0] == 'f' and rows[5] > 10 %}
+    <td>
+      <a class="linkHome" href="/librarian/accept/hold/{{user_id~'/'~isbn}}"
+        ><button class="btn-warning" disabled>Accept</button></a
+      >
+    </td>
+    {% else %}
+    <td>
+      <a class="linkHome" href="/librarian/accept/hold/{{user_id~'/'~isbn}}"
+        ><button class="btn-primary">Accept</button></a
+      >
+    </td>
+    {% endif %}
+    <td>
+      <a class="linkHome" href="/librarian/deny/hold/{{user_id~'/'~isbn}}"
+        ><button class="btn-danger">Deny</button></a
+      >
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<table class="tabloid">
+  <tr>
+    <h2>Issue Requests</h2>
+  </tr>
+  <tr>
+    <th>User-Id</th>
+    <th>Role</th>
+    <th>Book-Id</th>
+    <th>Request-Status</th>
+    <th>Books_Issued</th>
+    <th>Accept</th>
+    <th>Deny</th>
+  </tr>
+  {% for rows in requests_issue_pending %}
+  <tr>
+    <td>{{rows[1]}}</td>
+    <td>{{rows[4]}}</td>
+    <td>{{rows[0]}}</td>
+    <td>{{rows[2]}}</td>
+    <td>{{rows[3]}}</td>
+    {% set user_id = rows[1] %} {% set isbn = rows[0] %} {% if rows[4][0] == 's'
+    and rows[3] > 3 %}
+    <td>
+      <a class="linkHome" href="/librarian/accept/issue/{{user_id~'/'~isbn}}"
+        ><button class="btn-warning" disabled>Accept</button></a
+      >
+    </td>
+    {% elif rows[4][0] == 'f' and rows[3] > 10 %}
+    <td>
+      <a class="linkHome" href="/librarian/accept/issue/{{user_id~'/'~isbn}}"
+        ><button class="btn-warning" disabled>Accept</button></a
+      >
+    </td>
+    {% else %}
+    <td>
+      <a class="linkHome" href="/librarian/accept/issue/{{user_id~'/'~isbn}}"
+        ><button class="btn-primary">Accept</button></a
+      >
+    </td>
+    {% endif %}
+    <td>
+      <a class="linkHome" href="/librarian/deny/issue/{{user_id~'/'~isbn}}"
+        ><button class="btn-danger">Deny</button></a
+      >
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
