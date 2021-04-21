@@ -3,17 +3,15 @@
     .rightBox{
       display: block;
       position: fixed;
-      bottom: 0;
-      right: 0;
+      top: 100;
+      left: 100;
       border: 2px solid black;
       width: 200px;
       height: 200px;
-      background-color: white;
     }
   </style>
 </head>
 
-{% extends 'librarian/manage.html' %}
 {% block extra %}
   <form class="rightBox" method="POST">
     Do you want to add fine(Book misplaced / torn etc.)?

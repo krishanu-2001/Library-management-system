@@ -515,7 +515,7 @@ def deny_hold(user_id, isbn):
   ORDER BY A.hold_date DESC;
   ''')
   rv = cur.fetchall()
-  requests_hold_pending = sanitizeRequest(rv)
+  requests_hold_pending = (rv)
 
   cur.execute('''SELECT 
       A.isbn, A.user_id, A.issue_status, B.issued_books, A.role
@@ -537,7 +537,7 @@ def deny_hold(user_id, isbn):
   ORDER BY A.issue_date ASC;''')
 
   rv = cur.fetchall()
-  requests_issue_pending = sanitizeRequest(rv)
+  requests_issue_pending = (rv)
 
 
   mysql.connection.commit()
@@ -585,7 +585,7 @@ def deny_issue(user_id, isbn):
   ORDER BY A.hold_date DESC;
   ''')
   rv = cur.fetchall()
-  requests_hold_pending = sanitizeRequest(rv)
+  requests_hold_pending = (rv)
 
   cur.execute('''SELECT 
       A.isbn, A.user_id, A.issue_status, B.issued_books, A.role
@@ -607,7 +607,7 @@ def deny_issue(user_id, isbn):
   ORDER BY A.issue_date ASC;''')
 
   rv = cur.fetchall()
-  requests_issue_pending = sanitizeRequest(rv)
+  requests_issue_pending = (rv)
 
 
   mysql.connection.commit()
@@ -664,7 +664,7 @@ def accept_issue(role, user_id, isbn):
   ORDER BY A.hold_date DESC;
   ''')
   rv = cur.fetchall()
-  requests_hold_pending = sanitizeRequest(rv)
+  requests_hold_pending = (rv)
 
   cur.execute('''SELECT 
       A.isbn, A.user_id, A.issue_status, B.issued_books, A.role
@@ -686,7 +686,7 @@ def accept_issue(role, user_id, isbn):
   ORDER BY A.issue_date ASC;''')
 
   rv = cur.fetchall()
-  requests_issue_pending = sanitizeRequest(rv)
+  requests_issue_pending = (rv)
 
 
   mysql.connection.commit()
@@ -745,7 +745,7 @@ def accept_hold(user_id, isbn):
   ORDER BY A.hold_date DESC;
   ''')
   rv = cur.fetchall()
-  requests_hold_pending = sanitizeRequest(rv)
+  requests_hold_pending = (rv)
 
   cur.execute('''SELECT 
       A.isbn, A.user_id, A.issue_status, B.issued_books, A.role
@@ -767,7 +767,7 @@ def accept_hold(user_id, isbn):
   ORDER BY A.issue_date ASC;''')
 
   rv = cur.fetchall()
-  requests_issue_pending = sanitizeRequest(rv)
+  requests_issue_pending = (rv)
 
 
   mysql.connection.commit()
