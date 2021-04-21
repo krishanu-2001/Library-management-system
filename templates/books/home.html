@@ -1,28 +1,21 @@
-<head>    
+<head>
   <script src="{{ url_for('static',filename='js/books.js') }}"></script>
 </head>
 
-{% extends 'baseuser.html' %} 
+{% extends 'baseuser.html' %}
 
 {% block navbar %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">Library</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/books/home">Browse</a>
+        <a class="nav-link" href="/books/home">Book Store</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/books/shelf/1">Shelves</a>
@@ -33,41 +26,30 @@
         <i class="fa fa-user-alt fa-2x" style="color: grey"></i>
       </li>
       <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           Account
         </a>
-        <div
-          class="dropdown-menu"
-          aria-labelledby="navbarDropdown"
-          style="width: 20px"
-        >
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 20px">
           <div style="padding-left: 5px">{{name}}</div>
         </div>
       </li>
     </ul>
   </div>
 </nav>
-{% endblock %} 
+{% endblock %}
 
 {% block body %}
 <div style="align-items: right; text-align: center;">
   <div class="alert alert-warning">
     {% for message in get_flashed_messages() %}
     {% if message[0] == 'S' %}
-      <span class="error_green" style="margin: 20px;">{{message}}</span>
+    <span class="error_green" style="margin: 20px;">{{message}}</span>
     {% else %}
-      <span class="error_red" style="margin: 20px;">{{message}}</span>
-      {%endif%}
-      <i class="fa fa-times" style="padding: 10px;"></i>
-  {% endfor %}
+    <span class="error_red" style="margin: 20px;">{{message}}</span>
+    {%endif%}
+    <i class="fa fa-times" style="padding: 10px;"></i>
+    {% endfor %}
   </div>
 </div>
 
@@ -78,40 +60,35 @@
   <div style="width: 2500px;">
     <div class="flex-shelf">
       <div class="image1"><a href="/books/shelf/1">
-        <img src="{{url_for('static', filename='images/shelf3.png')}}" 
-        class="image-box" style="width: 500px;"/>
-        <div class="noneClass">
-          <span>Computers</span>
-        </div>
-      </a></div>
+          <img src="{{url_for('static', filename='images/shelf3.png')}}" class="image-box" style="width: 500px;" />
+          <div class="noneClass">
+            <span>Computers</span>
+          </div>
+        </a></div>
       <div class="image1"><a href="/books/shelf/2">
-        <img src="{{url_for('static', filename='images/shelf11.png')}}" 
-        class="image-box" style="width: 200px;"/>
-        <div class="noneClass">
-          <span>Fiction</span>
-        </div>
-      </a></div>
+          <img src="{{url_for('static', filename='images/shelf11.png')}}" class="image-box" style="width: 200px;" />
+          <div class="noneClass">
+            <span>Fiction</span>
+          </div>
+        </a></div>
       <div class="image1"><a href="/books/shelf/3">
-          <img src="{{url_for('static', filename='images/shelf12.png')}}" 
-          class="image-box" style="width: 1000px;"/>
+          <img src="{{url_for('static', filename='images/shelf12.png')}}" class="image-box" style="width: 1000px;" />
           <div class="noneClass">
             <span>Business</span>
           </div>
-      </a></div>
+        </a></div>
       <div class="image1"><a href="/books/shelf/4">
-          <img src="{{url_for('static', filename='images/shelf13.png')}}" 
-          class="image-box" style="width: 200px;"/>
+          <img src="{{url_for('static', filename='images/shelf13.png')}}" class="image-box" style="width: 200px;" />
           <div class="noneClass">
             <span>Sports</span>
           </div>
-      </a></div>
+        </a></div>
       <div class="image1"><a href="/books/shelf/5">
-        <img src="{{url_for('static', filename='images/shelf1.png')}}" 
-        class="image-box" style="width: 1000px;"/>
-        <div class="noneClass">
-          <span>Children</span>
-        </div>
-      </a></div>
+          <img src="{{url_for('static', filename='images/shelf1.png')}}" class="image-box" style="width: 1000px;" />
+          <div class="noneClass">
+            <span>Children</span>
+          </div>
+        </a></div>
     </div>
   </div>
 </div>
@@ -122,8 +99,9 @@
 <!-- search logic here -->
 <a id="newSearch"></a>
 <div class="row searchBox">
-    <input type="text" placeholder="Search Your Favourite Book" name="search" value="{{search}}" id="searchText" class="fullBox"/>
-    <i class="fa fa-search searchIcon fa-2x" onclick=searchFunc()></i>
+  <input type="text" placeholder="Search Your Favourite Book" name="search" value="{{search}}" id="searchText"
+    class="fullBox" />
+  <i class="fa fa-search searchIcon fa-2x" onclick=searchFunc()></i>
 </div>
 
 

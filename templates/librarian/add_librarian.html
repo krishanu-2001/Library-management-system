@@ -1,17 +1,250 @@
 {% extends 'librarian/home.html' %}
 
-{% block home %}
-<div class="heading_title">New employee form (Librarian)
-   - <a href="download_employee"><i class="fa fa-download">
-   </i></a></div>
-<div>
-  <form method="POST" enctype="multipart/form-data">
-      <input type="text" name="id" placeholder="id" class="input_list"/> <br />
-      <input type="text" name="name" placeholder="Name" class="input_list"/> <br />
-      <input type="text" name="address" placeholder="Address (Max 200 charachters)" class="input_list"/> <br />
-      <input type="file" name="file" class="input_list">
-      <input type="submit" class="input_list"/>  
-  </form>
+{% block head %}
 
-</div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Target Material Design Bootstrap Admin Template</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/admin_assets/materialize/css/materialize.min.css"
+    media="screen,projection" />
+  <!-- Bootstrap Styles-->
+  <link href="../../static/admin_assets/css/bootstrap.css" rel="stylesheet" />
+  <!-- FontAwesome Styles-->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <!-- Morris Chart Styles-->
+  <link href="../../static/admin_assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+  <!-- Custom Styles-->
+  <link href="../../static/admin_assets/css/custom-styles.css" rel="stylesheet" />
+  <!-- Google Fonts-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="../../static/admin_assets/js/Lightweight-Chart/cssCharts.css">
+</head>
 {% endblock %}
+
+{% block nav %}
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse"
+        data-target=".sidebar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand waves-effect waves-dark" href="/librarian/home"><i
+          class="large material-icons">track_changes</i> <strong>Librarian</strong></a>
+      <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+    </div>
+    <ul class="nav navbar-top-links navbar-right">
+
+      <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i
+            class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
+            class="fa fa-user fa-fw"></i> <b>{{name}}</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
+  </nav>
+
+
+  <!-- Dropdown Structure -->
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
+    </li>
+    <li><a href="#"><i class="fa fa-cog"></i> Settings</a>
+    </li>
+    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+    </li>
+  </ul>
+  <ul id="dropdown2" class="dropdown-content w250">
+    <li>
+      <div>
+        <i class="fa fa-comment fa-fw"></i> New Comment
+        <span class="pull-right text-muted small">4 min</span>
+      </div>
+      </a>
+    </li>
+    <li class="divider"></li>
+
+    <li>
+      <div>
+        <i class="fa fa-envelope fa-fw"></i> Message Sent
+        <span class="pull-right text-muted small">4 min</span>
+      </div>
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <div>
+        <i class="fa fa-tasks fa-fw"></i> New Task
+        <span class="pull-right text-muted small">4 min</span>
+      </div>
+      </a>
+    </li>
+
+    <li class="divider"></li>
+    <li>
+      <a class="text-center" href="#">
+        <strong>See All Alerts</strong>
+        <i class="fa fa-angle-right"></i>
+      </a>
+    </li>
+  </ul>
+
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+
+        <li>
+          <a href="/librarian/home" class="active-menu waves-effect waves-dark"><i class="fas fa-tachometer-alt"></i>
+            Dashboard</a>
+        </li>
+
+        <li>
+          <a href="/librarian/requests" class=" waves-effect waves-dark"><i class="fa fa-bell"></i>
+            Request</a>
+        </li>
+        <li>
+          <a href="/books/home" class="waves-effect waves-dark"><i class="fa fa-window-restore"></i>Book Store</a>
+        </li>
+        <!-- <li>
+          <a href="/librarian/tab" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> Tabs &
+            Panels</a>
+        </li>
+        <li>
+          <a href="/librarian/table" class="waves-effect waves-dark"><i class="fa fa-table"></i> Responsive
+            Tables</a>
+        </li> -->
+      </ul>
+    </div>
+  </nav>
+
+  {% endblock %}
+
+  {% block home %}
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header">
+        Add Librarian
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Add Librarian</a></li>
+        <li class="active">form</li>
+      </ol>
+
+    </div>
+
+    <div id="page-inner">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-action">
+              Form
+            </div>
+            <div class="card-content">
+              <form class="col s12" method="POST" enctype="multipart/form-data">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="first_name" type="text" name="id" class="validate">
+                    <label for="first_name">ID</label>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="first_name" type="text" name="name" class="validate">
+                    <label for="first_name">Name</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="Address" type="text" name="address" class="validate">
+                    <label for="Address">Address</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="card-action">
+                    Choose Member:
+                  </div>
+                  <div class="input-field col s6">
+                    <p>
+                      <input name="role" type="radio" value="student" id="test1" />
+                      <label for="test1">Student</label>
+                    </p>
+
+                  </div>
+                  <div class="input-field col s6">
+                    <p>
+                      <input name="role" type="radio" value="faculty" id="test2" />
+                      <label for="test2">Faculty</label>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="file" name="file" class="input_list">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12">
+                    Download new Employee Form:
+                    <div class="input-field inline">
+                      <a class="btn" href="download_student"><i class="fa fa-download">
+                        </i></a>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn ">SUBMIT</button>
+
+              </form>
+              <div class="clearBoth"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /.col-lg-12 -->
+
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+
+  {% endblock %}
+
+
+
+  {% block script %}
+  <!-- JS Scripts-->
+  <!-- jQuery Js -->
+  <script src="../../static/admin_assets/js/jquery-1.10.2.js"></script>
+
+  <!-- Bootstrap Js -->
+  <script src="../../static/admin_assets/js/bootstrap.min.js"></script>
+
+  <script src="../../static/admin_assets/materialize/js/materialize.min.js"></script>
+
+  <!-- Metis Menu Js -->
+  <script src="../../static/admin_assets/js/jquery.metisMenu.js"></script>
+  <!-- Morris Chart Js -->
+  <script src="../../static/admin_assets/js/morris/raphael-2.1.0.min.js"></script>
+  <script src="../../static/admin_assets/js/morris/morris.js"></script>
+
+
+  <script src="../../static/admin_assets/js/easypiechart.js"></script>
+  <script src="../../static/admin_assets/js/easypiechart-data.js"></script>
+
+  <script src="../../static/admin_assets/js/Lightweight-Chart/jquery.chart.js"></script>
+
+  <!-- Custom Js -->
+  <script src="../../static/admin_assets/js/custom-scripts.js"></script>
+
+  {% endblock %}

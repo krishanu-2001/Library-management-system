@@ -1,96 +1,308 @@
-{% extends 'baselibrarian.html' %} {% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Library</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<!DOCTYPE html>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/librarian/home">Home</a>
+{% block head %}
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Library</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/admin_assets/materialize/css/materialize.min.css"
+    media="screen,projection" />
+  <!-- Bootstrap Styles-->
+  <link href="../../static/admin_assets/css/bootstrap.css" rel="stylesheet" />
+  <!-- FontAwesome Styles-->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+  <!-- Morris Chart Styles-->
+  <link href="../../static/admin_assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+  <!-- Custom Styles-->
+  <link href="../../static/admin_assets/css/custom-styles.css" rel="stylesheet" />
+  <!-- Google Fonts-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="../../static/admin_assets/js/Lightweight-Chart/cssCharts.css">
+</head>
+{% endblock %}
+
+<body>
+
+  {% block nav %}
+
+  <div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse"
+          data-target=".sidebar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand waves-effect waves-dark" href="/librarian/home"><i
+            class="large material-icons">track_changes</i> <strong>Librarian</strong></a>
+        <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+      </div>
+      <ul class="nav navbar-top-links navbar-right">
+
+        <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i
+              class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
+              class="fa fa-user fa-fw"></i> <b>{{name}}</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
+    </nav>
+
+
+    <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+      <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/librarian/requests">Requests</a>
+      <li><a href="#"><i class="fa fa-cog"></i> Settings</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/books/home">Browse</a>
+      <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
       </li>
     </ul>
-    <ul class="navbar-nav ml-auto">
+    <ul id="dropdown2" class="dropdown-content w250">
       <li>
-        <i class="fa fa-user-alt fa-2x" style="color: grey"></i>
-      </li>
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          Account
-        </a>
-        <div
-          class="dropdown-menu"
-          aria-labelledby="navbarDropdown"
-          style="width: 20px"
-        >
-          <div style="padding-left: 5px">{{name}}</div>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="/librarian/logout">Logout</a>
+        <div>
+          <i class="fa fa-comment fa-fw"></i> New Comment
+          <span class="pull-right text-muted small">4 min</span>
         </div>
+        </a>
+      </li>
+      <li class="divider"></li>
+
+      <li>
+        <div>
+          <i class="fa fa-envelope fa-fw"></i> Message Sent
+          <span class="pull-right text-muted small">4 min</span>
+        </div>
+        </a>
+      </li>
+      <li class="divider"></li>
+      <li>
+        <div>
+          <i class="fa fa-tasks fa-fw"></i> New Task
+          <span class="pull-right text-muted small">4 min</span>
+        </div>
+        </a>
+      </li>
+
+      <li class="divider"></li>
+      <li>
+        <a class="text-center" href="#">
+          <strong>See All Alerts</strong>
+          <i class="fa fa-angle-right"></i>
+        </a>
       </li>
     </ul>
-  </div>
-</nav>
-{% endblock %} {% block body %}
 
-<!-- Put in hamburgar bar with aniomations -->
+    <!--/. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+      <div class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
 
-<div class="options_list">
-  {% block home %} Please choose the option from menu - <br />
-  <div class="card1">
-    1. <a href="/librarian/add_librarian" class="linkHome">add librarian</a>
-  </div>
-  <div class="card1">
-    2. <a href="/librarian/add_student" class="linkHome">add student</a>
-  </div>
-  <div class="card1">
-    3. <a href="/librarian/add_books" class="linkHome">add books</a>
-  </div>
-  <div class="card1">
-    4. <a href="/librarian/add_shelf" class="linkHome">add shelf </a>
-  </div>
-  <div class="card2">
-    <div class="row" style="width: 100%">
-      <div class="col col-sm-2 flex_center card31">Uploaded Forms</div>
-      <div class="col col-sm-5 flex_center card32">
-        <a href="/librarian/uploaded_librarian_files" class="linkHome">
-          Employee</a
-        >
+          <li>
+            <a href="/librarian/home" class="active-menu waves-effect waves-dark"><i class="fas fa-tachometer-alt"></i>
+              Dashboard</a>
+          </li>
+
+          <li>
+            <a href="/librarian/requests" class="waves-effect waves-dark"><i class="fa fa-bell"></i> Request</a>
+          </li>
+          <li>
+            <a href="/books/home" class="waves-effect waves-dark"><i class="fa fa-window-restore"></i>Book Store</a>
+          </li>
+          <!-- <li>
+            <a href="/librarian/tab" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> Tabs &
+              Panels</a>
+          </li>
+          <li>
+            <a href="/librarian/table" class="waves-effect waves-dark"><i class="fa fa-table"></i> Responsive
+              Tables</a>
+          </li> -->
+        </ul>
       </div>
-      <div class="col col-sm-5 flex_center card33">
-        <a href="/librarian/uploaded_student_files" class="linkHome">
-          Student</a
-        >
+    </nav>
+
+    {% endblock %}
+
+    {% block home %}
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+      <div class="header">
+        <h1 class="page-header">
+          Dashboard
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Dashboard</a></li>
+          <li class="active">Detail</li>
+        </ol>
       </div>
+      <div id="page-inner">
+        <div class="dashboard-cards">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image red">
+                  <i class="fa fa-user-shield" aria-hidden="true"></i>
+                </div>
+                <div class="card-stacked red">
+                  <div class="card-content">
+                    <h3><a href="/librarian/add_librarian" style="text-decoration: none; color: #fff;">Add
+                        Member</a></h3>
+                  </div>
+                  <div class="card-action">
+                    <strong>New</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image orange">
+                  <i class="fa fa-user-plus" aria-hidden="true"></i>
+                </div>
+                <div class="card-stacked orange">
+                  <div class="card-content">
+                    <h3><a href="/librarian/add_student" style="text-decoration: none; color: #fff;">Add
+                        Student</a> </h3>
+                  </div>
+                  <div class="card-action">
+                    <strong>Join</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image blue">
+                  <i class="fas fa-book-medical"></i>
+                </div>
+                <div class="card-stacked blue">
+                  <div class="card-content">
+                    <h3><a href="/librarian/add_books" style="text-decoration: none; color: #fff;">Add
+                        Book</a> </h3>
+                  </div>
+                  <div class="card-action">
+                    <strong>Items</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image green">
+                  <i class="fas fa-folder-plus"></i>
+                </div>
+                <div class="card-stacked green">
+                  <div class="card-content">
+                    <h3><a href="/librarian/add_shelf" style="text-decoration: none; color: #fff;">Add
+                        Shelf</a> </h3>
+                  </div>
+                  <div class="card-action">
+                    <strong>More</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /. ROW  -->
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-7">
+            <div class="card">
+              <div class="card-action">
+                <b>Members Details</b>
+              </div>
+              <div class="cirStats">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="card-panel text-center">
+                      <h4>Employee</h4>
+                      <div class="easypiechart" id="easypiechart-blue" data-percent="100"><span class="percent"
+                          style="top: 0 ; width: 120px;"><img src="../../static/admin_assets/img/admin1.png" alt=""
+                            </span>
+                      </div>
+                      <div>
+                        <a class="btn" href="/librarian/uploaded_librarian_files"> VIEW</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="card-panel text-center">
+                      <h4>STUDENT</h4>
+                      <div class="easypiechart" id="easypiechart-red" data-percent="100"><span class="percent"
+                          style="top: 0 ; width: 120px;"><img src="../../static/admin_assets/img/user.png" alt=""
+                            </span>
+                      </div>
+                      <div>
+                        <a class="btn" href="/librarian/uploaded_student_files"> VIEW</a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/.row-->
+          <div class="col-xs-12 col-sm-12 col-md-5">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="card">
+                  <div class="card-image donutpad">
+                    <div id="morris-donut-chart"></div>
+                  </div>
+                  <div class="card-action">
+                    <b>Form Status</b>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/.row-->
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12">
+          </div>
+        </div>
+        <!-- /. ROW  -->
+
+
+        <footer>
+          <p>All right reserved. by: <a href="https://iiti.ac.in">IIT Indore</a></p>
+        </footer>
+      </div>
+      <!-- /. PAGE INNER  -->
     </div>
+    {% endblock %}
+    <!-- /. PAGE WRAPPER  -->
   </div>
 
-  <!-- Put in hamburger above please -->
+  <!-- /. WRAPPER  -->
+  <!-- JS Scripts-->
+  <!-- jQuery Js -->
+  {% block script %}
+  <script src="../../static/admin_assets/js/jquery-1.10.2.js"></script>
+  <!-- Bootstrap Js -->
+  <script src="../../static/admin_assets/js/bootstrap.min.js"></script>
+  <script src="../../static/admin_assets/materialize/js/materialize.min.js"></script>
+  <!-- Metis Menu Js -->
+  <script src="../../static/admin_assets/js/jquery.metisMenu.js"></script>
+  <!-- Morris Chart Js -->
+  <script src="../../static/admin_assets/js/morris/raphael-2.1.0.min.js"></script>
+  <script src="../../static/admin_assets/js/morris/morris.js"></script>
+  <script src="../../static/admin_assets/js/easypiechart.js"></script>
+  <script src="../../static/admin_assets/js/easypiechart-data.js"></script>
+  <script src="../../static/admin_assets/js/Lightweight-Chart/jquery.chart.js"></script>
+  <!-- Custom Js -->
+  <script src="../../static/admin_assets/js/custom-scripts.js"></script>
 
   {% endblock %}
-</div>
-{% endblock %}
+</body>
+
+</html>
