@@ -1,0 +1,23 @@
+<head>
+  <style>
+    .rightBox{
+      display: block;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      border: 2px solid black;
+      width: 200px;
+      height: 200px;
+      background-color: white;
+    }
+  </style>
+</head>
+
+{% extends 'librarian/manage.html' %}
+{% block extra %}
+  <form class="rightBox" method="POST">
+    Do you want to add fine(Book misplaced / torn etc.)?
+    <input type="number" name="fine" value="0"/><br />
+    <input type="submit" />
+  </form>
+{% endblock %}

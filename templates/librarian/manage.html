@@ -1,0 +1,125 @@
+<head>
+  <style>
+    .tabloid {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 0px;
+      margin-bottom: 100px;
+      background-color: white;
+    }
+
+    h2 {
+      background-color: rgb(129, 90, 236);
+      width: 100%;
+      color: white;
+    }
+
+    .tabloid td,
+    .tabloid th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    .tabloid tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .tabloid tr:nth-child(odd) {
+      background-color: rgb(158, 219, 123);
+    }
+
+    .tabloid th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4caf50;
+      color: white;
+    }
+    .topBox{
+      padding: 20px;
+    }
+    button:hover{
+      box-shadow: inset 0px 0px 1px 1px ;
+    }
+  </style>
+</head>
+
+{% extends 'librarian/home.html' %} {% block home %}
+<div class="topBox"><a class="linkHome" href="/librarian/reload">
+  <button>Refresh Server <i class="fa fa-refresh"></i></button>
+</a></div>
+<table class="tabloid">
+  <tr>
+    <h2>Hold Requests</h2>
+  </tr>
+  <tr>
+    <th>User-Id</th>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Book-Id</th>
+    <th>Issue-date</th>
+    <th>Email-date</th>
+    <th>Fine</th>
+    <th>Delete</th>
+  </tr>
+  {% for rows in requests_hold_pending %}
+  <tr>
+    <td>{{rows[1]}}</td>
+    <td>{{rows[5]}}</td>
+    <td>{{rows[4]}}</td>
+    <td>{{rows[0]}}</td>
+    <td>{{rows[2]}}</td>
+    <td>{{rows[3]}}</td>
+    <td> - </td>
+    <td>
+      <a class="linkHome" href="/librarian/delete/hold/{{rows[1]~'/'~rows[0]}}"
+        ><button class="btn-danger">Delete</button></a>
+    </td>
+
+  </tr>
+  {% endfor %}
+</table>
+
+<table class="tabloid">
+  <tr>
+    <h2>Issued Books</h2>
+  </tr>
+  <tr>
+    <th>User-Id</th>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Book-Id</th>
+    <th>Issue-date</th>
+    <th>Due-date</th>
+    <th>Email-date</th>
+    <th>Fine</th>
+    <th>Delete</th>
+  </tr>
+  {% for rows in requests_issue_pending %}
+  <tr>
+    <td>{{rows[1]}}</td>
+    <td>{{rows[5]}}</td>
+    <td>{{rows[4]}}</td>
+    <td>{{rows[0]}}</td>
+    <td>{{rows[2]}}</td>
+    <td>{{rows[6]}}</td>
+    <td>{{rows[3]}}</td>
+    {% if rows[7] > 0 %}
+      <td class="error_red">{{rows[7]}}</td>
+    {% else %}
+      <td class="error_green">{{rows[7]}}</td>
+    {% endif %}
+    <td>
+      <a class="linkHome" href="/librarian/delete/issue/{{rows[1]~'/'~rows[0]}}"
+        ><button class="btn-danger">Delete</button></a>
+    </td>
+
+  </tr>
+  {% endfor %}
+</table>
+{% block extra %}
+
+{% endblock %}
+
+{% endblock %}

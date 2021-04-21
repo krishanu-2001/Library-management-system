@@ -118,19 +118,19 @@
     </td>
     {% elif rows[4][0] == 'f' and rows[3] > 10 %}
     <td>
-      <a class="linkHome" href="/librarian/accept/issue/{{user_id~'/'~isbn}}"
+      <a class="linkHome" href="/librarian/accept/issue/{{rows[4]~'/'~user_id~'/'~isbn}}"
         ><button class="btn-warning" disabled>Accept</button></a
       >
     </td>
     {% else %}
     <td>
-      <a class="linkHome" href="/librarian/accept/issue/{{user_id~'/'~isbn}}"
+      <a class="linkHome" href="/librarian/accept/issue/{{rows[4]~'/'~user_id~'/'~isbn}}"
         ><button class="btn-primary">Accept</button></a
       >
     </td>
     {% endif %}
     <td>
-      <a class="linkHome" href="/librarian/deny/issue/{{user_id~'/'~isbn}}"
+      <a class="linkHome" href="/librarian/deny/issue/{{rows[4]~'/'~user_id~'/'~isbn}}"
         ><button class="btn-danger">Deny</button></a
       >
     </td>

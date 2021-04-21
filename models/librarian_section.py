@@ -46,8 +46,29 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def sanitizeRequest(rv):
-  # rows (isbn, user_id, hold_date, hold_email_date, hold_status)
-  files = rv
+  # ('2'- 0, '3'-1, datetime.date(2021, 4, 20)-2,
+  #  datetime.date(2021, 4, 20)-3, 'faculty'-4,
+  #  'User3'-5, datetime.date(2021, 4, 30)-6
+  files = []
+  print(rv)
+  for rows in rv:
+    temp = []
+    for i in rows:
+      temp.append(i)
+    issuedt = rows[2]
+    duedt = rows[6]
+    dt = datetime.datetime.now().date()
+    fines = 0
+    delta = dt - duedt
+    x = delta.days
+    if x < 0:
+      x = 0
+    fines = x*10
+    temp.append(fines)
+    files.append(temp)
+
+  files.sort(key = lambda x: x[7], reverse=True)
+
   return files
 
 
@@ -405,7 +426,7 @@ def librarian_requests():
   ORDER BY A.hold_date DESC;
   ''')
   rv = cur.fetchall()
-  requests_hold_pending = sanitizeRequest(rv)
+  requests_hold_pending = rv
 
   cur.execute('''SELECT 
       A.isbn, A.user_id, A.issue_status, B.issued_books, A.role
@@ -427,7 +448,7 @@ def librarian_requests():
   ORDER BY A.issue_date ASC;''')
 
   rv = cur.fetchall()
-  requests_issue_pending = sanitizeRequest(rv)
+  requests_issue_pending = rv
 
 
   mysql.connection.commit()
@@ -575,16 +596,22 @@ def deny_issue(user_id, isbn):
 
   return redirect(url_for('librarian_requests', name = session['name'], lid = session['lid'], requests_hold_pending=requests_hold_pending, requests_issue_pending=requests_issue_pending))
 
-def accept_issue(user_id, isbn):
+def accept_issue(role, user_id, isbn):
   if 'lid' not in session:
     return render_template('other/not_logged_in.html')
 
   # deny logic here
   cur = mysql.connection.cursor()
   dt = datetime.datetime.now()
+  ds = 10
+  if role == 'faculty':
+    ds = 30
+  edt = dt + datetime.timedelta(days=ds)
   dt = str(dt)
   dt = dt[0:10]
-  cur.execute("UPDATE BOOKS SET user_id=user_id, issue_date='%s', issue_email_date=NULL, issue_status='issued' WHERE user_id='%s' and isbn='%s' ;"%(dt,user_id, isbn))
+  edt = str(edt)
+  edt = edt[0:10]
+  cur.execute("UPDATE BOOKS SET user_id=user_id, due_date='%s', issue_date='%s', issue_email_date=NULL, issue_status='issued', current_status='on-loan' WHERE user_id='%s' and isbn='%s' ;"%(edt, dt,user_id, isbn))
   mysql.connection.commit()
   cur.close()
 
@@ -654,11 +681,18 @@ def accept_hold(user_id, isbn):
 
   # deny logic here
   cur = mysql.connection.cursor()
-  cur = mysql.connection.cursor()
   dt = datetime.datetime.now()
+  ds = 10
   dt=str(dt)
   dt = dt[0:10]
   cur.execute("UPDATE HOLD SET hold_date='%s', hold_email_date=NULL, hold_status='ACCEPTED' WHERE user_id='%s' and isbn='%s' ;"%(dt,user_id, isbn))
+  cur.execute(''' SELECT current_status FROM books WHERE isbn = '%s';'''%(isbn))
+  rv = cur.fetchall()
+  status = rv[0][0]
+  new_status = 'on-loan-and-on-hold'
+  if status == 'on-shelf':
+     new_status = 'on-hold'
+  cur.execute(''' UPDATE books set current_status = '%s' WHERE isbn = '%s';'''%(new_status, isbn))
   mysql.connection.commit()
   cur.close()
 
@@ -721,3 +755,182 @@ def accept_hold(user_id, isbn):
   cur.close()
 
   return redirect(url_for('librarian_requests', name = session['name'], lid = session['lid'], requests_hold_pending=requests_hold_pending, requests_issue_pending=requests_issue_pending))
+
+def librarian_manage():
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  cur = mysql.connection.cursor()
+  
+  cur.execute(''' 
+  SELECT 
+      A.isbn,
+      A.user_id,
+      A.hold_date,
+      A.hold_email_date,
+	    B.role,
+      B.name
+  FROM
+	hold as A, user as B
+      WHERE
+		A.user_id = B.user_id
+	AND
+      A.hold_status = 'PENDING'
+  ORDER BY A.hold_date DESC;
+  ''')
+  rv = cur.fetchall()
+  requests_hold_pending = rv
+  cur.execute('''SELECT 
+    A.isbn, A.user_id, A.issue_date,  A.issue_email_date, B.role, B.name, A.due_date
+  FROM
+    books as A,
+    user as B
+  WHERE
+    A.user_id = B.user_id
+        AND A.issue_status = 'issued'
+  ORDER BY A.issue_date DESC;''')
+
+  rv = cur.fetchall()
+  requests_issue_pending = sanitizeRequest(rv)
+
+
+  mysql.connection.commit()
+  cur.close()
+
+  return render_template('/librarian/manage.html', name = session['name'], lid = session['lid'], requests_hold_pending=requests_hold_pending, requests_issue_pending=requests_issue_pending)
+
+def delete_return_hold(user_id, isbn):
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+  cur = mysql.connection.cursor()
+  
+  cur.execute('''DELETE FROM hold WHERE user_id='%s' and isbn='%s';'''%(user_id, isbn))
+
+  cur.execute(''' 
+  SELECT 
+      A.isbn,
+      A.user_id,
+      A.hold_date,
+      A.hold_email_date,
+	    B.role,
+      B.name
+  FROM
+	hold as A, user as B
+      WHERE
+		A.user_id = B.user_id
+	AND
+      A.hold_status = 'PENDING'
+  ORDER BY A.hold_date DESC;
+  ''')
+  rv = cur.fetchall()
+  requests_hold_pending = rv
+  cur.execute('''SELECT 
+    A.isbn, A.user_id, A.issue_date,  A.issue_email_date, B.role, B.name, A.due_date
+  FROM
+    books as A,
+    user as B
+  WHERE
+    A.user_id = B.user_id
+        AND A.issue_status = 'issued'
+  ORDER BY A.issue_date DESC;''')
+
+  rv = cur.fetchall()
+  requests_issue_pending = sanitizeRequest(rv)
+
+
+  mysql.connection.commit()
+  cur.close()
+
+  return redirect(url_for('librarian_manage', name = session['name'], lid = session['lid'], requests_hold_pending=requests_hold_pending, requests_issue_pending=requests_issue_pending))
+
+def delete_return_issue(user_id, isbn):
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  cur = mysql.connection.cursor()
+
+  cur.execute(''' 
+  SELECT 
+      A.isbn,
+      A.user_id,
+      A.hold_date,
+      A.hold_email_date,
+      B.role,
+      B.name
+  FROM
+  hold as A, user as B
+      WHERE
+    A.user_id = B.user_id
+  AND
+      A.hold_status = 'PENDING'
+  ORDER BY A.hold_date DESC;
+  ''')
+  rv = cur.fetchall()
+  requests_hold_pending = rv
+  cur.execute('''SELECT 
+    A.isbn, A.user_id, A.issue_date,  A.issue_email_date, B.role, B.name, A.due_date
+  FROM
+    books as A,
+    user as B
+  WHERE
+    A.user_id = B.user_id
+        AND A.issue_status = 'issued'
+  ORDER BY A.issue_date DESC;''')
+
+  rv = cur.fetchall()
+  requests_issue_pending = sanitizeRequest(rv)
+
+  mysql.connection.commit()
+  cur.close()
+
+  if request.method == 'POST':
+    cur = mysql.connection.cursor()
+
+    extra = request.form['fine']
+
+    extra = (int)(extra)
+
+    cur.execute('''UPDATE BOOKs SET user_id=NULL, current_status='on-shelf', 
+    issue_date=NULL, issue_email_date=NULL, issue_status=NULL 
+    WHERE user_id='%s' and isbn='%s';
+    '''%(user_id, isbn))
+
+    cur.execute("UPDATE user set unpaid_fines = unpaid_fines + %d where user_id = '%s'"%(extra, user_id))
+
+    mysql.connection.commit()
+    cur.close()
+    flash('Success Deleted Issue!')
+
+    return redirect(url_for('librarian_manage', name = session['name'], lid = session['lid'], requests_hold_pending=requests_hold_pending, requests_issue_pending=requests_issue_pending))
+
+  return render_template('/librarian/delete_fine.html', name = session['name'], lid = session['lid'], requests_hold_pending=requests_hold_pending, requests_issue_pending=requests_issue_pending)
+
+def reload():
+  cur = mysql.connection.cursor()
+  dt = datetime.datetime.now().date()
+
+  cur.execute('''UPDATE user set unpaid_fines = 0 WHERE user_id;''')
+
+  cur.execute('''Select isbn, user_id, issue_date, due_date, issue_email_date From Books WHERE user_id AND due_date AND issue_status = 'issued';''')
+  rv = cur.fetchall()
+  # user_id, issuedate, duedate, emaildate
+  for (isbn, user_id, issue_date, due_date, issue_email_date) in rv:
+    delta = dt-due_date
+    x = delta.days
+    if x < 0:
+      x = 0
+
+    cur.execute('''UPDATE user set unpaid_fines = unpaid_fines + %d WHERE user_id = '%s';'''%(x*10, user_id))
+
+    y = delta.days
+    if y > -5:
+      note = 'Please return Book!'
+      cur.execute(''' Update Books set notes = '%s' where isbn = '%s' ;'''%(note, isbn))
+
+  mysql.connection.commit()
+  cur.close()
+  flash('Success Refreshed Database!')
+  
+
+  return redirect(request.referrer)
+
