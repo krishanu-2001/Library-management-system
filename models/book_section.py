@@ -473,3 +473,42 @@ def books_hold(title, isbn):
   cur.close()
 
   return redirect(request.referrer)
+
+def add_in_reading_list(isbn):
+  if 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  if request.method == 'POST':
+    data=request.form
+    cur = mysql.connection.cursor()
+    if data['type']=='add':
+      cur.execute("INSERT IGNORE INTO reading_list_contains (list_url, isbn) VALUES ('%s', '%s')"%(data['url'], isbn))
+    mysql.connection.commit()
+    cur.close()
+    return redirect(request.referrer)
+  u_id = session['uid']
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT reading_list.name AS listname,list_url,type FROM library.reading_list WHERE user_id='%s'"% (u_id))
+  rv = cur.fetchall()
+  mylists = rv
+  return render_template('books/add_in_reading_list.html', name = session['name'], mylists= mylists)
+
+def add_in_personal_bookshelf(isbn):
+  if 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  if request.method == 'POST':
+    data=request.form
+    cur = mysql.connection.cursor()
+    if data['type']=='add':
+      cur.execute("INSERT IGNORE INTO personal_book_shelf_contains (isbn, shelf_url) VALUES ('%s', '%s')"%(isbn, data['url']))
+    mysql.connection.commit()
+    cur.close()
+    return redirect(request.referrer)
+  u_id = session['uid']
+  cur = mysql.connection.cursor()
+  cur.execute("SELECT shelf_name ,shelf_url FROM library.personal_book_shelf WHERE user_id='%s'"% (u_id))
+  rv = cur.fetchall()
+  myshelves = rv 
+  cur.close()
+  return render_template('books/add_in_personal_bookshelf.html', name = session['name'], myshelves= myshelves)

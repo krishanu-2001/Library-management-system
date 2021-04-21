@@ -1,0 +1,47 @@
+{% extends 'baseuser.html' %}
+
+
+{% block body %}
+<div class="listcontainer">
+    <h3>Select a Personal Bookshelf</h3>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="self" role="tabpanel" aria-labelledby="home-tab">
+            <table style="width: 70%;">
+                <thead>
+                    <tr>
+                        <th>
+                            S. No.
+                        </th>
+                        <th>
+                            Bookshelf Name
+                        </th>
+                        <th>
+                            Select
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(myshelves|length) %}
+                    <tr>
+                        <td>
+                            {{ i+1 }}
+                        </td>
+                        <td>
+                            {{ myshelves[i][0] }}
+                        </td>
+                        <td>
+                            <form method="POST">
+                                <input type='text' id='url' name='url' value='{{ myshelves[i][1] }}' hidden>
+                                <input type='text' id='type' name='type' value='add' hidden>
+                                <input type='submit' value='Select'>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
