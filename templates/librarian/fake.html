@@ -86,94 +86,20 @@
 
 
 <!--  -->
-{% extends 'librarian/home.html' %} {% block home %}
+{% extends 'librarian/home.html' %}
 
-<table class="tabloid">
-    <tr>
-        <h2>Hold Requests</h2>
-    </tr>
-    <tr>
-        <th>User-Id</th>
-        <th>Role</th>
-        <th>Book-Id</th>
-        <th>Request-Status</th>
-        <th>Books_Issued</th>
-        <th>Accept</th>
-        <th>Deny</th>
-    </tr>
-    {% for rows in requests_hold_pending %}
-    <tr>
-        <td>{{rows[1]}}</td>
-        <td>{{rows[6]}}</td>
-        <td>{{rows[0]}}</td>
-        <td>{{rows[4]}}</td>
-        <td>{{rows[5]}}</td>
-        {% set user_id = rows[1] %} {% set isbn = rows[0] %} {% if rows[6][0] == 's'
-        and rows[5] > 3 %}
-        <td>
-            <a class="linkHome" href="/librarian/accept/hold/{{user_id~'/'~isbn}}"><button class="btn-warning"
-                    disabled>Accept</button></a>
-        </td>
-        {% elif rows[6][0] == 'f' and rows[5] > 10 %}
-        <td>
-            <a class="linkHome" href="/librarian/accept/hold/{{user_id~'/'~isbn}}"><button class="btn-warning"
-                    disabled>Accept</button></a>
-        </td>
-        {% else %}
-        <td>
-            <a class="linkHome" href="/librarian/accept/hold/{{user_id~'/'~isbn}}"><button
-                    class="btn-primary">Accept</button></a>
-        </td>
-        {% endif %}
-        <td>
-            <a class="linkHome" href="/librarian/deny/hold/{{user_id~'/'~isbn}}"><button
-                    class="btn-danger">Deny</button></a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+{% block home %}
+<div class="heading_title">New employee form (Librarian)
+    - <a href="download_employee"><i class="fa fa-download">
+        </i></a></div>
+<div>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="text" name="id" placeholder="id" class="input_list" /> <br />
+        <input type="text" name="name" placeholder="Name" class="input_list" /> <br />
+        <input type="text" name="address" placeholder="Address (Max 200 charachters)" class="input_list" /> <br />
+        <input type="file" name="file" class="input_list">
+        <input type="submit" class="input_list" />
+    </form>
 
-<table class="tabloid">
-    <tr>
-        <h2>Issue Requests</h2>
-    </tr>
-    <tr>
-        <th>User-Id</th>
-        <th>Role</th>
-        <th>Book-Id</th>
-        <th>Request-Status</th>
-        <th>Books_Issued</th>
-        <th>Accept</th>
-        <th>Deny</th>
-    </tr>
-    {% for rows in requests_issue_pending %}
-    <tr>
-        <td>{{rows[1]}}</td>
-        <td>{{rows[4]}}</td>
-        <td>{{rows[0]}}</td>
-        <td>{{rows[2]}}</td>
-        <td>{{rows[3]}}</td>
-        {% set user_id = rows[1] %} {% set isbn = rows[0] %} {% if rows[4][0] == 's'
-        and rows[3] > 3 %}
-        <td>
-            <a class="linkHome" href="/librarian/accept/issue/{{user_id~'/'~isbn}}"><button class="btn-warning"
-                    disabled>Accept</button></a>
-        </td>
-        {% elif rows[4][0] == 'f' and rows[3] > 10 %}
-        <td>
-            <a class="linkHome" href="/librarian/accept/issue/{{user_id~'/'~isbn}}"><button class="btn-warning"
-                    disabled>Accept</button></a>
-        </td>
-        {% else %}
-        <td>
-            <a class="linkHome" href="/librarian/accept/issue/{{user_id~'/'~isbn}}"><button
-                    class="btn-primary">Accept</button></a>
-        </td>
-        {% endif %}
-        <td>
-            <a class="linkHome" href="/librarian/deny/issue/{{user_id~'/'~isbn}}"><button
-                    class="btn-danger">Deny</button></a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+</div>
+{% endblock %}
