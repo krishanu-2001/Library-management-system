@@ -6,6 +6,8 @@ import flask_excel as excel
 import pyexcel_xlsx
 import os
 from werkzeug.utils import secure_filename
+import datetime
+
 
 app = Flask(__name__)
 app.secret_key = "abc"
@@ -43,8 +45,10 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
-
+def sanitizeRequest(rv):
+  # rows (isbn, user_id, hold_date, hold_email_date, hold_status)
+  files = rv
+  return files
 
 
 
@@ -145,7 +149,7 @@ def librarian_add_librarian():
       cur = mysql.connection.cursor()
       cur.execute('''INSERT INTO librarian (librarian_id, name, address, password, notes)
              VALUES ('%s', '%s', '%s', '%s', '%s')'''% (l_id, name, address, password, filename))
-      flash('librarian added')
+      flash('Success librarian added')
       mysql.connection.commit()
       cur.close()
 
@@ -200,10 +204,25 @@ def librarian_add_student():
       cur = mysql.connection.cursor()
       cur.execute('''INSERT INTO user (user_id, name, role, address, password, unpaid_fines, notes)
              VALUES ('%s', '%s', '%s', '%s', '%s', %d, '%s')'''% (user_id, name, role, address, password, unpaid_fines, filename))
-      debug()
+      
+      shelf_name1 = "Currently_reading"
+      shelf_name2 = "Wishlist"
+      shelf_name3 = "Already_read"
+      cur.execute(''' INSERT IGNORE INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('%s', '%s', '%s'); '''%(user_id, shelf_name1, user_id+"-"+shelf_name1))
+      cur.execute(''' INSERT IGNORE INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('%s', '%s', '%s'); '''%(user_id, shelf_name2, user_id+"-"+shelf_name2))
+      cur.execute(''' INSERT IGNORE INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('%s', '%s', '%s'); '''%(user_id, shelf_name3, user_id+"-"+shelf_name3))
+      
+      list1 = "Currently_reading"
+      list2 = "Wishlist"
+      list3 = "Already_read"
+      cur.execute(''' INSERT IGNORE INTO reading_list (user_id, name, list_url, type) VALUES ('%s', '%s', '%s', '%s'); '''%(user_id, list1, user_id+"-"+list1, 'public'))
+      cur.execute(''' INSERT IGNORE INTO reading_list (user_id, name, list_url, type) VALUES ('%s', '%s', '%s', '%s'); '''%(user_id, list2, user_id+"-"+list2, 'private'))
+      cur.execute(''' INSERT IGNORE INTO reading_list (user_id, name, list_url, type) VALUES ('%s', '%s', '%s', '%s'); '''%(user_id, list3, user_id+"-"+list3, 'public'))
+      
+
       mysql.connection.commit()
       cur.close()
-      flash('student added')
+      flash('Success student/Faculty added')
       return redirect(url_for('librarian_home', name = session['name'], lid = session['lid']))
 
   return render_template('librarian/add_student.html', name = session['name'], lid = session['lid'])
@@ -343,7 +362,7 @@ def librarian_add_books():
     '''%(isbn, author, title, rating, current_status, copy_number, year, shelf_id))
     mysql.connection.commit()
     cur.close()
-    flash('Book Added!')
+    flash('Success Book Added!')
     return redirect(url_for('librarian_home', name = session['name'], lid = session['lid']))
 
   return render_template('/librarian/add_books.html', name = session['name'], lid = session['lid'])
@@ -367,7 +386,357 @@ def librarian_add_shelf():
     '''%(shelf_id,  capacity))
     mysql.connection.commit()
     cur.close()
-    flash('shelf added')
+    flash('Success shelf added')
     return redirect(url_for('librarian_home', name = session['name'], lid = session['lid']))
 
   return render_template('/librarian/add_shelf.html', name = session['name'], lid = session['lid'])
+
+def librarian_requests():
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  cur = mysql.connection.cursor()
+  
+  cur.execute(''' 
+  SELECT 
+      A.isbn,
+      A.user_id,
+      A.hold_date,
+      A.hold_email_date,
+      A.hold_status,
+      B.issued_books,
+      A.role
+  FROM
+      (SELECT 
+          isbn, hold.user_id, hold_date, hold_email_date, hold_status, role
+      FROM
+          hold, user
+      WHERE
+          hold.user_id = user.user_id) AS A
+          LEFT JOIN
+      (SELECT 
+          books.user_id, COUNT(*) AS issued_books
+      FROM
+          books
+      GROUP BY books.user_id) AS B ON A.user_id = B.user_id
+  WHERE
+      A.hold_status = 'PENDING'
+  ORDER BY A.hold_date DESC;
+  ''')
+  rv = cur.fetchall()
+  requests_hold_pending = sanitizeRequest(rv)
+
+  cur.execute('''SELECT 
+      A.isbn, A.user_id, A.issue_status, B.issued_books, A.role
+  FROM
+      (SELECT 
+          books.isbn, books.user_id, books.issue_status, books.issue_date, user.role
+      FROM
+          books, user
+      WHERE
+          books.user_id = user.user_id) AS A
+          LEFT JOIN
+      (SELECT 
+          user_id, COUNT(*) AS issued_books
+      FROM
+          books
+      GROUP BY user_id) AS B ON A.user_id = B.user_id
+  WHERE
+      A.issue_status = 'request'
+  ORDER BY A.issue_date ASC;''')
+
+  rv = cur.fetchall()
+  requests_issue_pending = sanitizeRequest(rv)
+
+
+  mysql.connection.commit()
+  cur.close()
+
+  return render_template('/librarian/all_requests.html', name = session['name'], lid = session['lid'], requests_hold_pending=requests_hold_pending, requests_issue_pending=requests_issue_pending)
+
+def deny_hold(user_id, isbn):
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  # deny logic here
+  cur = mysql.connection.cursor()
+  cur.execute("DELETE FROM HOLD WHERE user_id='%s' and isbn='%s' ;"%(user_id, isbn))
+  mysql.connection.commit()
+  cur.close()
+
+  flash('Success Deny Hold')
+  cur = mysql.connection.cursor()
+  
+  cur.execute(''' 
+  SELECT 
+      A.isbn,
+      A.user_id,
+      A.hold_date,
+      A.hold_email_date,
+      A.hold_status,
+      B.issued_books,
+      A.role
+  FROM
+      (SELECT 
+          isbn, hold.user_id, hold_date, hold_email_date, hold_status, role
+      FROM
+          hold, user
+      WHERE
+          hold.user_id = user.user_id) AS A
+          LEFT JOIN
+      (SELECT 
+          books.user_id, COUNT(*) AS issued_books
+      FROM
+          books
+      GROUP BY books.user_id) AS B ON A.user_id = B.user_id
+  WHERE
+      A.hold_status = 'PENDING'
+  ORDER BY A.hold_date DESC;
+  ''')
+  rv = cur.fetchall()
+  requests_hold_pending = sanitizeRequest(rv)
+
+  cur.execute('''SELECT 
+      A.isbn, A.user_id, A.issue_status, B.issued_books, A.role
+  FROM
+      (SELECT 
+          books.isbn, books.user_id, books.issue_status, books.issue_date, user.role
+      FROM
+          books, user
+      WHERE
+          books.user_id = user.user_id) AS A
+          LEFT JOIN
+      (SELECT 
+          user_id, COUNT(*) AS issued_books
+      FROM
+          books
+      GROUP BY user_id) AS B ON A.user_id = B.user_id
+  WHERE
+      A.issue_status = 'request'
+  ORDER BY A.issue_date ASC;''')
+
+  rv = cur.fetchall()
+  requests_issue_pending = sanitizeRequest(rv)
+
+
+  mysql.connection.commit()
+  cur.close()
+
+  return redirect(url_for('librarian_requests', name = session['name'], lid = session['lid'], requests_hold_pending=requests_hold_pending, requests_issue_pending=requests_issue_pending))
+
+def deny_issue(user_id, isbn):
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  # deny logic here
+  cur = mysql.connection.cursor()
+  cur.execute("UPDATE BOOKs SET user_id=NULL, issue_date=NULL, issue_email_date=NULL, issue_status=NULL WHERE user_id='%s' and isbn='%s' ;"%(user_id, isbn))
+  mysql.connection.commit()
+  cur.close()
+
+  flash('Success Deny Issue')
+  cur = mysql.connection.cursor()
+  
+  cur.execute(''' 
+  SELECT 
+      A.isbn,
+      A.user_id,
+      A.hold_date,
+      A.hold_email_date,
+      A.hold_status,
+      B.issued_books,
+      A.role
+  FROM
+      (SELECT 
+          isbn, hold.user_id, hold_date, hold_email_date, hold_status, role
+      FROM
+          hold, user
+      WHERE
+          hold.user_id = user.user_id) AS A
+          LEFT JOIN
+      (SELECT 
+          books.user_id, COUNT(*) AS issued_books
+      FROM
+          books
+      GROUP BY books.user_id) AS B ON A.user_id = B.user_id
+  WHERE
+      A.hold_status = 'PENDING'
+  ORDER BY A.hold_date DESC;
+  ''')
+  rv = cur.fetchall()
+  requests_hold_pending = sanitizeRequest(rv)
+
+  cur.execute('''SELECT 
+      A.isbn, A.user_id, A.issue_status, B.issued_books, A.role
+  FROM
+      (SELECT 
+          books.isbn, books.user_id, books.issue_status, books.issue_date, user.role
+      FROM
+          books, user
+      WHERE
+          books.user_id = user.user_id) AS A
+          LEFT JOIN
+      (SELECT 
+          user_id, COUNT(*) AS issued_books
+      FROM
+          books
+      GROUP BY user_id) AS B ON A.user_id = B.user_id
+  WHERE
+      A.issue_status = 'request'
+  ORDER BY A.issue_date ASC;''')
+
+  rv = cur.fetchall()
+  requests_issue_pending = sanitizeRequest(rv)
+
+
+  mysql.connection.commit()
+  cur.close()
+
+  return redirect(url_for('librarian_requests', name = session['name'], lid = session['lid'], requests_hold_pending=requests_hold_pending, requests_issue_pending=requests_issue_pending))
+
+def accept_issue(user_id, isbn):
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  # deny logic here
+  cur = mysql.connection.cursor()
+  dt = datetime.datetime.now()
+  dt = str(dt)
+  dt = dt[0:10]
+  cur.execute("UPDATE BOOKS SET user_id=user_id, issue_date='%s', issue_email_date=NULL, issue_status='issued' WHERE user_id='%s' and isbn='%s' ;"%(dt,user_id, isbn))
+  mysql.connection.commit()
+  cur.close()
+
+  flash('Success Issued Book!')
+  cur = mysql.connection.cursor()
+  
+  cur.execute(''' 
+  SELECT 
+      A.isbn,
+      A.user_id,
+      A.hold_date,
+      A.hold_email_date,
+      A.hold_status,
+      B.issued_books,
+      A.role
+  FROM
+      (SELECT 
+          isbn, hold.user_id, hold_date, hold_email_date, hold_status, role
+      FROM
+          hold, user
+      WHERE
+          hold.user_id = user.user_id) AS A
+          LEFT JOIN
+      (SELECT 
+          books.user_id, COUNT(*) AS issued_books
+      FROM
+          books
+      GROUP BY books.user_id) AS B ON A.user_id = B.user_id
+  WHERE
+      A.hold_status = 'PENDING'
+  ORDER BY A.hold_date DESC;
+  ''')
+  rv = cur.fetchall()
+  requests_hold_pending = sanitizeRequest(rv)
+
+  cur.execute('''SELECT 
+      A.isbn, A.user_id, A.issue_status, B.issued_books, A.role
+  FROM
+      (SELECT 
+          books.isbn, books.user_id, books.issue_status, books.issue_date, user.role
+      FROM
+          books, user
+      WHERE
+          books.user_id = user.user_id) AS A
+          LEFT JOIN
+      (SELECT 
+          user_id, COUNT(*) AS issued_books
+      FROM
+          books
+      GROUP BY user_id) AS B ON A.user_id = B.user_id
+  WHERE
+      A.issue_status = 'request'
+  ORDER BY A.issue_date ASC;''')
+
+  rv = cur.fetchall()
+  requests_issue_pending = sanitizeRequest(rv)
+
+
+  mysql.connection.commit()
+  cur.close()
+
+  return redirect(url_for('librarian_requests', name = session['name'], lid = session['lid'], requests_hold_pending=requests_hold_pending, requests_issue_pending=requests_issue_pending))
+
+def accept_hold(user_id, isbn):
+  if 'lid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  # deny logic here
+  cur = mysql.connection.cursor()
+  cur = mysql.connection.cursor()
+  dt = datetime.datetime.now()
+  dt=str(dt)
+  dt = dt[0:10]
+  cur.execute("UPDATE HOLD SET hold_date='%s', hold_email_date=NULL, hold_status='ACCEPTED' WHERE user_id='%s' and isbn='%s' ;"%(dt,user_id, isbn))
+  mysql.connection.commit()
+  cur.close()
+
+  flash('Success Accepted Hold!')
+  cur = mysql.connection.cursor()
+  
+  cur.execute(''' 
+  SELECT 
+      A.isbn,
+      A.user_id,
+      A.hold_date,
+      A.hold_email_date,
+      A.hold_status,
+      B.issued_books,
+      A.role
+  FROM
+      (SELECT 
+          isbn, hold.user_id, hold_date, hold_email_date, hold_status, role
+      FROM
+          hold, user
+      WHERE
+          hold.user_id = user.user_id) AS A
+          LEFT JOIN
+      (SELECT 
+          books.user_id, COUNT(*) AS issued_books
+      FROM
+          books
+      GROUP BY books.user_id) AS B ON A.user_id = B.user_id
+  WHERE
+      A.hold_status = 'PENDING'
+  ORDER BY A.hold_date DESC;
+  ''')
+  rv = cur.fetchall()
+  requests_hold_pending = sanitizeRequest(rv)
+
+  cur.execute('''SELECT 
+      A.isbn, A.user_id, A.issue_status, B.issued_books, A.role
+  FROM
+      (SELECT 
+          books.isbn, books.user_id, books.issue_status, books.issue_date, user.role
+      FROM
+          books, user
+      WHERE
+          books.user_id = user.user_id) AS A
+          LEFT JOIN
+      (SELECT 
+          user_id, COUNT(*) AS issued_books
+      FROM
+          books
+      GROUP BY user_id) AS B ON A.user_id = B.user_id
+  WHERE
+      A.issue_status = 'request'
+  ORDER BY A.issue_date ASC;''')
+
+  rv = cur.fetchall()
+  requests_issue_pending = sanitizeRequest(rv)
+
+
+  mysql.connection.commit()
+  cur.close()
+
+  return redirect(url_for('librarian_requests', name = session['name'], lid = session['lid'], requests_hold_pending=requests_hold_pending, requests_issue_pending=requests_issue_pending))

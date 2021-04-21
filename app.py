@@ -55,6 +55,11 @@ app.add_url_rule('/librarian/delete/student_forms/<sid>', view_func=librarian_se
 app.add_url_rule('/librarian/delete/librarian_forms/<lid>', view_func=librarian_section.delete_librarian_forms, methods=['GET','POST'])
 app.add_url_rule('/librarian/add_books', view_func=librarian_section.librarian_add_books, methods=['GET','POST'])
 app.add_url_rule('/librarian/add_shelf', view_func=librarian_section.librarian_add_shelf, methods=['GET','POST'])
+app.add_url_rule('/librarian/deny/hold/<user_id>/<isbn>', view_func=librarian_section.deny_hold, methods=['GET'])
+app.add_url_rule('/librarian/deny/issue/<user_id>/<isbn>', view_func=librarian_section.deny_issue, methods=['GET'])
+app.add_url_rule('/librarian/accept/hold/<user_id>/<isbn>', view_func=librarian_section.accept_hold, methods=['GET'])
+app.add_url_rule('/librarian/accept/issue/<user_id>/<isbn>', view_func=librarian_section.accept_issue, methods=['GET'])
+app.add_url_rule('/librarian/requests', view_func=librarian_section.librarian_requests, methods=['GET','POST'])
 
 # books
 app.add_url_rule('/books/home', view_func=book_section.books_home, methods=['GET','POST'])
