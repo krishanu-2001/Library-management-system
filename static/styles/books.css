@@ -1,6 +1,46 @@
+.alert{
+  min-width: 0px;
+  min-height: 0px;
+  margin: 0;
+  padding: 0;
+}
+
+.buttons_blue{
+  cursor: pointer;
+  background-color: rgb(86, 163, 214);
+  border-radius: 2px;
+  border: 1px gray solid;
+  width: auto;
+  margin: 2px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  margin-left: 0px;
+  padding: 0px;
+  box-shadow: black 1px 1px 1px 1px;
+}
+
+.buttons_blue:hover{
+  background-color: rgb(15, 119, 189);
+}
+
 .flex-shelf{
   display: flex;
   flex-direction: row;
+}
+
+
+.fullBox{
+  width: 92%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: none;
+  border: none;
+  outline: none;
+}
+
+.fullBox:focus{
+  outline: none;
 }
 
 .image1{
@@ -16,9 +56,22 @@
   opacity: 0.5;
 }
 
-
 .image-box{
   height: 500px;
+}
+
+.left-panel{
+  position: absolute;
+  top: 750px;
+  right: 0px;
+  background-color: #fff;
+  box-shadow: #888 1px 1px 1px 1px;
+  margin: 0;
+  padding: 10px;
+  border: #555 2px solid;
+  border-top-left-radius: 10px;
+  height: 100%;
+  width: 300px;
 }
 
 .library-shelf{
@@ -26,9 +79,145 @@
   flex-direction: row;
   width: 100%;
   overflow-x: scroll;
-  min-height: 500px;
+  overflow-y: hidden;
+  height: 500px;
   background-color: aliceblue;
 }
+
+.linkHome{
+  color: black;
+  margin-left: 2px;
+}
+
+.linkHome:hover{
+  color: black;
+  text-decoration: none;
+}
+
+.moveBoxA{
+  display: none;
+}
+
+.moveBox{
+  display: flex;
+  position: relative;
+  left: -140px;
+  width: 150px;
+  min-height: 100px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: grey 1px 1px 1px 0px ;
+  border: 2px grey solid;
+  border-top-left-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.moveTextA{
+}
+
+.moveText{
+  position: relative; 
+  left: -50px;
+}
+
+.noneClass{
+  opacity: 0;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  bottom: 50%;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 200;
+  text-decoration: none;
+}
+
+.noneClass:hover{
+  opacity: 1;
+}
+
+.optionsMenu{
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 300px;
+  color: #f1f2f3;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.optionsMenu2{
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 300px;
+  color: black;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+}
+
+.optionsMenu:hover{
+  background-color: rgb(46, 43, 43, 0.7);
+}
+
+.searchBox{
+  display: flex;
+  margin: 10px;
+  margin-left: 15%;
+  margin-right: 15%;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 3px white solid;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchBox:hover{
+  border: green 3px solid;
+}
+.searchBox:active{
+  border: green 3px solid;
+}
+.searchBox:focus-within{
+  border: green 3px solid;
+}
+
+.searchIcon{
+  position: relative;
+  top: 0px;
+}
+
+
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 300px;
+  height: inherit; 
+}
+
+#slide {
+  position: absolute;
+  left: +300px;
+  width: 300px;
+  height: 100%;
+  transition: 1s;
+  background-color: rgb(46, 43, 43,0.5);
+}
+
+.wrapper:hover #slide {
+  transition: 0.5s;
+  left: 0;
+}
+
+
+.searchIcon:hover{
+  color: green;
+}
+
+
 
 /* width */
 .example::-webkit-scrollbar {

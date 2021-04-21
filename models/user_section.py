@@ -39,19 +39,23 @@ def user_login():
     u_id = user_details['uid']
     password = user_details['password']
     cur = mysql.connection.cursor()
-    cur.execute("SELECT COUNT(*), password, name FROM user WHERE user_id = '%s' "% (u_id))
+    cur.execute("SELECT COUNT(*), password, name, role FROM user WHERE user_id = '%s' "% (u_id))
     rv = cur.fetchall()
     flag = (rv[0][0])
     curpassword = (rv[0][1])
     name = (rv[0][2])
+    role = (rv[0][3])
     print(rv)
     debug()
     mysql.connection.commit()
     cur.close()
     # access logic
     if (flag >= 1 and password == curpassword):
+      if 'lid' in session:
+        session.pop('lid')
       session['uid'] = u_id
       session['name'] = name
+      session['role'] = role
       return redirect(url_for('user_home'))
     else:
       return render_template('user/login.html', flag = 0)

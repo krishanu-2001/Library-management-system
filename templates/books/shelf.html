@@ -13,20 +13,33 @@
 
     div.gallery img {
       width: 100%;
-      height: auto;
+      height: 300px;
     }
 
     div.desc {
       padding: 15px;
       text-align: center;
+      height: 200px;
     }
   </style>
 </head>
 
-{% extends 'books/home.html' %} {% block section %} {% for title in files %}
+{% extends 'books/home.html' %}
+
+{% block section %}
+{% set category = 'Category-' ~ range(1, 5) | random%}
+<span class="heading_bar1">
+{{category}}</span>
+<br />
+
+<a id="newStart"></a>
+
+{% for title in files %}
+
 <table>
   <tr>
-    {% set filename = 'images/book' ~ range(1, 5) | random ~ '.png' %}
+
+    {% set filename = 'images/book' ~ (files[title][0][6]|int % 5 + 1) ~ '.png' %}
     <div class="gallery">
       <a target="_blank" href="{{url_for('static', filename= filename)}}">
         <img
@@ -35,10 +48,11 @@
           style="width: 180px; height: 250px"
         />
       </a>
+      <a href="/books/view-side/{{ shelf_id~'/'~title~'#newStart' }}" class="linkHome">
       <div class="desc">
-        {% if files[title][0][4][0] == 'A' %}
+        {% if files[title][0][4][3] == 's' %}
         <div class="error_green">{{files[title][0][4]}}</div>
-        {% elif files[title][0][4][0] == 'H' %}
+        {% elif files[title][0][4][3] == 'h' %}
         <div class="error_yellow">{{files[title][0][4]}}</div>
         {% else %}
         <div class="error_red">{{files[title][0][4]}}</div>
@@ -58,7 +72,20 @@
 
         <h6>{{files[title][0][6]}}</h6>
       </div>
+      </a>
     </div>
   </tr>
 </table>
-{% endfor %} {% endblock %}
+
+{% endfor %}
+
+
+
+{% block viewSingle %}
+
+{% endblock %}
+
+
+
+
+{% endblock %}
