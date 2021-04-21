@@ -66,6 +66,8 @@ app.add_url_rule('/user/login', view_func=user_section.user_login, methods=['GET
 app.add_url_rule('/user/home', view_func=user_section.user_home, methods=['GET','POST'])
 app.add_url_rule('/user/search', view_func=user_section.browse, methods=['GET','POST'])
 app.add_url_rule('/user/lists', view_func=user_section.reading_lists, methods=['GET','POST'])
+app.add_url_rule('/user/friends', view_func=user_section.friends, methods=['GET','POST'])
+app.add_url_rule('/user/friends/add', view_func=user_section.add_friend, methods=['GET','POST'])
 
 if __name__ == '__main__':
     flag = 0

@@ -87,6 +87,7 @@ CREATE TABLE reading_list (
     user_id VARCHAR(100) NOT NULL,
     name VARCHAR(100),
     list_url VARCHAR(100) NOT NULL,
+    type VARCHAR(45) NOT NULL,
     PRIMARY KEY (isbn, user_id),
     FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(user_id)
@@ -148,6 +149,7 @@ CREATE TABLE rate (
 CREATE TABLE friend (
 	user_id VARCHAR(100) NOT NULL,
     friend_id VARCHAR(100) NOT NULL,
+    status VARCHAR(45) NOT NULL,
     PRIMARY KEY (friend_id, user_id),
     FOREIGN KEY (friend_id) REFERENCES user(user_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id)

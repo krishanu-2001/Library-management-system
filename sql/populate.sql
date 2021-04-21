@@ -76,11 +76,11 @@ INSERT INTO favourite (genre_id, user_id) VALUES ('1', '4');
 INSERT INTO favourite (genre_id, user_id) VALUES ('2', '5');
 INSERT INTO favourite (genre_id, user_id) VALUES ('3', '6');
 
-INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('1', '1', 'list1', 'abcd');
-INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('2', '1', 'list1', 'abcd');
-INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('3', '1', 'list2', 'ijkl');
-INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('4', '2', 'list3', 'mnop');
-INSERT INTO reading_list (isbn, user_id, name, list_url) VALUES ('5', '3', 'list4', 'qrst');
+INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('1', '1', 'list1', 'abcd','public');
+INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('2', '1', 'list1', 'abcd','public');
+INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('3', '1', 'list2', 'ijkl','private');
+INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('4', '2', 'list3', 'mnop','public');
+INSERT INTO reading_list (isbn, user_id, name, list_url, type) VALUES ('5', '3', 'list4', 'qrst','private');
 
 INSERT INTO personal_book_shelf (isbn, user_id, shelf_name, shelf_url) VALUES ('1', '1', 'shelf1','abcd');
 INSERT INTO personal_book_shelf (isbn, user_id, shelf_name, shelf_url) VALUES ('2', '1', 'shelf1','abcd');
@@ -108,20 +108,19 @@ INSERT INTO rate (isbn, user_id, rating, review) VALUES ('2', '1', 1.00, ' lates
 INSERT INTO rate (isbn, user_id, rating, review) VALUES ('3', '2', 4.50, 'Best book for facts and GK!');
 INSERT INTO rate (isbn, user_id, rating, review) VALUES ('4', '3', 5.00, 'Must read for 2nd year students!');
 
-INSERT INTO friend (user_id, friend_id) VALUES ('1', '2');
-INSERT INTO friend (user_id, friend_id) VALUES ('1', '3');
-INSERT INTO friend (user_id, friend_id) VALUES ('1', '4');
-INSERT INTO friend (user_id, friend_id) VALUES ('1', '5');
-INSERT INTO friend (user_id, friend_id) VALUES ('2', '4');
-INSERT INTO friend (user_id, friend_id) VALUES ('2', '6');
-INSERT INTO friend (user_id, friend_id) VALUES ('3', '5');
+INSERT INTO friend (user_id, friend_id, status) VALUES ('1', '2', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('1', '4', 0);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('1', '5', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('2', '4', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('2', '6', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('3', '5', 1);
 ## reverse
-INSERT INTO friend (user_id, friend_id) VALUES ('2', '1');
-INSERT INTO friend (user_id, friend_id) VALUES ('3', '1');
-INSERT INTO friend (user_id, friend_id) VALUES ('5', '1');
-INSERT INTO friend (user_id, friend_id) VALUES ('4', '2');
-INSERT INTO friend (user_id, friend_id) VALUES ('6', '2');
-INSERT INTO friend (user_id, friend_id) VALUES ('5', '3');
+INSERT INTO friend (user_id, friend_id, status) VALUES ('2', '1', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('3', '1', 0);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('5', '1', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('4', '2', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('6', '2', 1);
+INSERT INTO friend (user_id, friend_id, status) VALUES ('5', '3', 1);
 
 -- select * from librarian;
 -- select * from user;
