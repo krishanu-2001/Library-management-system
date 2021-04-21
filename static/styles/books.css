@@ -1,11 +1,11 @@
-.alert{
+.alert {
   min-width: 0px;
   min-height: 0px;
   margin: 0;
   padding: 0;
 }
 
-.buttons_blue{
+.buttons_blue {
   cursor: pointer;
   background-color: rgb(86, 163, 214);
   border-radius: 2px;
@@ -20,17 +20,16 @@
   box-shadow: black 1px 1px 1px 1px;
 }
 
-.buttons_blue:hover{
+.buttons_blue:hover {
   background-color: rgb(15, 119, 189);
 }
 
-.flex-shelf{
+.flex-shelf {
   display: flex;
   flex-direction: row;
 }
 
-
-.fullBox{
+.fullBox {
   width: 92%;
   padding: 10px;
   border-radius: 10px;
@@ -39,28 +38,28 @@
   outline: none;
 }
 
-.fullBox:focus{
+.fullBox:focus {
   outline: none;
 }
 
-.image1{
+.image1 {
   background-color: rgb(14, 13, 13);
   padding-left: 0px;
   padding-right: 0px;
 }
 
-.image1:hover{
+.image1:hover {
   background-color: rgb(14, 13, 13);
   padding-left: 0px;
   padding-right: 0px;
   opacity: 0.5;
 }
 
-.image-box{
+.image-box {
   height: 500px;
 }
 
-.left-panel{
+.left-panel {
   position: absolute;
   top: 750px;
   right: 0px;
@@ -74,7 +73,7 @@
   width: 300px;
 }
 
-.library-shelf{
+.library-shelf {
   display: block;
   flex-direction: row;
   width: 100%;
@@ -84,28 +83,28 @@
   background-color: aliceblue;
 }
 
-.linkHome{
+.linkHome {
   color: black;
   margin-left: 2px;
 }
 
-.linkHome:hover{
+.linkHome:hover {
   color: black;
   text-decoration: none;
 }
 
-.moveBoxA{
+.moveBoxA {
   display: none;
 }
 
-.moveBox{
+.moveBox {
   display: flex;
   position: relative;
   left: -140px;
   width: 150px;
   min-height: 100px;
   background-color: rgb(255, 255, 255);
-  box-shadow: grey 1px 1px 1px 0px ;
+  box-shadow: grey 1px 1px 1px 0px;
   border: 2px grey solid;
   border-top-left-radius: 10px;
   justify-content: center;
@@ -113,15 +112,12 @@
   flex-direction: column;
 }
 
-.moveTextA{
-}
-
-.moveText{
-  position: relative; 
+.moveText {
+  position: relative;
   left: -50px;
 }
 
-.noneClass{
+.noneClass {
   opacity: 0;
   text-align: center;
   width: 100%;
@@ -134,13 +130,24 @@
   text-decoration: none;
 }
 
-.noneClass:hover{
+.noneClass:hover {
   opacity: 1;
 }
 
-.optionsMenu{
+.optionsMenu {
   cursor: pointer;
   font-size: 25px;
+  font-weight: 300px;
+  color: #f1f2f3;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.optionsMenu1{
+  cursor: pointer;
+  font-size: 15px;
   font-weight: 300px;
   color: #f1f2f3;
   width: 100%;
@@ -159,11 +166,16 @@
   padding: 10px;
 }
 
-.optionsMenu:hover{
+.optionsMenu:hover {
+  background-color: rgb(46, 43, 43, 0.7);
+}
+.optionsMenu1:hover{
   background-color: rgb(46, 43, 43, 0.7);
 }
 
-.searchBox{
+
+
+.searchBox {
   display: flex;
   margin: 10px;
   margin-left: 15%;
@@ -175,27 +187,26 @@
   justify-content: center;
 }
 
-.searchBox:hover{
+.searchBox:hover {
   border: green 3px solid;
 }
-.searchBox:active{
+.searchBox:active {
   border: green 3px solid;
 }
-.searchBox:focus-within{
+.searchBox:focus-within {
   border: green 3px solid;
 }
 
-.searchIcon{
+.searchIcon {
   position: relative;
   top: 0px;
 }
-
 
 .wrapper {
   position: relative;
   overflow: hidden;
   width: 300px;
-  height: inherit; 
+  height: inherit;
 }
 
 #slide {
@@ -204,7 +215,7 @@
   width: 300px;
   height: 100%;
   transition: 1s;
-  background-color: rgb(46, 43, 43,0.5);
+  background-color: rgb(46, 43, 43, 0.5);
 }
 
 .wrapper:hover #slide {
@@ -212,12 +223,9 @@
   left: 0;
 }
 
-
-.searchIcon:hover{
+.searchIcon:hover {
   color: green;
 }
-
-
 
 /* width */
 .example::-webkit-scrollbar {
@@ -226,15 +234,15 @@
 
 /* Track */
 .example::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
+
 /* Handle */
 .example::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888;
 }
 
 /* Handle on hover */
 .example::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #555;
 }

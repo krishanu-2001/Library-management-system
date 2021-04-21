@@ -414,10 +414,13 @@ def books_issue(title, isbn):
   rv = cur.fetchall()
   issued_books = (int)(rv[0][0])
 
+  cur.execute(''' SELECT unpaid_fines FROM user WHERE user_id='%s' ;'''%(user_id))
+  rv = cur.fetchall()
+  unpaid_fines = (int)(rv[0][0])
   limit = 3
   if role == 'faculty':
     limit = 10
-  if issued_books < limit:
+  if issued_books < limit and unpaid_fines < 1000:
     cur.execute(''' SELECT current_status FROM books WHERE isbn='%s' ;'''%(isbn))
     rv = cur.fetchall()
     status = (rv[0][0])
@@ -426,6 +429,8 @@ def books_issue(title, isbn):
       cur.execute(''' UPDATE books SET user_id='%s', issue_date='%s', issue_status='request' WHERE isbn='%s';'''%(user_id, dt, isbn))
     else:
       flash('Book already issued!')
+  elif unpaid_fines > 1000:
+      flash('Please pay fine!')
   else:
     flash('Books limit exceeded!')
 
@@ -453,11 +458,13 @@ def books_hold(title, isbn):
   cur.execute(''' SELECT count(*) FROM books WHERE user_id='%s' ;'''%(user_id))
   rv = cur.fetchall()
   issued_books = (int)(rv[0][0])
-
+  cur.execute(''' SELECT unpaid_fines FROM user WHERE user_id='%s' ;'''%(user_id))
+  rv = cur.fetchall()
+  unpaid_fines = (int)(rv[0][0])
   limit = 3
   if role == 'faculty':
     limit = 10
-  if issued_books < limit:
+  if issued_books < limit and unpaid_fines < 1000:
     cur.execute(''' SELECT current_status FROM books WHERE isbn='%s' ;'''%(isbn))
     rv = cur.fetchall()
     status = (rv[0][0])
@@ -466,6 +473,8 @@ def books_hold(title, isbn):
       cur.execute(''' INSERT IGNORE INTO HOLD (user_id, isbn, hold_date) VALUES ('%s', '%s', '%s'); '''%(user_id, isbn, dt))
     else:
       flash('Book already on hold!')
+  elif unpaid_fines > 1000:
+      flash('Please pay fine!')
   else:
     flash('Books limit exceeded!')
 

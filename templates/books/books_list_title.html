@@ -96,12 +96,17 @@
             <a class="linkHome" href="/books/modify/{{item[0]}}"><div class="optionsMenu">Modify</div></a>
             {% else %}
             <a href="/books/issue/{{title~'/'~item[0]}}" class="linkHome">
-              <div class="optionsMenu">Issue</div>
+              <div class="optionsMenu1">Issue</div>
             </a>
             <a href="/books/hold/{{title~'/'~item[0]}}" class="linkHome">
-              <div class="optionsMenu">Hold</div>
+              <div class="optionsMenu1">Hold</div>
             </a>
-              <div class="optionsMenu">Add To Reading List</div>
+            <a href="/books/addinreadinglist/{{item[0]}}" class="linkHome">
+              <div class="optionsMenu1">Add To Reading List</div>
+            </a>
+            <a href="/books/addinpersonalbookshelf/{{item[0]}}" class="linkHome">
+              <div class="optionsMenu1">Add To Personal Shelf</div>
+            </a>
             {% endif %}
         </div>
       </div>
