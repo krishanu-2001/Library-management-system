@@ -120,6 +120,8 @@ INSERT INTO friend (user_id, friend_id, status) VALUES ('5', '3', 1);
 INSERT INTO reading_list_contains (list_url, isbn) VALUES ('abcd', '1');
 INSERT INTO reading_list_contains (list_url, isbn) VALUES ('abcd', '2');
 INSERT INTO reading_list_contains (list_url, isbn) VALUES ('abcd', '12');
+INSERT INTO reading_list_contains (list_url, isbn) VALUES ('ijkl', '15');
+INSERT INTO reading_list_contains (list_url, isbn) VALUES ('qrst', '5');
 INSERT INTO reading_list_contains (list_url, isbn) VALUES ('mnop', '1');
 INSERT INTO reading_list_contains (list_url, isbn) VALUES ('mnop', '2');
 INSERT INTO reading_list_contains (list_url, isbn) VALUES ('mnop', '3');
