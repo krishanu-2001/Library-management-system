@@ -1,0 +1,21 @@
+<head>
+  <style>
+    .rightBox{
+      display: block;
+      position: fixed;
+      top: 100;
+      left: 100;
+      border: 2px solid black;
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+
+{% block extra %}
+  <form class="rightBox" method="POST">
+    Do you want to add fine(Book misplaced / torn etc.)?
+    <input type="number" name="fine" value="0"/><br />
+    <input type="submit" />
+  </form>
+{% endblock %}

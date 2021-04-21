@@ -1,0 +1,61 @@
+{% extends 'baseuser.html' %}
+
+
+{% block body %}
+<div class="listcontainer">
+    <h3>Reading Lists</h3>
+    <h6>List Name - {{listdetail[0]}}</h6>
+    <h6>Type - {{listdetail[1]}}</h6>
+    <br>
+    <h3>Books</h3>
+    <p>You can add more books in your lists by browsing.</p>
+    <table style="width: 70%; margin-top: 10px;">
+        <thead>
+            <tr>
+                <th>
+                    S. No.
+                </th>
+                <th>
+                    ISBN
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Author
+                </th>
+                <th>
+                    Rating
+                </th>
+                <th>
+                    Year of publication
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(listbooks|length) %}
+            <tr>
+                <td>
+                    {{ i+1 }}
+                </td>
+                <td>
+                   {{ listbooks[i][0] }}
+                </td>
+                <td>
+                    {{ listbooks[i][1] }}
+                </td>
+                <td>
+                    {{ listbooks[i][2] }}
+                </td>
+                <td>
+                    {{ listbooks[i][3] }}
+                </td>
+                <td>
+                    {{ listbooks[i][4] }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
