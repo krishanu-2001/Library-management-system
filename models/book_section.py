@@ -6,6 +6,7 @@ import flask_excel as excel
 import pyexcel_xlsx
 import os
 from werkzeug.utils import secure_filename
+import datetime  
 
 app = Flask(__name__)
 app.secret_key = "abc"
@@ -176,7 +177,7 @@ def view_side_search(search, title):
   
   files = sanitize(rv)
 
-  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title = '%s' AND shelf_id='%s'; "% (title, shelf_id))
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title = '%s'; "% (title))
   rv = cur.fetchall()
 
   extra = sanitize(rv)
@@ -382,11 +383,93 @@ def books_rate(title, isbn):
   ## {isbn 0, author 1, title 2, rating 3,
   ##  current_status 4, copy 5, year_ 6}
   files = sanitize(rv)
-
+  cur.execute("SELECT user_id, review FROM rate WHERE isbn = '%s';"%(isbn))
+  rv = cur.fetchall()
+  review = (rv)
   cur.execute("SELECT rating FROM books WHERE isbn = '%s' "% (isbn))
   rv = cur.fetchall()
   rating = rv[0][0]
   mysql.connection.commit()
   cur.close()
 
-  return render_template('books/book_rating.html', name = session['name'], id = _id, role = role, title = title, isbn = isbn, rating = rating, files=files)
+  return render_template('books/book_rating.html', name = session['name'], id = _id, role = role, title = title, isbn = isbn, rating = rating, files=files, review=review)
+
+def books_issue(title, isbn):
+  if 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  user_id = session['uid']
+  role = session['role']
+  dt = datetime.datetime.now()
+  ds = 10
+  if role == 'faculty':
+    ds= 30
+  end_date = dt + datetime.timedelta(days=ds)
+  dt=str(dt)
+  dt = dt[0:10]
+
+  cur = mysql.connection.cursor()
+
+  cur.execute(''' SELECT count(*) FROM books WHERE user_id='%s' ;'''%(user_id))
+  rv = cur.fetchall()
+  issued_books = (int)(rv[0][0])
+
+  limit = 3
+  if role == 'faculty':
+    limit = 10
+  if issued_books < limit:
+    cur.execute(''' SELECT current_status FROM books WHERE isbn='%s' ;'''%(isbn))
+    rv = cur.fetchall()
+    status = (rv[0][0])
+    if status == 'on-shelf':
+      flash('Success Request Send!')
+      cur.execute(''' UPDATE books SET user_id='%s', issue_date='%s', issue_status='request' WHERE isbn='%s';'''%(user_id, dt, isbn))
+    else:
+      flash('Book already issued!')
+  else:
+    flash('Books limit exceeded!')
+
+  mysql.connection.commit()
+  cur.close()
+
+  return redirect(request.referrer)
+
+def books_hold(title, isbn):
+  if 'uid' not in session:
+    return render_template('other/not_logged_in.html')
+
+  user_id = session['uid']
+  role = session['role']
+  dt = datetime.datetime.now()
+  ds = 10
+  if role == 'faculty':
+    ds= 30
+  end_date = dt + datetime.timedelta(days=ds)
+  dt=str(dt)
+  dt = dt[0:10]
+
+  cur = mysql.connection.cursor()
+
+  cur.execute(''' SELECT count(*) FROM books WHERE user_id='%s' ;'''%(user_id))
+  rv = cur.fetchall()
+  issued_books = (int)(rv[0][0])
+
+  limit = 3
+  if role == 'faculty':
+    limit = 10
+  if issued_books < limit:
+    cur.execute(''' SELECT current_status FROM books WHERE isbn='%s' ;'''%(isbn))
+    rv = cur.fetchall()
+    status = (rv[0][0])
+    if status == 'on-shelf' or status == 'on-loan':
+      flash('Success Request Send!')
+      cur.execute(''' INSERT IGNORE INTO HOLD (user_id, isbn, hold_date) VALUES ('%s', '%s', '%s'); '''%(user_id, isbn, dt))
+    else:
+      flash('Book already on hold!')
+  else:
+    flash('Books limit exceeded!')
+
+  mysql.connection.commit()
+  cur.close()
+
+  return redirect(request.referrer)

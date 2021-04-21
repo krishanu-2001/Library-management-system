@@ -95,8 +95,12 @@
             <a class="linkHome" href="#"><div class="optionsMenu">See Requests</div></a>
             <a class="linkHome" href="/books/modify/{{item[0]}}"><div class="optionsMenu">Modify</div></a>
             {% else %}
+            <a href="/books/issue/{{title~'/'~item[0]}}" class="linkHome">
               <div class="optionsMenu">Issue</div>
+            </a>
+            <a href="/books/hold/{{title~'/'~item[0]}}" class="linkHome">
               <div class="optionsMenu">Hold</div>
+            </a>
               <div class="optionsMenu">Add To Reading List</div>
             {% endif %}
         </div>

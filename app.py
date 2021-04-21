@@ -35,9 +35,13 @@ def portfoliodetails():
 def getStarted():
     return render_template('getStarted.html')
 
+
+
 # librarian
 app.add_url_rule('/librarian/login', view_func=librarian_section.librarian_login, methods=['GET','POST'])
 app.add_url_rule('/librarian/logout', view_func=librarian_section.librarian_logout, methods=['GET'])
+app.add_url_rule('/librarian/table', view_func=librarian_section.librarian_table, methods=['GET','POST'])
+app.add_url_rule('/librarian/tab', view_func=librarian_section.librarian_tab_panel, methods=['GET','POST'])
 app.add_url_rule('/librarian/home', view_func=librarian_section.librarian_home, methods=['GET','POST'])
 app.add_url_rule('/librarian/add_librarian', view_func=librarian_section.librarian_add_librarian, methods=['GET','POST'])
 app.add_url_rule('/librarian/download_employee', view_func=librarian_section.download_employee, methods=['GET'])
@@ -54,8 +58,12 @@ app.add_url_rule('/librarian/add_shelf', view_func=librarian_section.librarian_a
 app.add_url_rule('/librarian/deny/hold/<user_id>/<isbn>', view_func=librarian_section.deny_hold, methods=['GET'])
 app.add_url_rule('/librarian/deny/issue/<user_id>/<isbn>', view_func=librarian_section.deny_issue, methods=['GET'])
 app.add_url_rule('/librarian/accept/hold/<user_id>/<isbn>', view_func=librarian_section.accept_hold, methods=['GET'])
-app.add_url_rule('/librarian/accept/issue/<user_id>/<isbn>', view_func=librarian_section.accept_issue, methods=['GET'])
+app.add_url_rule('/librarian/accept/issue/<role>/<user_id>/<isbn>', view_func=librarian_section.accept_issue, methods=['GET'])
 app.add_url_rule('/librarian/requests', view_func=librarian_section.librarian_requests, methods=['GET','POST'])
+app.add_url_rule('/librarian/manage', view_func=librarian_section.librarian_manage, methods=['GET','POST'])
+app.add_url_rule('/librarian/delete/hold/<user_id>/<isbn>', view_func=librarian_section.delete_return_hold, methods=['GET'])
+app.add_url_rule('/librarian/delete/issue/<user_id>/<isbn>', view_func=librarian_section.delete_return_issue, methods=['GET', 'POST'])
+app.add_url_rule('/librarian/reload', view_func=librarian_section.reload, methods=['GET'])
 
 # books
 app.add_url_rule('/books/home', view_func=book_section.books_home, methods=['GET','POST'])
@@ -68,6 +76,8 @@ app.add_url_rule('/books/books_list_title/<title>', view_func=book_section.books
 app.add_url_rule('/books/delete/<title>/<isbn>', view_func=book_section.books_delete, methods=['GET','POST'])
 app.add_url_rule('/books/modify/<isbn>', view_func=book_section.books_modify, methods=['GET','POST'])
 app.add_url_rule('/books/book_rating/<title>/<isbn>', view_func=book_section.books_rate, methods=['GET','POST'])
+app.add_url_rule('/books/issue/<title>/<isbn>', view_func=book_section.books_issue, methods=['GET'])
+app.add_url_rule('/books/hold/<title>/<isbn>', view_func=book_section.books_hold, methods=['GET'])
 
 # user
 app.add_url_rule('/user/login', view_func=user_section.user_login, methods=['GET','POST'])

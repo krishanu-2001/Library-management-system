@@ -1,91 +1,273 @@
-<head>
-  <style>
-    .tabloid {
-      font-family: Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-      margin-top: 10px;
-      margin-bottom: 100px;
-    }
-
-    .tabloid td,
-    .tabloid th {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    .tabloid tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-
-    .tabloid tr:nth-child(odd) {
-      background-color: rgb(158, 219, 123);
-    }
-
-    .tabloid tr:hover {
-      background-color: #ddd;
-    }
-
-    .tabloid th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color: #4caf50;
-      color: white;
-    }
-  </style>
-</head>
-
-
 {% extends 'librarian/home.html' %}
 
-{% block home %}
 
-<table class="tabloid">
-  <tr>
-    <th>Student_id</th>
-    <th>Name</th>
-    <th>Form / Files</th>
-    <th><i class="error_red">delete</i></th>
-  </tr>
-  {% for items in filesS %}
-  <tr>
-    <td>{{ items[0] }}</td>
-    <td>{{ items[1] }}</td>
-    <td>
-      <a href="/librarian/return-files-student/{{ items[2] }}" target="blank">
-        Download
-      </a>
-    </td>
-    <td>
-      <a href="/librarian/delete/student_forms/{{ items[0] }}"><i class="fa fa-times"></i></a>
-    </td>
-  </tr>
-  {% endfor %}
-</table>
+{% block head %}
 
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Library</title>
 
-<table class="tabloid">
-  <tr>
-    <th>Faculty_id</th>
-    <th>Name</th>
-    <th>Form / Files</th>
-    <th><i class="error_red">delete</i></th>
-  </tr>
-  {% for items in filesF %}
-  <tr>
-    <td>{{ items[0] }}</td>
-    <td>{{ items[1] }}</td>
-    <td>
-      <a href="/librarian/return-files-student/{{ items[2] }}" target="blank">
-        Download
-      </a>
-    </td>
-    <td>
-      <a href="/librarian/delete/student_forms/{{ items[0] }}"><i class="fa fa-times"></i></a>
-    </td>
-  </tr>
-  {% endfor %}
-</table>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/admin_assets/materialize/css/materialize.min.css"
+    media="screen,projection" />
+  <!-- Bootstrap Styles-->
+  <link href="../../static/admin_assets/css/bootstrap.css" rel="stylesheet" />
+  <!-- FontAwesome Styles-->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
+  <!-- Morris Chart Styles-->
+  <link href="../../static/admin_assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+  <!-- Custom Styles-->
+  <link href="../../static/admin_assets/css/custom-styles.css" rel="stylesheet" />
+  <!-- Google Fonts-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="../../static/admin_assets/js/Lightweight-Chart/cssCharts.css">
+</head>
 {% endblock %}
+
+{% block nav %}
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse"
+        data-target=".sidebar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand waves-effect waves-dark" href="/librarian/home"><i
+          class="large material-icons">track_changes</i> <strong>Librarian</strong></a>
+      <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+    </div>
+    <ul class="nav navbar-top-links navbar-right">
+
+      <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i
+            class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
+            class="fa fa-user fa-fw"></i> <b>{{name}}</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
+  </nav>
+
+
+  <!-- Dropdown Structure -->
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
+    </li>
+    <li><a href="#"><i class="fa fa-cog"></i> Settings</a>
+    </li>
+    <li><a href="/librarian/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+    </li>
+  </ul>
+  <ul id="dropdown2" class="dropdown-content w250">
+    <li>
+      <div>
+        <i class="fa fa-comment fa-fw"></i> New Comment
+        <span class="pull-right text-muted small">4 min</span>
+      </div>
+      </a>
+    </li>
+    <li class="divider"></li>
+
+    <li>
+      <div>
+        <i class="fa fa-envelope fa-fw"></i> Message Sent
+        <span class="pull-right text-muted small">4 min</span>
+      </div>
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <div>
+        <i class="fa fa-tasks fa-fw"></i> New Task
+        <span class="pull-right text-muted small">4 min</span>
+      </div>
+      </a>
+    </li>
+
+    <li class="divider"></li>
+    <li>
+      <a class="text-center" href="#">
+        <strong>See All Alerts</strong>
+        <i class="fa fa-angle-right"></i>
+      </a>
+    </li>
+  </ul>
+
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+
+        <li>
+          <a href="/librarian/home" class="active-menu waves-effect waves-dark"><i class="fas fa-tachometer-alt"></i>
+            Dashboard</a>
+        </li>
+
+        <li>
+          <a href="/librarian/requests" class=" waves-effect waves-dark"><i class="fa fa-bell"></i>
+            Request</a>
+        </li>
+        <li>
+          <a href="/books/home" class="waves-effect waves-dark"><i class="fa fa-window-restore"></i>Book Store</a>
+        </li>
+        <!-- <li>
+          <a href="/librarian/tab" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> Tabs &
+            Panels</a>
+        </li>
+        <li>
+          <a href="/librarian/table" class="waves-effect waves-dark"><i class="fa fa-table"></i> Responsive
+            Tables</a>
+        </li> -->
+      </ul>
+    </div>
+  </nav>
+
+  {% endblock %}
+  {% block home %}
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header">
+        Student View
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Student</a></li>
+        <li class="active">View</li>
+      </ol>
+
+    </div>
+
+    <div id="page-inner">
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Advanced Tables -->
+          <div class="card">
+            <div class="card-action">
+              Table
+            </div>
+            <div class="card-content">
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                  <thead>
+                    <tr>
+                      <th>Student Id</th>
+                      <th>Name</th>
+                      <th>Form/Files</th>
+                      <th><i class="text-danger">Delete</i></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for items in filesS %}
+                    <tr>
+                      <td>{{ items[0] }}</td>
+                      <td>{{ items[1] }}</td>
+                      <td>
+                        <a href="/librarian/return-files-student/{{ items[2] }}" target="blank">
+                          Download
+                        </a>
+                      </td>
+                      <td>
+                        <a href="/librarian/delete/student_forms/{{ items[0] }}"><i class="fa fa-times"></i></a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+          <!--End Advanced Tables -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Advanced Tables -->
+          <div class="card">
+            <div class="card-action">
+              Table
+            </div>
+            <div class="card-content">
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                  <thead>
+                    <tr>
+                      <th>Faculty Id</th>
+                      <th>Name</th>
+                      <th>Form/Files</th>
+                      <th><i class="text-danger">Delete</i></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for items in filesF %}
+                    <tr>
+                      <td>{{ items[0] }}</td>
+                      <td>{{ items[1] }}</td>
+                      <td>
+                        <a href="/librarian/return-files-student/{{ items[2] }}" target="blank">
+                          Download
+                        </a>
+                      </td>
+                      <td>
+                        <a href="/librarian/delete/student_forms/{{ items[0] }}"><i class="fa fa-times"></i></a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+          <!--End Advanced Tables -->
+        </div>
+      </div>
+
+
+      <!-- /. ROW  -->
+
+      <footer>
+        <p>All right reserved. by: <a href="https://iiti.ac.in">IIT Indore</a></p>
+      </footer>
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+  {% endblock %}
+
+  {% block script %}
+  <!-- jQuery Js -->
+  <script src="../../static/admin_assets/js/jquery-1.10.2.js"></script>
+
+  <!-- Bootstrap Js -->
+  <script src="../../static/admin_assets/js/bootstrap.min.js"></script>
+
+  <script src="../../static/admin_assets/materialize/js/materialize.min.js"></script>
+
+  <!-- Metis Menu Js -->
+  <script src="../../static/admin_assets/js/jquery.metisMenu.js"></script>
+  <!-- Morris Chart Js -->
+  <script src="../../static/admin_assets/js/morris/raphael-2.1.0.min.js"></script>
+  <script src="../../static/admin_assets/js/morris/morris.js"></script>
+
+
+  <script src="../../static/admin_assets/js/easypiechart.js"></script>
+  <script src="../../static/admin_assets/js/easypiechart-data.js"></script>
+
+  <script src="../../static/admin_assets/js/Lightweight-Chart/jquery.chart.js"></script>
+  <!-- DATA TABLE SCRIPTS -->
+  <script src="../../static/admin_assets/js/dataTables/jquery.dataTables.js"></script>
+  <script src="../../static/admin_assets/js/dataTables/dataTables.bootstrap.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#dataTables-example').dataTable();
+    });
+  </script>
+  <!-- Custom Js -->
+  <script src="../../static/admin_assets/js/custom-scripts.js"></script>
+  {% endblock %}
