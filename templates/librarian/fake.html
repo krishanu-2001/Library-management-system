@@ -75,36 +75,66 @@
 </div>
 {% endblock %}
 
+<head>
+    <style>
+        #tabloid {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 100px;
+        }
 
+        #tabloid td,
+        #tabloid th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
 
+        #tabloid tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
+        #tabloid tr:nth-child(odd) {
+            background-color: rgb(158, 219, 123);
+        }
 
+        #tabloid tr:hover {
+            background-color: #ddd;
+        }
 
+        #tabloid th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4caf50;
+            color: white;
+        }
+    </style>
+</head>
 
+{% extends 'librarian/home.html' %} {% block home %}
 
-
-
-
-<!--  -->
-{% extends 'librarian/home.html' %}
-
-{% block home %}
-<div class="heading_title">New Book
-    - <a href="/others/scanner"><i class="fa fa-bars">
-        </i></a></div>
-<div>
-    <form method="POST">
-        <input type="text" name="isbn" placeholder="isbn" class="input_list" /> <span> </span>
-        <input type="text" name="copy_number" placeholder="copy_number" class="input_list" />
-        <hr />
-        <br />
-        <input type="text" name="author" placeholder="author" class="input_list" /> <br />
-        <input type="text" name="title" placeholder="title" class="input_list" /> <br />
-        <input type="text" name="year" placeholder="year_of_publication" class="input_list" /> <br />
-        <input type="text" name="shelf_id" placeholder="shelf_id" class="input_list" /> <br />
-
-        <input type="submit" class="input_list" />
-    </form>
-
-</div>
+<table id="tabloid">
+    <tr>
+        <th>Librarian_id</th>
+        <th>Name</th>
+        <th>Form / Files</th>
+        <th><i class="error_red">delete</i></th>
+    </tr>
+    {% for items in files %}
+    <tr>
+        <td>{{ items[0] }}</td>
+        <td>{{ items[1] }}</td>
+        <td>
+            <a href="/librarian/return-files-librarian/{{ items[2] }}" target="blank">
+                Download
+            </a>
+        </td>
+        <td>
+            <a href="/librarian/delete/librarian_forms/{{ items[0] }}"><i class="fa fa-times"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
