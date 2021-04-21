@@ -20,7 +20,7 @@ INSERT INTO books (isbn, author, title, rating, current_status, copy_number, yea
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id, user_id, due_date, issue_email_date, issue_date, issue_status) VALUES ('14', 'author1', 'title1', 3.50,'on-shelf', 4, '2002', '1', '1', '2021-04-30', '2021-04-20', '2021-04-20', 'issued');
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id, user_id, issue_email_date, issue_date, issue_status) VALUES ('15', 'author1', 'title1', 3.00,'on-shelf', 5, '2004', '1', '2', '2021-04-20', '2021-04-20', 'request');
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('16', 'author1', 'title1', 2.00,'on-shelf', 6, '2004', '1');
-INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id, user_id, due_date, issue_email_date, issue_date, issue_status) VALUES ('21', 'author1', 'title21', 2.00,'on-shelf', 3, '2002', '1', '1', '2021-04-30', '2021-04-20', '2021-04-20', 'issued');
+INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id, user_id, issue_email_date, issue_date, issue_status) VALUES ('21', 'author1', 'title21', 2.00,'on-shelf', 3, '2002', '1', '2', '2021-04-20', '2021-04-20', 'request');
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('22', 'author1', 'title22', 4.50,'on-hold', 4, '2002', '1');
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('23', 'author1', 'title23', 4.00,'on-shelf', 5, '2003', '1');
 INSERT INTO books (isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id) VALUES ('24', 'author1', 'title24', 5.00,'on-shelf', 6, '2003', '1');
@@ -90,6 +90,7 @@ INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('3', 's
 
 INSERT INTO hold (isbn, user_id, hold_date, hold_email_date, hold_status) VALUES ('1', '1', '2020-04-24', '2020-04-14', 'ACCEPTED');
 INSERT INTO hold (isbn, user_id, hold_date, hold_status) VALUES ('2', '1', '2020-04-24', 'PENDING');
+INSERT INTO hold (isbn, user_id, hold_date, hold_status) VALUES ('1', '3', '2020-04-24', 'PENDING');
 INSERT INTO hold (isbn, user_id, hold_date, hold_email_date, hold_status) VALUES ('3', '2', '2020-04-14', '2020-04-20', 'ACCEPTED');
 INSERT INTO hold (isbn, user_id, hold_date, hold_email_date, hold_status) VALUES ('4', '3', '2020-04-14', '2020-04-20', 'ACCEPTED');
 

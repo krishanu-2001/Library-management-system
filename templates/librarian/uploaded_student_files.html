@@ -1,6 +1,6 @@
 <head>
   <style>
-    #tabloid {
+    .tabloid {
       font-family: Arial, Helvetica, sans-serif;
       border-collapse: collapse;
       width: 100%;
@@ -8,25 +8,25 @@
       margin-bottom: 100px;
     }
 
-    #tabloid td,
-    #tabloid th {
+    .tabloid td,
+    .tabloid th {
       border: 1px solid #ddd;
       padding: 8px;
     }
 
-    #tabloid tr:nth-child(even) {
+    .tabloid tr:nth-child(even) {
       background-color: #f2f2f2;
     }
 
-    #tabloid tr:nth-child(odd) {
+    .tabloid tr:nth-child(odd) {
       background-color: rgb(158, 219, 123);
     }
 
-    #tabloid tr:hover {
+    .tabloid tr:hover {
       background-color: #ddd;
     }
 
-    #tabloid th {
+    .tabloid th {
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: left;
@@ -41,7 +41,7 @@
 
 {% block home %}
 
-<table id="tabloid">
+<table class="tabloid">
   <tr>
     <th>Student_id</th>
     <th>Name</th>
@@ -65,7 +65,7 @@
 </table>
 
 
-<table id="tabloid">
+<table class="tabloid">
   <tr>
     <th>Faculty_id</th>
     <th>Name</th>

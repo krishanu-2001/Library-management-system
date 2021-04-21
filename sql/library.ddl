@@ -109,7 +109,7 @@ CREATE TABLE hold (
     user_id VARCHAR(100) NOT NULL,
     hold_date DATE,
     hold_email_date DATE,
-    hold_status VARCHAR (200) DEFAULT "AVAILABLE",
+    hold_status VARCHAR (200) DEFAULT "PENDING",
     PRIMARY KEY (isbn, user_id),
     FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(user_id) 
