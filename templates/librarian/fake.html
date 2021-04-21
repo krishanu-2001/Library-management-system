@@ -15,7 +15,7 @@
                 <a class="nav-link" href="/librarian/requests">Requests</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/books/home">Browse</a>
+                <a class="nav-link" href="/books/home">Book Store</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -111,30 +111,30 @@
             color: white;
         }
     </style>
-</head>
+    <!-- </head> -->
 
-{% extends 'librarian/home.html' %} {% block home %}
+    {% extends 'librarian/home.html' %} {% block home %}
 
-<table id="tabloid">
-    <tr>
-        <th>Librarian_id</th>
-        <th>Name</th>
-        <th>Form / Files</th>
-        <th><i class="error_red">delete</i></th>
-    </tr>
-    {% for items in files %}
-    <tr>
-        <td>{{ items[0] }}</td>
-        <td>{{ items[1] }}</td>
-        <td>
-            <a href="/librarian/return-files-librarian/{{ items[2] }}" target="blank">
-                Download
-            </a>
-        </td>
-        <td>
-            <a href="/librarian/delete/librarian_forms/{{ items[0] }}"><i class="fa fa-times"></i></a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
-{% endblock %}
+    <table id="tabloid">
+        <tr>
+            <th>Librarian_id</th>
+            <th>Name</th>
+            <th>Form / Files</th>
+            <th><i class="error_red">delete</i></th>
+        </tr>
+        {% for items in files %}
+        <tr>
+            <td>{{ items[0] }}</td>
+            <td>{{ items[1] }}</td>
+            <td>
+                <a href="/librarian/return-files-librarian/{{ items[2] }}" target="blank">
+                    Download
+                </a>
+            </td>
+            <td>
+                <a href="/librarian/delete/librarian_forms/{{ items[0] }}"><i class="fa fa-times"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}
