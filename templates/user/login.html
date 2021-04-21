@@ -1,189 +1,186 @@
-{% extends 'baseuser.html' %} 
+{% extends 'baseuser.html' %}
 {% block navbar %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">Library</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/user/login">User</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/librarian/login">Admin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/books/home">Browse</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Account
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 20px;">
-                  <div style="padding-left: 5px;">{{name}}</div>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="#">Logout</a>
-              </div>
-          </li>
-          <li class="nav-item right" style="float: right;">
-              <a class="nav-link" href="/user/friends">Friends</a>
-          </li>
-      </ul>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/user/login">User</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/librarian/login">Admin</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/books/home">Book Store</a>
+      </li>
+    </ul>
   </div>
 </nav>
 
-{% endblock %}
-{% block body %}
+{% endblock %} {% block body %}
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Login Form Design</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-      crossorigin="anonymous"
-    />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        background: #fbf3ff;
-      }
-      .container {
-        position: absolute;
-        max-width: 800px;
-        height: 500px;
-        margin: auto;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      .myRightCtn {
-        position: relative;
-        background-image: linear-gradient(45deg, #f046ff, #9b00e8);
-        border-radius: 25px;
-        height: 100%;
-        padding: 25px;
-        color: rgb(192, 192, 192);
-        font-size: 12px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .myLeftCtn {
-        position: relative;
-        background: #fff;
-        border-radius: 25px;
-        height: 100%;
-        padding: 25px;
-        padding-left: 50px;
-      }
-      .myLeftCtn header {
-        color: blueviolet;
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 20px;
-      }
-      .row {
-        height: 100%;
-      }
-      .myCard {
-        position: relative;
-        background: #fff;
-        height: 100%;
-        border-radius: 25px;
-        -webkit-box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
-        -moz-box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
-        box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
-      }
-      .myRightCtn header {
-        color: #fff;
-        font-size: 44px;
-      }
-      .box {
-        position: relative;
-        margin: 20px;
-        margin-bottom: 100px;
-      }
-      .myLeftCtn .myInput {
-        width: 230px;
-        border-radius: 25px;
-        padding: 10px;
-        padding-left: 50px;
-        border: none;
-        -webkit-box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
-        -moz-box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
-        box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
-      }
-      .myLeftCtn .myInput:focus {
-        outline: none;
-      }
-      .myForm {
-        position: relative;
-        margin-top: 50px;
-      }
-      .myLeftCtn .butt {
-        background: linear-gradient(45deg, #bb36fd, #9b00e8);
-        color: #fff;
-        width: 230px;
-        border: none;
-        border-radius: 25px;
-        padding: 10px;
-        -webkit-box-shadow: 0px 10px 41px -11px rgba(0, 0, 0, 0.7);
-        -moz-box-shadow: 0px 10px 41px -11px rgba(0, 0, 0, 0.7);
-        box-shadow: 0px 10px 41px -11px rgba(0, 0, 0, 0.7);
-      }
-      .myLeftCtn .butt:hover {
-        background: linear-gradient(45deg, #c85bff, #b726ff);
-      }
-      .myLeftCtn .butt:focus {
-        outline: none;
-      }
-      .myLeftCtn .fas {
-        position: relative;
-        color: #bb36fd;
-        left: 36px;
-      }
-      .butt_out {
-        background: transparent;
-        color: #fff;
-        width: 120px;
-        border: 2px solid#fff;
-        border-radius: 25px;
-        padding: 10px;
-        -webkit-box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
-        -moz-box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
-        box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
-      }
-      .butt_out:hover {
-        border: 2px solid#eecbff;
-      }
-      .butt_out:focus {
-        outline: none;
-      }
-      /* LOADER */
 
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
-      /* * {
+<head>
+  <title>Login Form Design</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #fbf3ff;
+    }
+
+    .container {
+      position: absolute;
+      max-width: 800px;
+      height: 500px;
+      margin: auto;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .myRightCtn {
+      position: relative;
+      background-image: linear-gradient(45deg, #f046ff, #9b00e8);
+      border-radius: 25px;
+      height: 100%;
+      padding: 25px;
+      color: rgb(192, 192, 192);
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .myLeftCtn {
+      position: relative;
+      background: #fff;
+      border-radius: 25px;
+      height: 100%;
+      padding: 25px;
+      padding-left: 50px;
+    }
+
+    .myLeftCtn header {
+      color: blueviolet;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .row {
+      height: 100%;
+    }
+
+    .myCard {
+      position: relative;
+      background: #fff;
+      height: 100%;
+      border-radius: 25px;
+      -webkit-box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+      -moz-box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+      box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+    }
+
+    .myRightCtn header {
+      color: #fff;
+      font-size: 44px;
+    }
+
+    .box {
+      position: relative;
+      margin: 20px;
+      margin-bottom: 100px;
+    }
+
+    .myLeftCtn .myInput {
+      width: 230px;
+      border-radius: 25px;
+      padding: 10px;
+      padding-left: 50px;
+      border: none;
+      -webkit-box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
+      -moz-box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
+      box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
+    }
+
+    .myLeftCtn .myInput:focus {
+      outline: none;
+    }
+
+    .myForm {
+      position: relative;
+      margin-top: 50px;
+    }
+
+    .myLeftCtn .butt {
+      background: linear-gradient(45deg, #bb36fd, #9b00e8);
+      color: #fff;
+      width: 230px;
+      border: none;
+      border-radius: 25px;
+      padding: 10px;
+      -webkit-box-shadow: 0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+      -moz-box-shadow: 0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+      box-shadow: 0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+    }
+
+    .myLeftCtn .butt:hover {
+      background: linear-gradient(45deg, #c85bff, #b726ff);
+    }
+
+    .myLeftCtn .butt:focus {
+      outline: none;
+    }
+
+    .myLeftCtn .fas {
+      position: relative;
+      color: #bb36fd;
+      left: 36px;
+    }
+
+    .butt_out {
+      background: transparent;
+      color: #fff;
+      width: 120px;
+      border: 2px solid#fff;
+      border-radius: 25px;
+      padding: 10px;
+      -webkit-box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
+      -moz-box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
+      box-shadow: 0px 10px 49px -14px rgba(0, 0, 0, 0.7);
+    }
+
+    .butt_out:hover {
+      border: 2px solid#eecbff;
+    }
+
+    .butt_out:focus {
+      outline: none;
+    }
+
+    /* LOADER */
+
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
+    /* * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -198,191 +195,176 @@
         background: -webkit-linear-gradient(to right, #2f0743, #41295a);
         background: linear-gradient(to right, #2f0743, #41295a);
       } */
-      .loader-wrapper {
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: #001300;
-        animation: changeColor 10s linear infinite;
-        z-index: 100;
-      }
+    .loader-wrapper {
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #001300;
+      animation: changeColor 10s linear infinite;
+      z-index: 100;
+    }
 
-      .loader-wrapper .loader {
-        position: relative;
-        display: flex;
-      }
-      .loader-wrapper h2 {
-        color: #00ff0a;
-        font-weight: 300;
-        letter-spacing: 10px;
-      }
+    .loader-wrapper .loader {
+      position: relative;
+      display: flex;
+    }
 
-      .loader-wrapper .loader .dot {
-        position: relative;
-        display: block;
-        width: 20px;
-        height: 20px;
-        background: #00ff0a;
-        box-shadow: 0 0 10px #00ff0a, 0 0 20px #00ff0a, 0 0 40px #00ff0a,
-          0 0 60px #00ff0a, 0 0 80px #00ff0a, 0 0 100px #00ff0a;
-        margin: 20px 10px;
+    .loader-wrapper h2 {
+      color: #00ff0a;
+      font-weight: 300;
+      letter-spacing: 10px;
+    }
+
+    .loader-wrapper .loader .dot {
+      position: relative;
+      display: block;
+      width: 20px;
+      height: 20px;
+      background: #00ff0a;
+      box-shadow: 0 0 10px #00ff0a, 0 0 20px #00ff0a, 0 0 40px #00ff0a,
+        0 0 60px #00ff0a, 0 0 80px #00ff0a, 0 0 100px #00ff0a;
+      margin: 20px 10px;
+      transform: scale(0.1);
+      border-radius: 50%;
+      animation: animateDot 2s linear infinite;
+      animation-delay: calc(0.1s * var(--i));
+    }
+
+    .loader-wrapper .loader:last-child .dot {
+      animation-delay: calc(-0.1s * var(--i));
+    }
+
+    @keyframes animateDot {
+      0% {
         transform: scale(0.1);
-        border-radius: 50%;
-        animation: animateDot 2s linear infinite;
-        animation-delay: calc(0.1s * var(--i));
-      }
-      .loader-wrapper .loader:last-child .dot {
-        animation-delay: calc(-0.1s * var(--i));
       }
 
-      @keyframes animateDot {
-        0% {
-          transform: scale(0.1);
-        }
-        10% {
-          transform: scale(1);
-        }
-        50%,
-        100% {
-          transform: scale(0.1);
-        }
+      10% {
+        transform: scale(1);
       }
-      @keyframes changeColor {
-        0% {
-          filter: hue-rotate(0deg);
-        }
-        100% {
-          filter: hue-rotate(360deg);
-        }
+
+      50%,
+      100% {
+        transform: scale(0.1);
       }
-    </style>
+    }
 
-    <!-- <link rel="stylesheet" href="style.css"> -->
-  </head>
-  <body>
-    <section class="loader-wrapper">
-      <div class="loader">
-        <div class="dot" style="--i: 0"></div>
-        <div class="dot" style="--i: 1"></div>
-        <div class="dot" style="--i: 2"></div>
-        <div class="dot" style="--i: 3"></div>
-        <div class="dot" style="--i: 4"></div>
-        <div class="dot" style="--i: 5"></div>
-        <div class="dot" style="--i: 6"></div>
-        <div class="dot" style="--i: 7"></div>
-        <div class="dot" style="--i: 8"></div>
-        <div class="dot" style="--i: 9"></div>
-      </div>
-      <h2>LOADING...</h2>
-      <div class="loader">
-        <div class="dot" style="--i: 0"></div>
-        <div class="dot" style="--i: 1"></div>
-        <div class="dot" style="--i: 2"></div>
-        <div class="dot" style="--i: 3"></div>
-        <div class="dot" style="--i: 4"></div>
-        <div class="dot" style="--i: 5"></div>
-        <div class="dot" style="--i: 6"></div>
-        <div class="dot" style="--i: 7"></div>
-        <div class="dot" style="--i: 8"></div>
-        <div class="dot" style="--i: 9"></div>
-      </div>
-    </section>
-    <section class="content">
-      <div class="container">
-        <div class="myCard">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="myLeftCtn">
-                <form class="myForm text-center" method="POST">
-                  {% if flag == 0 %}
-                  <div class="alert alert-danger" role="alert">
-                    invalid id / password!
-                  </div>
-                  {% endif %}
-                  <header>Welcome To E-Library</header>
-                  <div class="form-group">
-                    <i class="fas fa-user"></i>
-                    <input
-                      class="myInput"
-                      type="text"
-                      placeholder="Username"
-                      name="uid"
-                      id="username"
-                      required
-                    />
-                  </div>
+    @keyframes changeColor {
+      0% {
+        filter: hue-rotate(0deg);
+      }
 
-                  <div class="form-group">
-                    <i class="fas fa-lock"></i>
-                    <input
-                      class="myInput"
-                      type="password"
-                      id="password"
-                      name="password"
-                      placeholder="Password"
-                      required
-                    />
-                  </div>
+      100% {
+        filter: hue-rotate(360deg);
+      }
+    }
+  </style>
 
-                  <input type="submit" class="butt" value="LOGIN" />
-                </form>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="myRightCtn">
-                <div class="box">
-                  <header>Hello Reader!</header>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
 
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam.
-                  </p>
-                  <p class="text-light font-weight-bold">
-                    Don't have an account?
-                  </p>
-                  <input
-                    type="button"
-                    class="butt_out"
-                    value="Create Account"
-                  />
+<body>
+  <section class="loader-wrapper">
+    <div class="loader">
+      <div class="dot" style="--i: 0"></div>
+      <div class="dot" style="--i: 1"></div>
+      <div class="dot" style="--i: 2"></div>
+      <div class="dot" style="--i: 3"></div>
+      <div class="dot" style="--i: 4"></div>
+      <div class="dot" style="--i: 5"></div>
+      <div class="dot" style="--i: 6"></div>
+      <div class="dot" style="--i: 7"></div>
+      <div class="dot" style="--i: 8"></div>
+      <div class="dot" style="--i: 9"></div>
+    </div>
+    <h2>LOADING...</h2>
+    <div class="loader">
+      <div class="dot" style="--i: 0"></div>
+      <div class="dot" style="--i: 1"></div>
+      <div class="dot" style="--i: 2"></div>
+      <div class="dot" style="--i: 3"></div>
+      <div class="dot" style="--i: 4"></div>
+      <div class="dot" style="--i: 5"></div>
+      <div class="dot" style="--i: 6"></div>
+      <div class="dot" style="--i: 7"></div>
+      <div class="dot" style="--i: 8"></div>
+      <div class="dot" style="--i: 9"></div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container">
+      <div class="myCard">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="myLeftCtn">
+              <form class="myForm text-center" method="POST">
+                {% if flag == 0 %}
+                <div class="alert alert-danger" role="alert">
+                  invalid id / password!
                 </div>
+                {% endif %}
+                <header>Welcome To E-Library</header>
+                <div class="form-group">
+                  <i class="fas fa-user"></i>
+                  <input class="myInput" type="text" placeholder="Username" name="uid" id="username" required />
+                </div>
+
+                <div class="form-group">
+                  <i class="fas fa-lock"></i>
+                  <input class="myInput" type="password" id="password" name="password" placeholder="Password"
+                    required />
+                </div>
+
+                <input type="submit" class="butt" value="LOGIN" />
+              </form>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="myRightCtn">
+              <div class="box">
+                <header>Hello Reader!</header>
+
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna
+                  aliqua. Ut enim ad minim veniam.
+                </p>
+                <p class="text-light font-weight-bold">
+                  Don't have an account?
+                </p>
+                <input type="button" class="butt_out" value="Create Account" />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 
-    <script>
-      window.onload = function () {
-        setTimeout(function () {
-          var loader = document.getElementsByClassName("loader-wrapper")[0];
-          loader.style.display = "none";
-        }, 2000);
-      };
-    </script>
-  </body>
+  <script>
+    window.onload = function () {
+      setTimeout(function () {
+        var loader = document.getElementsByClassName("loader-wrapper")[0];
+        loader.style.display = "none";
+      }, 2000);
+    };
+  </script>
+</body>
+
 </html>
 
 {% endblock %}
