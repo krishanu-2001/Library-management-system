@@ -925,7 +925,7 @@ def reload():
     y = delta.days
     if y > -5:
       note = 'Please return Book!'
-      cur.execute(''' Update Books set notes = '%s' where isbn = '%s' ;'''%(note, isbn))
+      cur.execute(''' Update Books set notes = '%s', issue_email_date='%s' where isbn = '%s' ;'''%(note, dt,isbn))
 
   mysql.connection.commit()
   cur.close()
