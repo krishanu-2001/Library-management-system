@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
   <meta charset="utf-8" />
@@ -11,7 +10,9 @@
   <!-- Bootstrap Styles-->
   <link href="../../static/admin_assets/css/bootstrap.css" rel="stylesheet" />
   <!-- FontAwesome Styles-->
-  <link href="../../static/admin_assets/css/font-awesome.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
   <!-- Morris Chart Styles-->
   <link href="../../static/admin_assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
   <!-- Custom Styles-->
@@ -34,20 +35,16 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand waves-effect waves-dark" href="index.html"><i
-            class="large material-icons">track_changes</i> <strong>target</strong></a>
+        <a class="navbar-brand waves-effect waves-dark" href="/librarian/home"><i
+            class="large material-icons">track_changes</i> <strong>Librarian</strong></a>
         <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
       </div>
       <ul class="nav navbar-top-links navbar-right">
-        <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i
-              class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a>
-        </li>
-        <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i
-              class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+
         <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i
               class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
         <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
-              class="fa fa-user fa-fw"></i> <b>John Doe</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+              class="fa fa-user fa-fw"></i> <b>{{name}}</b> <i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
     </nav>
     <!-- Dropdown Structure -->
@@ -248,7 +245,7 @@
         <ol class="breadcrumb">
           <li><a href="#">Home</a></li>
           <li><a href="#">Dashboard</a></li>
-          <li class="active">Data</li>
+          <li class="active">Detail</li>
         </ol>
       </div>
       <div id="page-inner">
@@ -257,14 +254,15 @@
             <div class="col-xs-12 col-sm-6 col-md-3">
               <div class="card horizontal cardIcon waves-effect waves-dark">
                 <div class="card-image red">
-                  <i class="material-icons dp48">import_export</i>
+                  <i class="fa fa-user-shield" aria-hidden="true"></i>
                 </div>
                 <div class="card-stacked red">
                   <div class="card-content">
-                    <h3>84,198</h3>
+                    <h3><a href="/librarian/add_librarian" style="text-decoration: none; color: #fff;">Add
+                        Member</a></h3>
                   </div>
                   <div class="card-action">
-                    <strong>REVENUE</strong>
+                    <strong>New</strong>
                   </div>
                 </div>
               </div>
@@ -272,14 +270,15 @@
             <div class="col-xs-12 col-sm-6 col-md-3">
               <div class="card horizontal cardIcon waves-effect waves-dark">
                 <div class="card-image orange">
-                  <i class="material-icons dp48">shopping_cart</i>
+                  <i class="fa fa-user-plus" aria-hidden="true"></i>
                 </div>
                 <div class="card-stacked orange">
                   <div class="card-content">
-                    <h3>36,540</h3>
+                    <h3><a href="/librarian/add_student" style="text-decoration: none; color: #fff;">Add
+                        Student</a> </h3>
                   </div>
                   <div class="card-action">
-                    <strong>SALES</strong>
+                    <strong>Join</strong>
                   </div>
                 </div>
               </div>
@@ -287,14 +286,15 @@
             <div class="col-xs-12 col-sm-6 col-md-3">
               <div class="card horizontal cardIcon waves-effect waves-dark">
                 <div class="card-image blue">
-                  <i class="material-icons dp48">equalizer</i>
+                  <i class="fas fa-book-medical"></i>
                 </div>
                 <div class="card-stacked blue">
                   <div class="card-content">
-                    <h3>24,225</h3>
+                    <h3><a href="/librarian/add_books" style="text-decoration: none; color: #fff;">Add
+                        Book</a> </h3>
                   </div>
                   <div class="card-action">
-                    <strong>PRODUCTS</strong>
+                    <strong>Items</strong>
                   </div>
                 </div>
               </div>
@@ -302,14 +302,15 @@
             <div class="col-xs-12 col-sm-6 col-md-3">
               <div class="card horizontal cardIcon waves-effect waves-dark">
                 <div class="card-image green">
-                  <i class="material-icons dp48">supervisor_account</i>
+                  <i class="fas fa-folder-plus"></i>
                 </div>
                 <div class="card-stacked green">
                   <div class="card-content">
-                    <h3>88,658</h3>
+                    <h3><a href="/librarian/add_shelf" style="text-decoration: none; color: #fff;">Add
+                        Shelf</a> </h3>
                   </div>
                   <div class="card-action">
-                    <strong>VISITS</strong>
+                    <strong>More</strong>
                   </div>
                 </div>
               </div>
@@ -319,36 +320,37 @@
         <!-- /. ROW  -->
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-7">
-            <div class="cirStats">
-              <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                  <div class="card-panel text-center">
-                    <h4>Profit</h4>
-                    <div class="easypiechart" id="easypiechart-blue" data-percent="82"><span class="percent">82%</span>
+            <div class="card">
+              <div class="card-action">
+                <b>Joining Form</b>
+              </div>
+              <div class="cirStats">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="card-panel text-center">
+                      <h4>Employee</h4>
+                      <div class="easypiechart" id="easypiechart-blue" data-percent="100"><span class="percent"
+                          style="top: 0 ; width: 120px;"><img src="../../static/admin_assets/img/admin1.png" alt=""
+                            </span>
+                      </div>
+                      <div>
+                        <button class="btn" href="/librarian/uploaded_librarian_files"> UPLOAD</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                  <div class="card-panel text-center">
-                    <h4>No. of Visits</h4>
-                    <div class="easypiechart" id="easypiechart-red" data-percent="46"><span class="percent">46%</span>
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="card-panel text-center">
+                      <h4>STUDENT</h4>
+                      <div class="easypiechart" id="easypiechart-red" data-percent="100"><span class="percent"
+                          style="top: 0 ; width: 120px;"><img src="../../static/admin_assets/img/user.png" alt=""
+                            </span>
+                      </div>
+                      <div>
+                        <button class="btn" href="/librarian/uploaded_student_files"> UPLOAD</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                  <div class="card-panel text-center">
-                    <h4>Customers</h4>
-                    <div class="easypiechart" id="easypiechart-teal" data-percent="84"><span class="percent">84%</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                  <div class="card-panel text-center">
-                    <h4>Sales</h4>
-                    <div class="easypiechart" id="easypiechart-orange" data-percent="55"><span
-                        class="percent">55%</span>
-                    </div>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -362,7 +364,7 @@
                     <div id="morris-donut-chart"></div>
                   </div>
                   <div class="card-action">
-                    <b>Donut Chart Example</b>
+                    <b>Form Status</b>
                   </div>
                 </div>
               </div>
@@ -377,75 +379,7 @@
           </div>
         </div>
         <!-- /. ROW  -->
-        <div class="row">
-          <div class="col-md-4 col-sm-12 col-xs-12">
-            <div class="card">
-              <div class="card-action">
-                <b>Tasks Panel</b>
-              </div>
-              <div class="card-image">
-                <div class="collection">
-                  <a href="#!" class="collection-item">Red<span class="new badge red"
-                      data-badge-caption="red">4</span></a>
-                  <a href="#!" class="collection-item">Blue<span class="new badge blue"
-                      data-badge-caption="blue">4</span></a>
-                  <a href="#!" class="collection-item"><span class="badge">1</span>Alan</a>
-                  <a href="#!" class="collection-item"><span class="new badge">4</span>Alan</a>
-                  <a href="#!" class="collection-item">Alan<span class="new badge blue"
-                      data-badge-caption="blue">4</span></a>
-                  <a href="#!" class="collection-item"><span class="badge">14</span>Alan</a>
-                  <a href="#!" class="collection-item">Custom Badge Captions<span class="new badge"
-                      data-badge-caption="custom caption">4</span></a>
-                  <a href="#!" class="collection-item">Custom Badge Captions<span class="badge"
-                      data-badge-caption="custom caption">4</span></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-8 col-sm-12 col-xs-12">
-            <div class="card">
-              <div class="card-action">
-                <b>User List</b>
-              </div>
-              <div class="card-image">
-                <ul class="collection">
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle green">track_changes</i>
-                    <span class="title">Title</span>
-                    <p>First Line <br>
-                      Second Line
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle">folder</i>
-                    <span class="title">Title</span>
-                    <p>First Line <br>
-                      Second Line
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle green">track_changes</i>
-                    <span class="title">Title</span>
-                    <p>First Line <br>
-                      Second Line
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle red">play_arrow</i>
-                    <span class="title">Title</span>
-                    <p>First Line <br>
-                      Second Line
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+
         <!-- /. ROW  -->
         <div class="fixed-action-btn horizontal click-to-toggle">
           <a class="btn-floating btn-large red">

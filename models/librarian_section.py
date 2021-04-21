@@ -98,12 +98,18 @@ def librarian_home():
 def librarian_tab_panel():
     if 'lid' not in session:
         return render_template('other/not_logged_in.html')
+    if request.method == 'POST':
+      debug()
+  
     return render_template('librarian/tab-panel.html',  name = session['name'], lid = session['lid'])
 
 # @app.route('/librarian/table', methods=['GET', 'POST'])
 def librarian_table():
   if 'lid' not in session:
     return render_template('other/not_logged_in.html')
+  if request.method == 'POST':
+    debug()
+  
   return render_template('librarian/table.html',  name = session['name'], lid = session['lid'])
 
 
