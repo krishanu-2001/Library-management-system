@@ -40,9 +40,10 @@
       <br /><span class="spanText">Rating:</span><input type="text" name="rating" value={{details[3]}} style="margin: 20px" />
       <br /><span class="spanText">Status:</span>
       <input type="text" name="nothing" value={{details[4]}} readonly/>
-      <input type="radio" name="status" value="AVAILABLE" checked="checked"/> AVAILABLE
-      <input type="radio" name="status" value="ISSUED" /> ISSUED
-      <input type="radio" name="status" value="UNAVAILABLE" /> UNAVAILABLE
+      <input type="radio" name="status" value="on-shelf" checked="checked"/> on-shelf
+      <input type="radio" name="status" value="on-loan" /> on-loan
+      <input type="radio" name="status" value="on-hold" /> on-hold
+      <input type="radio" name="status" value="on-loan-and-on-hold" /> on-loan-and-on-hold
       <br /><input type="submit" value="save" class="alert alert-warning"
        style="margin: 50px; padding: 20px; 
        padding-top: 5px; padding-bottom: 5px; border: 1px white solid;"/>

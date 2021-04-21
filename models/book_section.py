@@ -110,7 +110,7 @@ def view_side(shelf_id, title):
   
   files = sanitize(rv)
 
-  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication FROM books WHERE title = '%s' "% (title))
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication FROM books WHERE title = '%s' AND shelf_id = '%s';"% (title, shelf_id))
   rv = cur.fetchall()
 
   extra = sanitize(rv)
@@ -169,14 +169,14 @@ def view_side_search(search, title):
   
   
   cur = mysql.connection.cursor()
-  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title LIKE '%s%%' "% (search))
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title LIKE '%s%%';"% (search))
   rv = cur.fetchall()
   ## {isbn 0, author 1, title 2, rating 3,
   ##  current_status 4, copy 5, year_ 6}
   
   files = sanitize(rv)
 
-  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title = '%s' "% (title))
+  cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title = '%s' AND shelf_id='%s'; "% (title, shelf_id))
   rv = cur.fetchall()
 
   extra = sanitize(rv)
@@ -347,8 +347,10 @@ def books_rate(title, isbn):
 
   if request.method == 'POST':
     cur = mysql.connection.cursor()
-
-    rating = (float)(request.form['rating'])
+    rating = (request.form['rating'])
+    if not rating or type(rating) == 'None':
+      rating = '0'
+    rating = float(rating)
     review = request.form['review']
     if role[0] != 'l':
       cur.execute("INSERT IGNORE INTO rate (isbn, user_id, rating, review) VALUES ('%s', '%s', %f, '%s');"%(isbn, _id, rating, review))
@@ -357,9 +359,12 @@ def books_rate(title, isbn):
     #calc rating
     cur.execute("SELECT avg(rating) FROM rate WHERE isbn = '%s';"%(isbn))
     rv = cur.fetchall()
-    newRating = (float)(rv[0][0])
-    if not newRating:
+    newRating = (rv[0][0])
+    if not newRating or type(newRating) == 'None':
       newRating = 0
+    
+    newRating = float(newRating)
+
     cur.execute("UPDATE books set rating=%f WHERE isbn = '%s';"%(newRating, isbn))
 
     cur.execute("SELECT isbn, author, title, rating, current_status, copy_number, year_of_publication, shelf_id FROM books WHERE title = '%s' "% (title))
