@@ -1,0 +1,32 @@
+{% extends 'baseuser.html' %}
+
+{% block body %}
+<div class="listcontainer">
+    <h3>Friends</h3>
+    <hr>
+    <h3>Currently Reading</h3>
+    <h5>Friend Name- {{friendDetails[0][0]}}</h5>
+    <h5>Type - {{friendDetails[0][1]}}</h5>
+    <table width=75%>
+        <thead>
+          <th>ISBN</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Rating</th>
+          <th>Year of Publication</th>
+        </thead>
+        <tbody>
+          {% for i in range(crbooks|length) %}
+          <tr>
+            <td>{{crbooks[i][0]}}</td>
+            <td>{{crbooks[i][1]}}</td>
+            <td>{{crbooks[i][2]}}</td>
+            <td>{{crbooks[i][3]}}</td>
+            <td>{{crbooks[i][4]}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    
+</div>
+{% endblock %}

@@ -77,10 +77,9 @@ INSERT INTO favourite (genre_id, user_id) VALUES ('2', '5');
 INSERT INTO favourite (genre_id, user_id) VALUES ('3', '6');
 
 INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('1', 'list1', 'abcd','public');
-INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('1', 'list1', 'url1','public');
-INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('1', 'list2', 'url2','private');
+INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('1', 'list2', 'ijkl','private');
 INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('2', 'list3', 'mnop','public');
-INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('3', 'list4', 'qrst','public');
+INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('3', 'list4', 'qrst','private');
 
 INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('1', 'shelf1','abcd');
 INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('1', 'shelf1','url1');
@@ -88,7 +87,7 @@ INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('1', 's
 INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('2', 'shelf3','mnop');
 INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('3', 'shelf4','qrst');
 
-INSERT INTO hold (isbn, user_id, hold_date, hold_email_date, hold_status) VALUES ('1', '1', '2020-04-24', '2020-04-14', 'ACCEPTED');
+INSERT INTO hold (isbn, user_id, hold_date, hold_email_date, hold_status) VALUES ('1', '1', '2020-04-18', '2020-04-21', 'ACCEPTED');
 INSERT INTO hold (isbn, user_id, hold_date, hold_status) VALUES ('2', '1', '2020-04-24', 'PENDING');
 INSERT INTO hold (isbn, user_id, hold_date, hold_status) VALUES ('1', '3', '2020-04-24', 'PENDING');
 INSERT INTO hold (isbn, user_id, hold_date, hold_email_date, hold_status) VALUES ('3', '2', '2020-04-14', '2020-04-20', 'ACCEPTED');
