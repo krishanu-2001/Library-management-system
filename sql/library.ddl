@@ -37,9 +37,11 @@ CREATE TABLE books(
     issue_email_date DATE,
     issue_date DATE,
     issue_status VARCHAR(100),
+-- 	CONSTRAINT `check_date` CHECK (`issue_date` = NULL or `issue_email_date`= NULL or DATEDIFF(`due_date`, CURDATE()) < 0 and DATEDIFF(CURDATE(), `issue_email_date`) < 15),
     PRIMARY KEY (isbn, copy_number),
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
+
 CREATE TABLE shelf (
     shelf_id VARCHAR(100) UNIQUE NOT NULL,
     capacity INT,

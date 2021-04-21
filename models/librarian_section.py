@@ -56,6 +56,7 @@ def sanitizeRequest(rv):
     for i in rows:
       temp.append(i)
     issuedt = rows[2]
+    email = rows[3]
     duedt = rows[6]
     dt = datetime.datetime.now().date()
     fines = 0
@@ -65,6 +66,11 @@ def sanitizeRequest(rv):
       x = 0
     fines = x*10
     temp.append(fines)
+    if type(email) != 'None' and email:
+      delta = dt-email
+      if delta.days > 15:
+        temp.append("overdue")
+
     files.append(temp)
 
   files.sort(key = lambda x: x[7], reverse=True)
@@ -793,12 +799,23 @@ def librarian_manage():
 	hold as A, user as B
       WHERE
 		A.user_id = B.user_id
-	AND
-      A.hold_status = 'PENDING'
   ORDER BY A.hold_date DESC;
   ''')
   rv = cur.fetchall()
-  requests_hold_pending = rv
+  requests_hold_pending = []
+  for rows in rv:
+    temp = []
+    for i in rows:
+      temp.append(i)
+    hold_date = rows[2]
+    dt = datetime.datetime.now().date()
+    if type(hold_date) != 'None' and hold_date:
+      delta = dt-hold_date
+      if delta.days > 10:
+        temp.append("overdue")
+    requests_hold_pending.append(temp)
+
+
   cur.execute('''SELECT 
     A.isbn, A.user_id, A.issue_date,  A.issue_email_date, B.role, B.name, A.due_date
   FROM
@@ -929,7 +946,17 @@ def reload():
   dt = datetime.datetime.now().date()
 
   cur.execute('''UPDATE user set unpaid_fines = 0 WHERE user_id;''')
+  
+  cur.execute('''Select isbn, hold.user_id, hold_date, hold_email_date, hold_status, role from hold, user where hold.user_id = user.user_id;''')
+  rv = cur.fetchall()
+  # user_id, issuedate, duedate, emaildate
+  for (isbn, user_id, hold_date, hold_status, hold_email_date, role) in rv:
+    delta = dt-hold_date
+    x = delta.days
+    if x > 10 and role[0] == 's':
+      cur.execute("DELETE FROM HOLD where isbn='%s' and user_id='%s';"%(isbn, user_id))
 
+  
   cur.execute('''Select isbn, user_id, issue_date, due_date, issue_email_date From Books WHERE user_id AND due_date AND issue_status = 'issued';''')
   rv = cur.fetchall()
   # user_id, issuedate, duedate, emaildate
@@ -945,6 +972,17 @@ def reload():
     if y > -5:
       note = 'Please return Book!'
       cur.execute(''' Update Books set notes = '%s', issue_email_date='%s' where isbn = '%s' ;'''%(note, dt,isbn))
+
+    
+  cur.execute('''Select isbn, user_id, issue_date, due_date, issue_email_date From Books;''')
+  rv = cur.fetchall()
+  for (isbn, user_id, issue_date, due_date, issue_email_date) in rv:
+    cur.execute(''' SELECT user_id from hold where isbn = '%s' ;'''%(isbn))
+    cv = cur.fetchall()
+    if type(cv) == 'None' or len(cv) == 0 or not cv:
+      print(isbn)
+      cur.execute(''' Update Books set current_status = 'on-shelf' where isbn = '%s' ;'''%(isbn))
+
 
   mysql.connection.commit()
   cur.close()
