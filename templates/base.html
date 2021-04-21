@@ -27,7 +27,7 @@
   <link href="static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="static/assets/css/style.css" rel="stylesheet">
+  <link href="{{ url_for('static',filename='assets/css/style.css') }}" rel="stylesheet">
 
   
     <!--========== BOX ICONS ==========-->
@@ -35,6 +35,10 @@
       href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css"
       rel="stylesheet"
     />
+    {% block style %} 
+    <style>
+    </style>
+    {% endblock %}
 </head>
 
 <body>
