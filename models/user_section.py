@@ -51,6 +51,8 @@ def user_login():
     cur.close()
     # access logic
     if (flag >= 1 and password == curpassword):
+      if 'lid' in session:
+        session.pop('lid')
       session['uid'] = u_id
       session['name'] = name
       session['role'] = role

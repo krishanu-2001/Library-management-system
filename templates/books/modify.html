@@ -1,0 +1,54 @@
+<head>
+  <style>
+    .fillForm{
+      display: block;
+      background-color: none;
+    }
+    input{
+      padding: 10px;
+      border: 0px;
+      margin: 30px;
+      border-bottom: 1px solid black;
+      background-color: inherit;
+    }
+    input:focus{
+      outline: none;
+      box-shadow: inset grey 0px 1px 1px 1px;
+    }
+    .spanText{
+      width: 300px;
+      font-weight: 400px;
+      font-size: 20px;
+      height: 200px;
+      margin: 30px;
+    }
+  </style>
+</head>
+{% extends 'books/home.html' %}
+
+{% block section %}
+<!-- ## {isbn 0, author 1, title 2, rating 3, -->
+  <!-- ##  current_status 4, copy 5, year_ 6} -->
+<form method="POST" class="fillForm">
+
+      <span class="spanText">ISBN:</span> <input type="text" name="isbn" value={{details[0]}} style=" border:none" readonly/>
+      <br /><span class="spanText">Author:</span> <input type="text" name="author" value={{details[1]}} />
+      <br /><span class="spanText">Title:</span> <input type="text" name="title" value={{details[2]}} />
+      <br /><span class="spanText">Copy-number:</span><input type="text" name="cn" value={{details[5]}} style="margin: 20px" />
+      <br /><span class="spanText">Year of publication:</span><input type="text" name="year" value={{details[6]}} style="margin: 20px" />
+      <br /><span class="spanText">shelf_id:</span><input type="text" name="shelf_id" value={{details[7]}} style="margin: 20px" />
+      <br /><span class="spanText">Rating:</span><input type="text" name="rating" value={{details[3]}} style="margin: 20px" />
+      <br /><span class="spanText">Status:</span>
+      <input type="text" name="nothing" value={{details[4]}} readonly/>
+      <input type="radio" name="status" value="AVAILABLE" checked="checked"/> AVAILABLE
+      <input type="radio" name="status" value="ISSUED" /> ISSUED
+      <input type="radio" name="status" value="UNAVAILABLE" /> UNAVAILABLE
+      <br /><input type="submit" value="save" class="alert alert-warning"
+       style="margin: 50px; padding: 20px; 
+       padding-top: 5px; padding-bottom: 5px; border: 1px white solid;"/>
+    </div>
+  </div>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+<head>
+  <style>
+    div.gallery2 {
+      margin: 5px;
+      border: 3px solid #ccc;
+      float: left;
+      width: 247px;
+    }
+
+    div.gallery2:hover {
+      border: 3px solid #777;
+    }
+
+    div.gallery2 img {
+      width: 100%;
+      height: auto;
+    }
+
+    div.desc2 {
+      padding: 15px;
+      text-align: center;
+      height: 200px;
+    }
+  </style>
+</head>
+{% extends 'books/search.html' %} {% block viewSingle %}
+<div class="left-panel">
+  {% for title in extra %}
+  <table>
+    <tr>
+      <a class="linkHome" href="/books/search/{{ search~'#newStart' }}"><i class="fa fa-times"></i></a><br /><br />
+    </tr>
+    <tr>
+      {% set filename = 'images/book' ~ (extra[title][0][6]|int % 5 + 1) ~
+      '.png' %}
+      <div class="gallery2">
+        <a target="_blank" href="{{url_for('static', filename= filename)}}">
+          <img
+            src="{{url_for('static', filename= filename)}}"
+            alt="Books"
+            style="width: 240px; height: 250px"
+          />
+        </a>
+          <div class="desc2">
+            {% if extra[title][0][4][3] == 's' %}
+            <div class="error_green">{{extra[title][0][4]}}</div>
+            {% elif extra[title][0][4][3] == 'h' %}
+            <div class="error_yellow">{{extra[title][0][4]}}</div>
+            {% else %}
+            <div class="error_red">{{extra[title][0][4]}}</div>
+            {% endif %}
+            <div>{{extra[title][0][2]}}-{{extra[title][0][1]}}</div>
+            {% set rating = extra[title][0][3]|int %} {% for i in range(rating)
+            %}
+            <i class="fa fa-star" aria-hidden="true"></i>
+            {% endfor %} {% if (extra[title][0][3] % 1 > 0) %}
+            <i class="fa fa-star-half" aria-hidden="true"></i>
+            {% else %}
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+            {% endif %}
+
+            <br />
+
+            <h6>{{extra[title][0][6]}}</h6>
+          </div>
+          {% if role[0] == 's' or role[0] == 'f' %}
+            {% if extra[title][0][4][3] == 's' %}
+            <!-- <div class="buttons_blue">
+              <h5>Issue</h5>
+            </div> -->
+            
+            {% endif %}
+            {% if extra[title][0][4][3] == 'h' %}
+              <!-- nothing -->
+            {% endif %}
+            {% if extra[title][0][4][3] == 'l' %}
+            <!-- <div class="buttons_blue">
+              <h5>Request Hold</h5>
+            </div> -->
+            {% endif %}
+            
+            <div class="buttons_blue">
+              <h5><a class="linkHome" href="/books/books_list_title/{{title}}">Preview</a></h5>
+            </div>
+
+            <div class="buttons_blue">
+              <h5>Add To Reading List</h5>
+            </div>
+            
+          {% elif role[0] == 'l' %} 
+          <div class="buttons_blue">
+            <h5><a class="linkHome" href="/books/books_list_title/{{title}}">Preview</a></h5>
+          </div>
+          
+          <div class="buttons_blue">
+            <div class="row">
+              <div class="moveBoxA">
+                <div style="height: 20px;">
+                  Home <i class="fas fa-level-down-alt"></i>
+                </div>
+                <hr style="width: 100%; border: 1px black solid; background-color: black;"/>
+                
+                {% for sh in shelves %}
+                <a class="linkHome" href="/books/move/{{sh[0]~'/'~title}}">
+                <div style="height: 20px; font-size: 15px;">
+                  shelf_{{sh[0]}}
+                </div>
+                </a>
+                <hr style="width: 100%;"/>
+                {% endfor %}
+
+
+                <div style="height: 20px; font-size: 15px;">
+                  _
+                </div>
+                
+              </div> 
+              <div onclick=toggleMove()>
+              <h5 class="moveTextA">Move</h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="buttons_blue">
+            <h5>Requests</h5>
+          </div>
+          {% endif %}
+      </div>
+    </tr>
+  </table>
+
+  {% endfor %}
+</div>
+{% endblock %}

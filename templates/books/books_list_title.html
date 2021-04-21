@@ -1,0 +1,119 @@
+
+<head>
+  <style>
+    div.gallery {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 5px;
+      border: 1px solid #ccc;
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+
+    div.gallery:hover {
+      border: 1px solid #777;
+    }
+
+    div.gallery img {
+      width: 100%;
+      height: auto;
+    }
+
+    div.desc {
+      padding: 15px;
+      text-align: left;
+      height: 200px;
+    }
+  </style>
+</head>
+
+{% extends 'books/home.html' %}
+
+{% block section %}
+
+
+{% block modal %}
+<!-- for rating -->
+{% endblock %}
+
+
+
+<a id="newStart"></a>
+
+{% for item in files[title] %}
+
+<table>
+  <tr>
+
+    {% set filename = 'images/book' ~ (item[6]|int % 5 + 1) ~ '.png' %}
+    <div class="gallery row">
+      <a target="_blank" href="{{url_for('static', filename= filename)}}">
+        <img
+          src="{{url_for('static', filename= filename)}}"
+          alt="Books"
+          style="width: 180px; height: 250px"
+        />
+      </a>
+      <div class="desc">
+        {% if item[4][3] == 's' %}
+        <div class="error_green">{{item[4]}}</div>
+        {% elif item[4][3] == 'h' %}
+        <div class="error_yellow">{{item[4]}}</div>
+        {% else %}
+        <div class="error_red">{{item[4]}}</div>
+        {% endif %}
+        <div>
+          ISBN: {{item[0]}}<br />
+          TITLE: {{item[2]}}<br/>
+          AUTHOR: {{item[1]}}
+        </div>
+        {% set rating = item[3]|int %} 
+        {% for i in range(rating) %}
+        <i class="fa fa-star" aria-hidden="true"></i>
+        {% endfor %}
+        {% if (item[3] % 1 > 0) %}
+        <i class="fa fa-star-half" aria-hidden="true"></i>
+        {% else %}
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        {% endif %}
+        <a href="/books/book_rating/{{title~'/'~item[0]}}">rate?</a>
+        <br />
+
+        <h6>EDITION: {{item[6]}}</h6>
+        <h6>SHELF: {{item[7]}}</h6>
+      </div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div class="wrapper">
+        <div id="slide">
+            <div><h4 class="optionsMenu2">Menu</h4></div>
+            <!-- role based -->
+            {% if role[0] == 'l' %}
+            <a class="linkHome" href="/books/delete/{{title~'/'~item[0]}}"><div class="optionsMenu">Remove</div></a>
+            <a class="linkHome" href="#"><div class="optionsMenu">See Requests</div></a>
+            <a class="linkHome" href="/books/modify/{{item[0]}}"><div class="optionsMenu">Modify</div></a>
+            {% else %}
+              <div class="optionsMenu">Issue</div>
+              <div class="optionsMenu">Hold</div>
+              <div class="optionsMenu">Add To Reading List</div>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+  </tr>
+</table>
+
+{% endfor %}
+
+
+
+{% block viewSingle %}
+
+{% endblock %}
+
+
+
+
+{% endblock %}
