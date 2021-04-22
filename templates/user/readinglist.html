@@ -19,6 +19,12 @@
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
         <div class="tab-pane fade show active" id="self" role="tabpanel" aria-labelledby="home-tab">
             <div class="input-group" style="margin: 10px;">
                 <form method="POST">
@@ -27,7 +33,7 @@
                     <label for="public">Public</label>
                     <input type="radio" name="access" value="private">
                     <label for="private">Private</label><br>
-                    <input type='text' id='type' name='type' value ='add' hidden>
+                    <input type='text' id='type' name='type' value='add' hidden>
                     <input type='submit' value='Add List'>
                 </form>
             </div>

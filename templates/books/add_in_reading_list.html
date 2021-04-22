@@ -4,6 +4,12 @@
 {% block body %}
 <div class="listcontainer">
     <h3>Select a Reading List</h3>
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
 
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="self" role="tabpanel" aria-labelledby="home-tab">

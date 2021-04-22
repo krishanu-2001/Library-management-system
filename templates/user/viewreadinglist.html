@@ -30,6 +30,11 @@
                 <th>
                     Year of publication
                 </th>
+                {% if (delete_status) %}
+                <th>
+                    Delete
+                </th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -53,6 +58,15 @@
                 <td>
                     {{ listbooks[i][4] }}
                 </td>
+                {% if (delete_status) %}
+                <td>
+                    <form method="POST">
+                        <input type='text' id='isbn' name='isbn' value='{{ listbooks[i][0] }}' hidden>
+                        <input type='text' id='type' name='type' value='delete' hidden>
+                        <input type='submit' value='Delete'>
+                    </form>
+                </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

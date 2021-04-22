@@ -82,7 +82,6 @@ INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('2', 'list3', '
 INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('3', 'list4', 'qrst','private');
 
 INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('1', 'shelf1','abcd');
-INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('1', 'shelf1','url1');
 INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('1', 'shelf2','ijkl');
 INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('2', 'shelf3','mnop');
 INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('3', 'shelf4','qrst');
@@ -129,7 +128,6 @@ INSERT INTO reading_list_contains (list_url, isbn) VALUES ('mnop', '3');
 INSERT INTO personal_book_shelf_contains (shelf_url, isbn) VALUES ('abcd', '1');
 INSERT INTO personal_book_shelf_contains (shelf_url, isbn) VALUES ('abcd', '2');
 INSERT INTO personal_book_shelf_contains (shelf_url, isbn) VALUES ('abcd', '3');
-INSERT INTO personal_book_shelf_contains (shelf_url, isbn) VALUES ('url1', '12');
 INSERT INTO personal_book_shelf_contains (shelf_url, isbn) VALUES ('ijkl', '14');
 INSERT INTO personal_book_shelf_contains (shelf_url, isbn) VALUES ('mnop', '15');
 INSERT INTO personal_book_shelf_contains (shelf_url, isbn) VALUES ('mnop', '4');

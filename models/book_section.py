@@ -492,6 +492,7 @@ def add_in_reading_list(isbn):
     cur = mysql.connection.cursor()
     if data['type']=='add':
       cur.execute("INSERT IGNORE INTO reading_list_contains (list_url, isbn) VALUES ('%s', '%s')"%(data['url'], isbn))
+      flash('Added!')
     mysql.connection.commit()
     cur.close()
     return redirect(request.referrer)
@@ -511,6 +512,7 @@ def add_in_personal_bookshelf(isbn):
     cur = mysql.connection.cursor()
     if data['type']=='add':
       cur.execute("INSERT IGNORE INTO personal_book_shelf_contains (isbn, shelf_url) VALUES ('%s', '%s')"%(isbn, data['url']))
+      flash('Added!')
     mysql.connection.commit()
     cur.close()
     return redirect(request.referrer)

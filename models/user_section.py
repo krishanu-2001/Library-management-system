@@ -108,7 +108,12 @@ def reading_lists():
     cur = mysql.connection.cursor()
     user_id = session['uid']
     if data['type']=='add':
-      cur.execute("INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('%s', '%s', '%s', '%s')"%(user_id, data['listname'], secrets.token_hex(20), data['access']))
+      cur.execute("SELECT * from reading_list WHERE user_id='%s' AND name='%s'"%(user_id, data['listname']))
+      rv=cur.fetchall()
+      if(len(rv)>0):
+        flash('Same name can not be used!')
+      else: 
+        cur.execute("INSERT INTO reading_list (user_id, name, list_url, type) VALUES ('%s', '%s', '%s', '%s')"%(user_id, data['listname'], secrets.token_hex(20), data['access']))
     elif data['type']=='delete':
       cur.execute("DELETE FROM reading_list WHERE list_url='%s';"%(data['url']))
     elif data['type']=='follow':
@@ -150,17 +155,27 @@ def view_reading_list(url):
     return render_template('other/not_logged_in.html')
 
   if request.method == 'POST':
-    debug()
+    data=request.form
+    cur = mysql.connection.cursor()
+    isbn = data['isbn']
+    if data['type']=='delete':
+      cur.execute("DELETE FROM reading_list_contains WHERE isbn='%s' AND list_url='%s'"%(isbn,url))
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('view_reading_list',url=url))
   u_id = session['uid']
   cur = mysql.connection.cursor()
-  cur.execute("SELECT name,type from reading_list WHERE list_url='%s'"%(url))
+  cur.execute("SELECT name,type,user_id from reading_list WHERE list_url='%s'"%(url))
   rv = cur.fetchall()
   listdetail=rv[0]
+  delete_status=0
+  if(listdetail[2]==u_id):
+    delete_status=1
   cur.execute("SELECT books.isbn, books.title, books.author, books.rating, books.year_of_publication FROM reading_list_contains JOIN books WHERE reading_list_contains.isbn = books.isbn AND reading_list_contains.list_url = '%s'"% (url))
   rv = cur.fetchall()
   listbooks = rv
   cur.close()
-  return render_template('user/viewreadinglist.html', name = session['name'],listdetail=listdetail,listbooks=listbooks)
+  return render_template('user/viewreadinglist.html', name = session['name'],listdetail=listdetail,listbooks=listbooks,delete_status=delete_status)
 
 
 def friends():
@@ -247,7 +262,12 @@ def bookshelves():
     cur = mysql.connection.cursor()
     user_id = session['uid']
     if data['type']=='add':
-      cur.execute("INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('%s', '%s', '%s')"%(user_id, data['shelf_name'], secrets.token_hex(20)))
+      cur.execute("SELECT * from personal_book_shelf WHERE user_id='%s' AND shelf_name='%s'"%(user_id, data['shelf_name']))
+      rv=cur.fetchall()
+      if(len(rv)>0):
+        flash('Same name can not be used!')
+      else: 
+        cur.execute("INSERT INTO personal_book_shelf (user_id, shelf_name, shelf_url) VALUES ('%s', '%s', '%s')"%(user_id, data['shelf_name'], secrets.token_hex(20)))
     elif data['type']=='delete':
       if(data['name']!='Read' and data['name']!='Currently Reading' and data['name']!='Want to Read'):
         cur.execute("DELETE FROM personal_book_shelf WHERE shelf_url='%s';"%(data['url']))
@@ -267,7 +287,14 @@ def view_personal_bookshelves(url):
     return render_template('other/not_logged_in.html')
 
   if request.method == 'POST':
-    debug()
+    data=request.form
+    cur = mysql.connection.cursor()
+    isbn = data['isbn']
+    if data['type']=='delete':
+      cur.execute("DELETE FROM personal_book_shelf_contains WHERE isbn='%s' AND shelf_url='%s'"%(isbn,url))
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('view_personal_bookshelves',url=url))
   u_id = session['uid']
   cur = mysql.connection.cursor()
   cur.execute("SELECT shelf_name from personal_book_shelf WHERE shelf_url='%s'"%(url))
