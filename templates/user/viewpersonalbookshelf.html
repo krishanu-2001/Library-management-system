@@ -29,6 +29,9 @@
                 <th>
                     Year of publication
                 </th>
+                <th>
+                    Delete
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -51,6 +54,13 @@
                 </td>
                 <td>
                     {{ bookshelfbooks[i][4] }}
+                </td>
+                <td>
+                    <form method="POST">
+                        <input type='text' id='isbn' name='isbn' value='{{ bookshelfbooks[i][0] }}' hidden>
+                        <input type='text' id='type' name='type' value='delete' hidden>
+                        <input type='submit' value='Delete'>
+                    </form>
                 </td>
             </tr>
             {% endfor %}

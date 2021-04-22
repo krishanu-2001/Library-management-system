@@ -4,6 +4,12 @@
 {% block body %}
 <div class="listcontainer">
     <h3>Personal Bookshelves</h3>
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="self" role="tabpanel" aria-labelledby="home-tab">
             <div class="input-group" style="margin: 10px;">
@@ -38,18 +44,18 @@
                         </td>
                         <td>
                             {% if myshelves[i][0] == 'Read' %}
-                                -
+                            -
                             {% elif myshelves[i][0] == 'Currently Reading' %}
-                                -
+                            -
                             {% elif myshelves[i][0] == 'Want to Read' %}
-                                -
+                            -
                             {% else %}
-                                <form method="POST">
-                                    <input type='text' id='url' name='url' value='{{ myshelves[i][1] }}' hidden>
-                                    <input type='text' id='name' name='name' value='{{ myshelves[i][0] }}' hidden>
-                                    <input type='text' id='type' name='type' value='delete' hidden>
-                                    <input type='submit' value='Delete'>
-                                </form>
+                            <form method="POST">
+                                <input type='text' id='url' name='url' value='{{ myshelves[i][1] }}' hidden>
+                                <input type='text' id='name' name='name' value='{{ myshelves[i][0] }}' hidden>
+                                <input type='text' id='type' name='type' value='delete' hidden>
+                                <input type='submit' value='Delete'>
+                            </form>
                             {% endif %}
                         </td>
                     </tr>
