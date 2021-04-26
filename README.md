@@ -7,7 +7,7 @@ Deepkamal Singh 190001011
 Rahul Kumar 190001049  
 <hr>
 
-Visit https://krishdevtools.pythonanywhere.com for live demo. Frontend and Backend working.
+Visit http://g3dbms.pythonanywhere.com/ for live demo. Frontend and Backend working.
 
 Clone this project  
   
